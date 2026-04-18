@@ -1,0 +1,145 @@
+%!TEX encoding = UTF-8 Unicode
+
+%% Projeto em Engenharia Aeroespacial 2023/24
+%% Template para relattórios preliminar e final 
+%%
+%% Based on the example.tex file provided by Tomás Oliveira e Silva
+%%
+%% Modified by João Paulo Barraca <jpbarraca@ua.pt>
+%% Modified by Filipe Manco <filipe.manco@ua.pt>
+%% Modified by Pedro Casau <pcasau@ua.pt>
+
+% Add 'final' parameter to remove "Relatório Intermédio" from cover page
+\documentclass[11pt,twoside,a4paper]{report}
+
+\usepackage[engineering,deti]{uaThesisTemplate}
+
+%% Optional packages for utf8 encoding and T1 fonts
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% For prettier pages
+\usepackage{lmodern}
+
+%% We will use english and portuguese
+\usepackage[english,portuguese]{babel}
+
+\usepackage{xspace}% used by \sigla
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%       DEFINE COVER FIELDS
+%%                  START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Edit author's name
+%% Author's full name
+\Author{NEIL ARMSTRONG\\ MICHAEL COLLINS\\ EDWIN ALDRIN}
+
+%%% Edit title in Portuguese
+\TitlePT{Apollo 11 Mission Overview}
+
+%%% OPTIONAL: you can write your title in
+%%%  other languages. You can repeat the following
+%%%  line as many times as you want, or remove it
+%%%  if you only want the portuguese title.
+%% Optional Titles in additional languages.
+%\TitleEN{TITLE (MAX 70 CHARACTERS)}
+
+%%% OPTIONAL: edit grant support texts where
+%%%  appropriate. Maximum two.
+%%%
+%%% \GrantText{grant1}{grant2}
+%% Optional Grant support texts
+%\GrantText{Texto Apoio financeiro do POCTI no âmbito do III Quadro Comunitário de Apoio.}
+%          {Texto Apoio financeiro da FCT e do FSE no âmbito do III Quadro Comunitário de Apoio.}
+
+%%% OPTIONAL: Add a dedication text.
+%% Optional Dedication text
+%\Dedication{Dedico este trabalho à minha esposa e filho pelo incansável apoio.}
+
+%%% OPTIONAL: Add an acknowledgement text
+%% Optional Acknowledgement text
+%\Acknowledgements{Agradeço toda a ajuda a todos os meus colegas e companheiros.}
+
+%%% Edit the keywords and abstract in Portuguese
+%%  Keywords and Abstract in Portuguese
+\Abstract{Palavras Chave}{texto livro, arquitetura, história, construção, materiais de construção, saber tradicional.}
+         {Resumo}{\selectlanguage{portuguese}Um resumo é um pequeno apanhado de um trabalho mais longo (como uma tese, dissertação ou trabalho de pesquisa). O resumo relata de forma concisa os objetivos e resultados da sua pesquisa, para que os leitores saibam exatamente o que se aborda no seu documento.\\Embora a estrutura possa variar um pouco dependendo da sua área de estudo, o seu resumo deve descrever o propósito do seu trabalho, os métodos que você usou e as conclusões a que chegou.\\Uma maneira comum de estruturar um resumo é usar a estrutura IMRaD. Isso significa: \begin{itemize} \item Introdução \item Métodos \item Resultados \item Discussão \end{itemize} Veja mais pormenores aqui:\\\texttt{https://www.scribbr.com/dissertation/abstract/}}
+
+%%% OPTIONAL: you can write the keywords and
+%%%  abstract in other languages. You can repeat
+%%%  the following lines as many times as you want
+%%%  or remove them if you only want portuguese.
+%%% Don't remove the \selectlanguage statement or you will end with incorrect hyphenation.
+%%% You can modify the language to any other supported by Latex
+%% Optional Keywords and Abstract in additional languages.
+\Abstract{Keywords}{textbook, architecture, history, construction, construction materials, traditional knowledge.}
+         {Abstract}{\selectlanguage{english}An abstract is a short summary of a longer work (such as a thesis, dissertation or research paper).\\The abstract concisely reports the aims and outcomes of your research, so that readers know exactly what your paper is about.\\Although the structure may vary slightly depending on your discipline, your abstract should describe the purpose of your work, the methods you’ve used, and the conclusions you’ve drawn.\\One common way to structure your abstract is to use the IMRaD structure. This stands for: \begin{itemize} \item Introduction \item Methods \item Results \item Discussion \end{itemize} Check for more details here:\\\texttt{https://www.scribbr.com/dissertation/abstract/}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%       DEFINE COVER FIELDS
+%%                  END
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%%% By default we consider portuguese to be the
+%%%  main language (the last one in the usepackage
+%%%  declaration). If you're writing your document
+%%%  in english uncomment the following line.
+%%% Set the proper language or you will end with incorrect hyphenation!
+\selectlanguage{english}
+
+\MakeCover
+
+% Disable addition of ToC, LoF and LoT to the table of contents
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+
+\tableofcontents
+
+\listoffigures
+\listoftables
+
+\newpage
+
+% Restore the default value (chapter-level)
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+\chapter{Introduction}
+\section{Background}
+Context or background of the project.
+\section{Problem Statement}
+Clearly state the problem that you will address in your project.
+\section{Objectives}
+Clearly state the objectives or goals of your project.
+\section{Significance of the Study}
+Explain the importance of your project.
+\section{Scope}
+Define the scope of your project through requirements and allocate priorities in accordance with the relevance and uncertainty of each one.
+\section{Work Breakdown Structure (WBS)}
+Define the WBS, including Work Packages (WPs), tasks, Gantt Chart, indentifying risks and mitigation strategy.
+\chapter{Literature Review}
+A review of the existing literature relevant to your project. Discuss theories, models, and previous studies.
+\chapter{Methodology}
+Include an explanation of the methods you will use to carry out your project.
+\chapter{Results}
+Present the results of your project clearly and concisely, using tables and figures where necessary.
+\chapter{Discussion}
+Interpret the results and discuss their implications.
+Compare your findings with previous research.
+Discuss any limitations of your study.
+\chapter{Conclusion \& Future Work}
+Sum up the main findings and their importance, and discuss how they have the WBS going forward.
+
+See~\cite{Joshua2012} for more tips on writing a report.
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
