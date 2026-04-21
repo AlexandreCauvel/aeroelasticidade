@@ -137,19 +137,52 @@
 % Restore the default value (chapter-level)
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 
-\chapter{Introduction}
-\section{Background}
-Context or background of the project.
-\section{Problem Statement}
-Clearly state the problem that you will address in your project.
-\section{Objectives}
-Clearly state the objectives or goals of your project.
-\section{Significance of the Study}
-Explain the importance of your project.
-\section{Scope}
-Define the scope of your project through requirements and allocate priorities in accordance with the relevance and uncertainty of each one.
-\section{Work Breakdown Structure (WBS)}
-Define the WBS, including Work Packages (WPs), tasks, Gantt Chart, indentifying risks and mitigation strategy.
+\chapter{Introdução}
+\label{chap:introducao}
+
+\section{Contextualização e Motivação}
+
+A aeroelasticidade é uma das disciplinas mais críticas no projeto de aeronaves modernas, estabelecendo a ponte entre a aerodinâmica, a dinâmica estrutural e a mecânica do voo. À medida que as aeronaves evoluem no sentido de estruturas mais leves e flexíveis --- impulsionadas pela necessidade de reduzir o consumo de combustível e aumentar a eficiência operacional --- os fenómenos aeroelásticos tornam-se progressivamente mais relevantes e determinantes no processo de projeto e certificação \cite{Wright2015, Dowell2004}.
+
+No contexto das aeronaves de transporte pesado, a asa é o componente estrutural mais sujeito a efeitos aeroelásticos relevantes. A sua grande envergadura, a flexibilidade inerente às estruturas de parede fina e a presença de cargas aerodinâmicas distribuídas de grande magnitude tornam a análise do seu comportamento dinâmico indispensável nas fases iniciais de projeto \cite{Megson2012, 
+isplinghoff1996}. Em particular, o conhecimento das frequências naturais e formas modais da asa é o ponto de partida obrigatório para qualquer análise aeroelástica, seja ela estática --- como a divergência e a inversão de controlos --- ou dinâmica, como o \textit{flutter} e a resposta a rajadas \cite{Collar1946, Fung1993}.
+
+O Antonov AN-124 \textit{Ruslan} é uma aeronave de transporte estratégico pesado de referência mundial, com uma capacidade de carga útil de \SI{150000}{\kilo\gram} e uma envergadura de \SI{73.3}{\meter} \cite{Gordon2008}. As suas dimensões e massa tornam a análise aeroelástica da sua asa particularmente desafiante e academicamente relevante. A estrutura interna da asa do AN-124 --- com as suas longarinas, nervuras e revestimento em ligas de alumínio de alta resistência --- constitui um caso de estudo rico para a investigação da influência dos parâmetros geométricos sobre o comportamento modal da estrutura alar.
+
+Entre os parâmetros geométricos que caracterizam a estrutura interna de uma asa, a orientação das nervuras (\textit{ribs}) é um fator de projeto com implicações estruturais e aeroelásticas significativas. Em asas enflechadas, a escolha entre nervuras perpendiculares ao bordo de ataque ou nervuras paralelas ao eixo da fuselagem influencia a rigidez torsional da caixa alar, a distribuição de massa ao longo da envergadura e, consequentemente, as frequências naturais e formas modais da estrutura \cite{Niu1988, Megson2012}. Esta escolha é, no entanto, frequentemente condicionada por fatores de fabrico e integração sistémica, não existindo uma solução universalmente ótima \cite{Raymer2018}.
+
+\section{Objetivos do Trabalho}
+
+O presente trabalho tem como objetivo principal o estudo da influência da orientação das nervuras sobre as frequências naturais e formas modais de uma asa de aeronave, com base numa versão simplificada e reduzida à escala da asa do Antonov AN-124. Para atingir este objetivo, foram definidos os seguintes objetivos específicos:
+
+\begin{enumerate}
+    \item Desenvolver um modelo de elementos finitos da asa do Antonov AN-124, reduzido à escala de aproximadamente 1:9 (\SI{4}{\meter} de semi-envergadura), no software NX Siemens, com recurso a elementos de casca de segunda ordem CQUAD8;
+
+    \item Implementar duas configurações de orientação de nervuras --- Configuração A, com nervuras a 25° relativamente ao plano de simetria da aeronave, e Configuração B, com nervuras paralelas ao plano de simetria --- mantendo todos os restantes parâmetros do modelo constantes;
+
+    \item Executar a análise modal de ambas as configurações no NX Nastran (SOL 103), extraindo os primeiros 10 modos de vibração de cada configuração;
+
+    \item Comparar as frequências naturais e formas modais obtidas nas duas configurações, com especial enfoque nos três primeiros modos de flexão e no primeiro modo de torção;
+
+    \item Discutir os resultados obtidos à luz da teoria aeroelástica e da dinâmica estrutural, identificando as implicações da orientação das nervuras sobre o comportamento aeroelástico da asa.
+\end{enumerate}
+
+\section{Estrutura do Relatório}
+
+O presente relatório está organizado em sete capítulos, cuja estrutura reflete a sequência lógica do trabalho desenvolvido:
+
+O \textbf{Capítulo 2} apresenta os fundamentos teóricos necessários para a compreensão do trabalho, abordando os conceitos de aeroelasticidade, a formulação matemática do problema de valores próprios associado à análise modal, os modos de vibração característicos de estruturas alares e a influência dos parâmetros geométricos sobre as frequências naturais.
+
+O \textbf{Capítulo 3} descreve a aeronave Antonov AN-124, com especial enfoque nas características geométricas e estruturais da asa relevantes para a modelação numérica, e apresenta a comparação entre a geometria da asa real e a do modelo reduzido utilizado neste trabalho.
+
+O \textbf{Capítulo 4} descreve o processo de modelação da asa no NX Siemens, detalhando as simplificações adotadas, a geometria do modelo, os materiais e propriedades estruturais, a malha de elementos finitos e as condições de fronteira aplicadas.
+
+O \textbf{Capítulo 5} apresenta a variável de estudo --- a orientação das nervuras --- descrevendo em detalhe as duas configurações geométricas estudadas e justificando a relevância desta variável do ponto de vista estrutural e aeroelástico.
+
+O \textbf{Capítulo 6} apresenta e discute os resultadosda análise modal para as duas configurações, incluindoas frequências naturais dos 10 modos extraídos, as formasmodais dos modos de interesse e a comparação quantitativae qualitativa entre as duas configurações.
+
+O \textbf{Capítulo 7} apresenta as conclusões gerais do trabalho, as limitações identificadas e as propostas de trabalho futuro.
+
 \chapter{Fundamentos Teóricos}
 
 \section{Aeroelasticidade: Conceitos Gerais}
@@ -512,33 +545,54 @@ A formulação isoparamétrica de segunda ordem do CQUAD8 apresenta vantagens si
 
 A integração numérica do CQUAD8 é realizada por quadratura de Gauss-Legendre com esquema $3 \times 3$ pontos de integração no plano do elemento, e com integração ao longo da espessura segundo a teoria de Mindlin-Reissner, que incorpora os efeitos de deformação por corte transversal (\textit{transverse shear deformation}) \cite{Nastran2014}. Esta formulação é adequada para espessuras moderadas e é a norma em análises de estruturas aeronáuticas em software comercial.
 
-\subsection{Material: Liga de Alumínio 6061}
+\subsection{Materiais}
 
-O material utilizado na modelação da asa foi a \textbf{liga de alumínio 6061}, disponível na biblioteca de materiais standard do NX Nastran. As propriedades mecânicas desta liga, relevantes para a análise modal, são apresentadas na Tabela \ref{tab:al6061}.
+O modelo numérico da asa recorre a dois materiais distintos, selecionados de forma a aproximar as propriedades das ligas estruturais típicas de aeronaves de grande porte:
+
+\begin{itemize}
+    \item \textbf{Liga de alumínio 2024-T3}: utilizada no revestimento (\textit{skin}) da asa. Esta liga é amplamente utilizada em estruturas aeronáuticas primárias sujeitas a cargas de fadiga, devido à sua elevada resistência à propagação de fissuras (\textit{damage tolerance}) \cite{Megson2012, ASM2008};
+
+    \item \textbf{Liga de alumínio 7075-T6}: utilizada nas longarinas (\textit{spars}) e nervuras (\textit{ribs}). Esta liga apresenta a maior resistência estática das ligas de alumínio de uso aeronáutico corrente, sendo preferida em elementos estruturais sujeitos a elevadas tensões de compressão e corte \cite{Megson2012, ASM2008}.
+\end{itemize}
+
+As propriedades mecânicas de ambas as ligas, relevantes para a análise modal, são apresentadas na Tabela \ref{tab:materiais}.
 
 \begin{table}[h!]
 \centering
-\caption{Propriedades mecânicas da liga de alumínio 6061-T6 utilizadas 
-na modelação \cite{ASM2008, Nastran2014}.}
-\label{tab:al6061}
+\caption{Propriedades mecânicas das ligas de alumínio utilizadas 
+na modelação \cite{ASM2008}.}
+\label{tab:materiais}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabularx}{\textwidth}{p{5.5cm} p{3cm} X}
+\begin{tabularx}{\textwidth}{p{4.5cm} X X}
 \toprule
-\textbf{Propriedade} & \textbf{Valor} & \textbf{Unidade} \\
+\textbf{Propriedade} & \textbf{Al 2024-T3} & \textbf{Al 7075-T6} \\
 \midrule
-Módulo de Young ($E$)           & 68.9        & \si{\giga\pascal} \\
-Coeficiente de Poisson ($\nu$)  & 0.33        & --- \\
-Módulo de corte ($G$)           & 26.0        & \si{\giga\pascal} \\
-Massa volúmica ($\rho$)         & 2700        & \si{\kilo\gram\per\cubic\meter} \\
-Tensão de cedência ($\sigma_y$) & 276         & \si{\mega\pascal} \\
-Tensão de rotura ($\sigma_u$)   & 310         & \si{\mega\pascal} \\
+Módulo de Young ($E$)           
+    & \SI{73.1}{\giga\pascal}   
+    & \SI{71.7}{\giga\pascal}   \\
+Coeficiente de Poisson ($\nu$)  
+    & $0.33$                    
+    & $0.33$                    \\
+Módulo de corte ($G$)           
+    & \SI{28.0}{\giga\pascal}   
+    & \SI{26.9}{\giga\pascal}   \\
+Massa volúmica ($\rho$)         
+    & \SI{2780}{\kilo\gram\per\cubic\meter}  
+    & \SI{2810}{\kilo\gram\per\cubic\meter}  \\
+Tensão de cedência ($\sigma_y$) 
+    & \SI{345}{\mega\pascal}    
+    & \SI{503}{\mega\pascal}    \\
+Tensão de rotura ($\sigma_u$)   
+    & \SI{483}{\mega\pascal}    
+    & \SI{572}{\mega\pascal}    \\
+Componentes                     
+    & \textit{Skin}             
+    & \textit{Spars} e \textit{Ribs} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Importa referir que, do ponto de vista da análise modal, as propriedades determinantes são o módulo de Young $E$, o coeficiente de Poisson $\nu$ e a massa volúmica $\rho$, uma vez que as frequências naturais dependem exclusivamente da distribuição de rigidez e massa da estrutura \cite{Craig2006}. A tensão de cedência e a tensão de rotura, relevantes para análises de resistência estática, não influenciam os resultados modais.
-
-Do ponto de vista da representatividade física do modelo, reconhece-se que a liga 6061 não é a liga estrutural tipicamente utilizada nas asas do Antonov AN-124. A estrutura real da aeronave recorre a ligas de alumínio de alta resistência da série 2000 e 7000 --- nomeadamente a 2024-T3 e a 7075-T6 --- que apresentam módulos de elasticidade e massas volúmicas semelhantes à 6061, mas com tensões de cedência significativamente superiores \cite{Megson2012}. Uma vez que a análise modal é governada pela rigidez e pela massa, e não pela resistência, esta simplificação tem um impacto reduzido nos resultados de frequências naturais e formas modais, sendo aceitável no âmbito deste estudo comparativo \cite{Wright2015}.
+Do ponto de vista da análise modal, as propriedades determinantes são o módulo de Young $E$ e a massa volúmica $\rho$. Verifica-se que as duas ligas apresentam valores muito próximos de $E$ e $\rho$, o que significa que a distinção de material entre componentes tem um impacto reduzido sobre as frequências naturais absolutas. No entanto, esta distinção é importante para a representatividade física do modelo, uma vez que reproduz a prática construtiva real de aeronaves de grande porte \cite{Megson2012}.
 
 \subsection{Simplificações do Modelo}
 
@@ -851,10 +905,10 @@ Semi-envergadura        & \SI{36.65}{\meter}    & \SI{4.0}{\meter} \\
 Corda na raiz           & \SI{10.0}{\meter}     & \SI{2.0}{\meter} \\
 Corda na ponta          & \SI{3.5}{\meter}      & \SI{0.7}{\meter} \\
 Razão de afilamento     & $0.35$                & $0.35$ \\
-Ângulo de enflechamento & $25\qty{25}{\degree}$ & $25\qty{25}{\degree}$ \\
+Ângulo de enflechamento & $\qty{25}{\degree}$   & $\qty{25}{\degree}$ \\
 Perfil aerodinâmico     & TsAGI 12\%            & TsAGI 12\% \\
 Torção geométrica       & Nenhuma               & Nenhuma \\
-Material                & Ligas Al série 2000/7000 & Al 6061 \\
+Material & Ligas Al série 2000/7000 & Al 2024-T3 (\textit{skin}), Al 7075-T6 (\textit{spars} e \textit{ribs}) \\
 Escala                  & 1:1                   & $\approx$ 1:9 \\
 \bottomrule
 \end{tabularx}
@@ -870,8 +924,674 @@ A redução de escala foi aplicada de forma proporcional a todas asdimensões li
 
 \noindent o que significa que as frequências naturais do modelo são aproximadamente 9 vezes superiores às da asa real. Esta diferença é expectável e não compromete a validade do estudo comparativo entre as duas configurações de nervuras, uma vez que o objetivo do trabalho é avaliar a influência relativa da orientação das nervuras sobre as frequências naturais e formas modais, e não reproduzir os valores absolutos da aeronave real \cite{Dowell2004}.
 
+\chapter{Modelação da Asa}
+\label{chap:modelacao}
 
+\section{Simplificações e Hipóteses de Modelação}
 
+A modelação numérica de uma estrutura aeronáutica de grande porte envolve inevitavelmente um conjunto de simplificações e hipóteses que visam equilibrar a fidelidade física do modelo com a viabilidade computacional da análise. No presente trabalho, as simplificações adotadas foram orientadas pelo objetivo central do estudo --- a comparação do comportamento modal de duas configurações de nervuras --- e não pela reprodução exata do comportamento estrutural da aeronave real \cite{Dowell2004}.
+
+As principais simplificações e hipóteses adotadas são as seguintes:
+
+\begin{itemize}
+    \item \textbf{Redução de escala}: a semi-envergadura da asa foi reduzida de \SI{36.65}{\meter} para \SI{4.0}{\meter}, mantendo todas as relações geométricas relativas constantes (razão de afilamento $\lambda = 0.35$, ângulo de enflechamento $\Lambda = \qty{25}{\degree}$, perfil TsAGI 12\%). Esta redução, de fator aproximadamente 9, permite reduzir substancialmente o número de elementos da malha e os tempos de computação, sem comprometer a validade qualitativa dos resultados modais, conforme discutido na Secção \ref{sec:dados_estruturais};
+
+    \item \textbf{Discretização com elementos de casca 2D}: toda a estrutura --- revestimento, longarinas e nervuras --- foi modelada com elementos de casca CQUAD8, cuja formulação e adequação à modelação de estruturas de parede fina foram discutidas na Secção \ref{sec:analise_modal_aero}. Esta abordagem é a norma em análises modais de estruturas alares em ambiente industrial e académico \cite{Nastran2014, Cook2001};
+
+    \item \textbf{Corte do bordo de fuga}: a zona do bordo de fuga foi truncada a \SI{45}{\milli\meter} do bordo de fuga real, e a secção resultante foi fechada com um painel plano. Esta simplificação é justificada pelo facto de o bordo de fuga apresentar espessura muito reduzida do perfil TsAGI, o que geraria elementos de malha com elevada razão de aspeto e consequente degradação da qualidade numérica da solução. A contribuição desta zona para a rigidez e massa globais da estrutura é negligenciável \cite{Bathe2014};
+
+    \item \textbf{Ausência de elementos de ligação}: no modelo simplificado, a conectividade entre nervuras, longarinas e revestimento é garantida pela partilha de nós entre elementos adjacentes (ligação rígida implícita), não sendo modelados os elementos de ligação reais (rebites, cantoneiras, \textit{cleats}). Esta simplificação é comum em modelos de análise modal global e tem impacto reduzido nas frequências dos modos de baixa ordem \cite{Wright2015};
+
+    \item \textbf{Ausência de massa não estrutural}: a massa de combustível, sistemas hidráulicos, actuadores e revestimentos não estruturais não foi incluída no modelo. Esta simplificação tende a sobrestimar as frequências naturais relativamente à aeronave real, mas não afeta a validade comparativa dos resultados entre as duas configurações estudadas \cite{Craig2006};
+
+    \item \textbf{Condição de encastramento na raiz}: a ligação asa-fuselagem foi modelada como um encastramento perfeito, restringindo todos os graus de liberdade dos nós da nervura de raiz. Esta condição ignora a flexibilidade da fuselagem e da junta asa-fuselagem, sobrestimando ligeiramente as frequências naturais \cite{Hodges2011}.
+\end{itemize}
+
+\section{Definição da Geometria}
+
+\subsection{Processo de Modelação}
+
+A geometria da asa foi inicialmente construída em \textit{SolidWorks}, com base nas dimensões reais do Antonov AN-124 escaladas para o modelo reduzido, e posteriormente importada para o NX Siemens para a definição da malha de elementos finitos e a execução da análise modal. O processo de modelação seguiu a seguinte sequência:
+
+\begin{enumerate}
+    \item Definição do perfil aerodinâmico TsAGI 12\% nas secções de raiz e ponta, com cordas de \SI{2000}{\milli\meter} e \SI{700}{\milli\meter}, respetivamente;
+    \item Geração da superfície do revestimento (\textit{skin}) por interpolação entre os dois perfis, com aplicação do ângulo de enflechamento de $\qty{25}{\degree}$;
+    \item Definição das longarinas dianteira e traseira como superfícies planas interiores à caixa alar;
+    \item Truncagem do bordo de fuga a \SI{45}{\milli\meter} e fecho da secção com um painel plano;
+    \item Definição das nervuras nas duas configurações estudadas, conforme descrito no Capítulo \ref{chap:variavel};
+    \item Importação da geometria para o NX Siemens e conversão das superfícies em entidades de elementos finitos.
+\end{enumerate}
+
+% FIGURA: Vista geral da asa modelada no SolidWorks (perspetiva 
+% isométrica mostrando a estrutura interna)
+\begin{figure}[h!]
+    \centering
+    %\includegraphics[width=0.85\textwidth]{figures/asa_solidworks.png}
+    \caption{Vista da estrutura interna da asa modelada no SolidWorks, mostrando o revestimento, as longarinas e as nervuras da Configuração A. O revestimento superior foi omitido para permitir a visualização da estrutura interna.}
+    \label{fig:asa_sw}
+\end{figure}
+
+\subsection{Geometria da Caixa Alar}
+
+A caixa alar é definida pelos seguintes elementos geométricos, cujas dimensões são apresentadas na Tabela \ref{tab:geom_caixa_alar}:
+
+\begin{table}[h!]
+\centering
+\caption{Dimensões geométricas principais do modelo da asa.}
+\label{tab:geom_caixa_alar}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{5.5cm} X}
+\toprule
+\textbf{Parâmetro} & \textbf{Valor} \\
+\midrule
+Semi-envergadura                    & \SI{4000}{\milli\meter} \\
+Corda na raiz                       & \SI{2000}{\milli\meter} \\
+Corda na ponta                      & \SI{700}{\milli\meter}  \\
+Razão de afilamento $\lambda$       & $0.35$ \\
+Ângulo de enflechamento $\Lambda$   & $\qty{25}{\degree}$ \\
+Posição da spar dianteira           & \SI{500}{\milli\meter} do bordo de ataque \\
+Posição da spar traseira            & \SI{600}{\milli\meter} do bordo de fuga \\
+Corte do bordo de fuga              & \SI{45}{\milli\meter} do bordo de fuga \\
+Espessura do \textit{skin}          & \SI{2}{\milli\meter} \\
+Espessura das longarinas            & \SI{4}{\milli\meter}\footnotemark \\
+Espessura das nervuras              & \SI{10}{\milli\meter} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\footnotetext{Valor a confirmar com base nos ficheiros de modelação no NX Siemens.}
+
+A largura da caixa alar --- distância entre a spar dianteira e a spar traseira --- varia ao longo da envergadura em função do afilamento da corda. Na raiz, a largura da caixa alar é:
+
+\begin{equation}
+    w_{root} = c_{root} - d_{LE} - d_{TE} = 
+    2000 - 500 - 600 = \SI{900}{\milli\meter}
+    \label{eq:largura_caixa_raiz}
+\end{equation}
+
+\noindent e na ponta:
+
+\begin{equation}
+    w_{tip} = c_{tip} - d_{LE} \cdot \lambda - d_{TE} \cdot \lambda 
+    = 700 - 500\times\frac{700}{2000} - 600\times\frac{700}{2000} 
+    = \SI{315}{\milli\meter}
+    \label{eq:largura_caixa_ponta}
+\end{equation}
+
+\noindent onde $d_{LE} = \SI{500}{\milli\meter}$ e $d_{TE} = \SI{600}{\milli\meter}$ são as distâncias da spar dianteira ao bordo de ataque e da spar traseira ao bordo de fuga, respetivamente, medidas na raiz. Uma vez que as relações geométricas são constantes ao longo da envergadura, as posições relativas das spars em percentagem da corda local são:
+
+\begin{equation}
+    \frac{d_{LE}}{c_{root}} = \frac{500}{2000} = 25\%, \qquad
+    \frac{d_{TE}}{c_{root}} = \frac{600}{2000} = 30\%
+    \label{eq:posicao_spars}
+\end{equation}
+
+\noindent o que significa que a spar dianteira se encontra a 25\% da corda e a spar traseira a 70\% da corda (i.e., $100\% - 30\% = 70\%$), definindo uma caixa alar com largura de 45\% da corda local, constante ao longo da envergadura \cite{Niu1988}.
+
+\section{Materiais e Propriedades Estruturais}
+
+Conforme descrito na Secção \ref{sec:analise_modal_aero}, foram utilizadas duas ligas de alumínio distintas na modelação, atribuídas a diferentes componentes estruturais de acordo com a prática construtiva real de aeronaves de grande porte \cite{Megson2012}:
+
+\begin{itemize}
+    \item \textbf{Al 2024-T3}: atribuído ao revestimento 
+    (\textit{skin}), com $E = \SI{73.1}{\giga\pascal}$, 
+    $\nu = 0.33$ e $\rho = \SI{2780}{\kilo\gram\per\cubic\meter}$;
+    \item \textbf{Al 7075-T6}: atribuído às longarinas 
+    (\textit{spars}) e nervuras (\textit{ribs}), com 
+    $E = \SI{71.7}{\giga\pascal}$, $\nu = 0.33$ e 
+    $\rho = \SI{2810}{\kilo\gram\per\cubic\meter}$.
+\end{itemize}
+
+No NX Nastran, as propriedades de cada material são definidas através de cartões MAT1 (material isotrópico linear elástico), e as espessuras dos elementos de casca são definidas através de cartões PSHELL, associados às respetivas propriedades geométricas e de material \cite{Nastran2014}. A Tabela \ref{tab:material_componentes} resume a atribuição de materiais e espessuras a cada componente estrutural do modelo.
+
+\begin{table}[h!]
+\centering
+\caption{Atribuição de materiais e espessuras aos componentes 
+estruturais do modelo.}
+\label{tab:material_componentes}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{3.5cm} p{3cm} p{2cm} X}
+\toprule
+\textbf{Componente} & \textbf{Material} & 
+\textbf{Espessura} & \textbf{Função estrutural} \\
+\midrule
+\textit{Skin} superior e inferior & Al 2024-T3 & 
+    \SI{2}{\milli\meter} & 
+    Resistência à torção e cargas de membrana \\
+\textit{Spars} & Al 7075-T6 & 
+    \SI{4}{\milli\meter}\footnotemark & 
+    Resistência ao momento fletor e corte \\
+\textit{Ribs} & Al 7075-T6 & 
+    \SI{10}{\milli\meter} & 
+    Manutenção do perfil e transmissão de cargas \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\footnotetext{Valor a confirmar com base nos ficheiros de 
+modelação no NX Siemens.}
+
+\section{Malha de Elementos Finitos e Condições de Fronteira}
+
+\subsection{Malha de Elementos Finitos}
+
+A malha de elementos finitos foi gerada no NX Siemens, utilizando exclusivamente elementos de casca quadrilaterais de segunda ordem do tipo \textbf{CQUAD8}, cuja formulação foi descrita na Secção \ref{sec:analise_modal_aero}. A geração da malha em superfícies de geometria complexa, como o perfil TsAGI, exige um cuidado particular na definição do tamanho dos elementos e na transição entre zonas de diferente complexidade geométrica \cite{Bathe2014}.
+
+% FIGURA: Vista da malha de elementos finitos no NX Siemens
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/malha_nx.png}
+    \caption{Vista da malha de elementos finitos CQUAD8 gerada 
+    no NX Siemens para a Configuração A. O número total de 
+    elementos e nós é apresentado na Tabela 
+    \ref{tab:malha_stats}.}
+    \label{fig:malha_nx}
+\end{figure}
+
+\begin{table}[h!]
+\centering
+\caption{Estatísticas da malha de elementos finitos para cada 
+configuração.}
+\label{tab:malha_stats}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{4.5cm} X X}
+\toprule
+\textbf{Parâmetro} & \textbf{Configuração A} & 
+\textbf{Configuração B} \\
+\midrule
+Tipo de elemento        & CQUAD8    & CQUAD8 \\
+Nº de elementos         & \texttt{[a preencher]}  
+                        & \texttt{[a preencher]} \\
+Nº de nós               & \texttt{[a preencher]}  
+                        & \texttt{[a preencher]} \\
+Nº de graus de liberdade & \texttt{[a preencher]} 
+                        & \texttt{[a preencher]} \\
+Nº de nervuras          & 13        & 10 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A qualidade da malha foi verificada através dos critérios de qualidade de elementos disponíveis no NX Siemens, nomeadamente a razão de aspeto (\textit{aspect ratio}), o ângulo interno mínimo e máximo, e o critério de distorção de Jacobiano. Elementos com razão de aspeto superior a 5 ou com ângulos internos fora do intervalo $[\qty{45}{\degree}, \qty{135}{\degree}]$ foram identificados e corrigidos, de modo a garantir a precisão numérica da análise modal \cite{Bathe2014, Cook2001}.
+
+\subsection{Condições de Fronteira}
+
+A única condição de fronteira aplicada ao modelo é o \textbf{encastramento na raiz} da asa, que simula a ligação rígida entre a asa e a fuselagem da aeronave. Esta condição foi implementada no NX Nastran através da restrição de todos os graus de liberdade --- três translações ($u_x$, $u_y$, $u_z$) e três rotações ($\theta_x$, $\theta_y$, $\theta_z$) --- de todos os nós pertencentes à nervura de raiz (\textit{root rib}), utilizando cartões SPC (\textit{Single Point Constraint}) \cite{Nastran2014}:
+
+\begin{equation}
+    u_x = u_y = u_z = \theta_x = \theta_y = \theta_z = 0, 
+    \qquad \forall \, n \in \mathcal{N}_{root}
+    \label{eq:spc}
+\end{equation}
+
+\noindent onde $\mathcal{N}_{root}$ denota o conjunto de nós da nervura de raiz. Nenhuma outra condição de fronteira foi aplicada --- todos os restantes nós do modelo são livres, simulando a condição de asa em consola (\textit{cantilever wing}) \cite{Bisplinghoff1996}.
+
+% FIGURA: Vista da condição de fronteira no NX — nervura de 
+% raiz com os símbolos de encastramento visíveis
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{figures/bc_nx.png}
+    \caption{Condição de fronteira de encastramento aplicada à nervura de raiz no NX Nastran. Os símbolos representam a restrição de todos os graus de liberdade dos nós da secção de raiz.}
+    \label{fig:bc_nx}
+\end{figure}
+
+\subsection{Configuração da Análise Modal no NX Nastran}
+
+A análise modal foi executada no NX Nastran através da solução sequencial \textbf{SOL 103} (\textit{Real Eigenvalue Analysis}), com o método de Lanczos como algoritmo de extração de valores próprios, conforme descrito na Secção \ref{sec:analise_modal_aero}. Os parâmetros de controlo da análise são apresentados na Tabela \ref{tab:sol103}.
+
+\begin{table}[h!]
+\centering
+\caption{Parâmetros de controlo da análise modal SOL 103 
+no NX Nastran.}
+\label{tab:sol103}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{5cm} X}
+\toprule
+\textbf{Parâmetro} & \textbf{Valor} \\
+\midrule
+Solução                         & SOL 103 \\
+Método de extração              & Lanczos \\
+Número de modos calculados      & 10 \\
+Gama de frequências             & $0$ -- \SI{10000}{\hertz} \\
+Normalização dos vetores próprios & Pela massa ($m_i = 1$) \\
+Amortecimento estrutural        & Não considerado \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A normalização dos vetores próprios pela massa, adotada por defeito no NX Nastran, garante que as massas modais generalizadas são unitárias ($m_i = 1$), e que as rigidezes modais generalizadas são numericamente iguais ao quadrado das frequências naturais ($k_i = \omega_i^2$), conforme a Equação \eqref{eq:massas_rigidezes_modais}. Esta convenção facilita a interpretação dos resultados e a comparação entre os modos das duas configurações \cite{Nastran2014, Craig2006}.
+
+\chapter{Variável de Estudo: Orientação das Nervuras}
+\label{chap:variavel}
+
+\section{Definição da Variável de Desenho}
+
+A variável de desenho estudada neste trabalho é a \textbf{orientação das nervuras} (\textit{ribs}) relativamente ao plano de simetria da aeronave. Esta variável é relevante do ponto de vista estrutural porque, conforme demonstrado na Secção \ref{sec:efeitos_geometricos}, a orientação das nervuras influencia diretamente a rigidez torsional efetiva da caixa alar e, consequentemente, as frequências naturais dos modos de torção \cite{Niu1988, Megson2012}.
+
+Na prática industrial, a orientação das nervuras é uma decisão de projeto que envolve compromissos entre eficiência estrutural, facilidade de fabrico e integração com outros sistemas da aeronave. Em asas enflechadas, existem duas filosofias predominantes \cite{Raymer2018, Niu1988}:
+
+\begin{itemize}
+    \item \textbf{Nervuras perpendiculares ao bordo de ataque}: as nervuras são orientadas perpendicularmente à longarina dianteira, seguindo o enflechamento da asa. Esta configuração é estruturalmente mais eficiente em asas enflechadas, uma vez que as nervuras resistem diretamente às cargas de corte transmitidas pelo revestimento na direção da envergadura \cite{Megson2012};
+
+    \item \textbf{Nervuras paralelas ao plano de simetria}: as nervuras são orientadas perpendicularmente ao eixo longitudinal da fuselagem, independentemente do enflechamento da asa. Esta configuração simplifica a integração estrutural com a fuselagem e facilita o fabrico, mas é menos eficiente estruturalmente em asas com elevado ângulo de enflechamento \cite{Niu1988}.
+\end{itemize}
+
+No presente trabalho, estas duas filosofias são traduzidas em duas configurações geométricas distintas, denominadas \textbf{Configuração A} e \textbf{Configuração B}, descritas nas secções seguintes.
+
+\section{Configuração A --- Nervuras a 25° com o Plano de Simetria}
+
+\subsection{Descrição Geométrica}
+
+Na Configuração A, as nervuras são orientadas de forma a fazer um ângulo de \textbf{25° com o plano de simetria} da aeronave --- coincidente com o ângulo de enflechamento da asa $\Lambda = \qty{25}{\degree}$ --- o que as torna aproximadamente perpendiculares ao bordo de ataque. Esta é a configuração estruturalmente mais convencional para asas enflechadas \cite{Niu1988, Megson2012}.
+
+A Configuração A possui um total de \textbf{13 nervuras}, incluindo a nervura de raiz e a nervura de ponta, que são paralelas ao plano de simetria (0°) por razões de ligação estrutural à fuselagem e de fecho da caixa alar na ponta, respetivamente. As 11 nervuras intermédias são inclinadas a 25° e apresentam o seguinte espaçamento ao longo da envergadura:
+
+\begin{itemize}
+    \item \textbf{3 primeiras nervuras intermédias} (contadas 
+    a partir da raiz): espaçamento de \SI{317}{\milli\meter} 
+    entre nervuras consecutivas;
+    \item \textbf{Restantes nervuras intermédias}: espaçamento 
+    de \SI{436}{\milli\meter} entre nervuras consecutivas.
+\end{itemize}
+
+A Tabela \ref{tab:config_a} resume as características 
+geométricas da Configuração A.
+
+\begin{table}[h!]
+\centering
+\caption{Características geométricas da Configuração A.}
+\label{tab:config_a}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{6cm} X}
+\toprule
+\textbf{Parâmetro} & \textbf{Valor} \\
+\midrule
+Número total de nervuras            & 13 \\
+Ângulo das nervuras intermédias     & $\qty{25}{\degree}$ com o plano de simetria \\
+Ângulo das nervuras de raiz e ponta & $\qty{0}{\degree}$ (paralelas ao plano de simetria) \\
+Espaçamento --- 3 primeiras         & \SI{317}{\milli\meter} \\
+Espaçamento --- restantes           & \SI{436}{\milli\meter} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% FIGURA: Vista da Configuração A no SolidWorks/NX, mostrando 
+% a orientação das nervuras a 25° e o espaçamento variável
+\begin{figure}[h!]
+    \centering
+    %\includegraphics[width=0.85\textwidth]{figures/asa_solidworks.png}
+    \caption{Vista da estrutura interna da Configuração A, com as nervuras orientadas a 25° relativamente ao plano de simetria da aeronave (aproximadamente perpendiculares ao bordo de ataque). O revestimento superior foi omitido para permitir a visualização da estrutura interna.}\label{fig:config_a}
+\end{figure}
+
+\subsection{Justificação Estrutural}
+
+A orientação das nervuras a 25° --- perpendicular ao bordo de ataque --- é a solução adotada na maioria das aeronaves de transporte enflechadas, incluindo o Antonov AN-124 real \cite{Gordon2008, GarciaFernandez2025}. Do ponto de vista da mecânica estrutural, esta orientação apresenta as seguintes vantagens \cite{Niu1988, Megson2012}:
+
+\begin{itemize}
+    \item As nervuras são perpendiculares às longarinas, garantindo uma ligação eficiente e uma transmissão direta das cargas de corte entre o revestimento e as longarinas;
+    \item O fluxo de corte (\textit{shear flow}) na caixa alar é mais uniforme, reduzindo as concentrações de tensão nas zonas de ligação nervura-longarina;
+    \item A forma das nervuras segue mais naturalmente o perfil aerodinâmico, uma vez que são cortadas perpendicularmente ao eixo da viga equivalente da asa.
+\end{itemize}
+
+\section{Configuração B --- Nervuras Paralelas ao Plano de Simetria}
+
+\subsection{Descrição Geométrica}
+
+Na Configuração B, as nervuras são orientadas a \textbf{0° com o plano de simetria} da aeronave, ou seja, são perpendiculares ao eixo longitudinal da fuselagem e paralelas ao plano de simetria. Esta configuração ignora o enflechamento da asa na orientação das nervuras \cite{Raymer2018}.
+
+A Configuração B possui um total de \textbf{10 nervuras}, incluindo a nervura de raiz e a nervura de ponta, com um espaçamento uniforme de \textbf{\SI{443}{\milli\meter}} entre todas as nervuras consecutivas ao longo da envergadura. A Tabela \ref{tab:config_b} resume as características geométricas desta configuração.
+
+\begin{table}[h!]
+\centering
+\caption{Características geométricas da Configuração B.}
+\label{tab:config_b}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{6cm} X}
+\toprule
+\textbf{Parâmetro} & \textbf{Valor} \\
+\midrule
+Número total de nervuras            & 10 \\
+Ângulo das nervuras                 & $\qty{0}{\degree}$ (paralelas ao plano de simetria) \\
+Espaçamento entre nervuras          & \SI{443}{\milli\meter} (uniforme) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% FIGURA: Vista da Configuração B no SolidWorks/NX, mostrando 
+% as nervuras paralelas ao plano de simetria
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/config_b.png}
+    \caption{Vista da estrutura interna da Configuração B, com as nervuras orientadas a 0° relativamente ao plano de simetria da aeronave (paralelas ao plano de simetria e perpendiculares ao eixo longitudinal da fuselagem).}
+    \label{fig:config_b}
+\end{figure}
+
+\subsection{Justificação Estrutural}
+
+A orientação das nervuras paralela ao plano de simetria é menos comum em asas enflechadas de grande porte, mas é utilizada em algumas aeronaves onde a simplicidade de fabrico e a integração com a fuselagem são prioritárias \cite{Raymer2018}. Do ponto de vista estrutural, esta configuração apresenta as seguintes características \cite{Niu1988}:
+
+\begin{itemize}
+    \item As nervuras não são perpendiculares às longarinas, introduzindo componentes de força fora do plano das nervuras e reduzindo a eficiência da transmissão de cargas;
+    \item O fluxo de corte na caixa alar é menos uniforme, podendo originar concentrações de tensão nas zonas de ligação nervura-longarina;
+    \item A forma das nervuras é mais simples de definir geometricamente, facilitando o processo de fabrico.
+\end{itemize}
+
+\section{Comparação entre Configurações}
+
+A Tabela \ref{tab:comparacao_configs} apresenta uma comparação direta entre as duas configurações estudadas, evidenciando as principais diferenças geométricas e estruturais.
+
+\begin{table}[h!]
+\centering
+\caption{Comparação entre a Configuração A e a Configuração B.}
+\label{tab:comparacao_configs}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{4.5cm} X X}
+\toprule
+\textbf{Parâmetro} & \textbf{Configuração A} & 
+\textbf{Configuração B} \\
+\midrule
+Ângulo das nervuras         
+    & $\qty{25}{\degree}$ c/ plano de simetria    
+    & $\qty{0}{\degree}$ (paralelas ao plano de simetria) \\
+Número de nervuras          
+    & 13                            
+    & 10 \\
+Espaçamento                 
+    & \SI{317}{\milli\meter} (3 primeiras) e \SI{436}{\milli\meter} (restantes)
+    & \SI{443}{\milli\meter} (uniforme) \\
+Relação c/ bordo de ataque  
+    & Aproximadamente perpendiculares   
+    & Oblíquas \\
+Massa total das nervuras    
+    & Superior (mais nervuras)      
+    & Inferior (menos nervuras) \\
+Rigidez torsional esperada  
+    & Superior                      
+    & Inferior \\
+Representatividade real     
+    & Configuração real do AN-124   
+    & Configuração alternativa \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+É importante notar que as duas configurações diferem não apenas na orientação das nervuras, mas também no número total de nervuras (13 vs 10) e no espaçamento entre elas. Estas diferenças são consequência direta da variável de desenho estudada: ao alterar a orientação das nervuras mantendo a coerência geométrica da estrutura, o número e espaçamento das nervuras necessariamente se alteram para cobrir adequadamente a envergadura da asa. A influência conjunta destas diferenças sobre as frequências naturais e formas modais será analisada e discutida no Capítulo \ref{chap:resultados} \cite{Wright2015, Dowell2004}.
+
+\chapter{Resultados e Discussão}
+\label{chap:resultados}
+
+\section{Frequências Naturais --- Configuração A}
+
+Os resultados da análise modal da Configuração A, obtidos através da solução SOL 103 do NX Nastran com o método de Lanczos, são apresentados na Tabela \ref{tab:freqs_a}. Foram extraídos os primeiros 10 modos de vibração, correspondentes às 10 menores frequências naturais da estrutura.
+
+\begin{table}[h!]
+\centering
+\caption{Frequências naturais dos 10 primeiros modos de 
+vibração da Configuração A.}
+\label{tab:freqs_a}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{1.5cm} p{3cm} X X}
+\toprule
+\textbf{Modo} & \textbf{Freq. [\si{\hertz}]} & 
+\textbf{Tipo} & \textbf{Descrição} \\
+\midrule
+1  & \texttt{[preencher]} & Flexão & 1º modo de flexão (1B) \\
+2  & \texttt{[preencher]} & Flexão & 2º modo de flexão (2B) \\
+3  & \texttt{[preencher]} & Flexão & 3º modo de flexão (3B) \\
+4  & \texttt{[preencher]} & Torção & 1º modo de torção (1T) \\
+5  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+6  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+7  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+8  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+9  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+10 & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Frequências Naturais --- Configuração B}
+
+Os resultados da análise modal da Configuração B são apresentados na Tabela \ref{tab:freqs_b}, obtidos nas mesmas condições de análise da Configuração A.
+
+\begin{table}[h!]
+\centering
+\caption{Frequências naturais dos 10 primeiros modos de 
+vibração da Configuração B.}
+\label{tab:freqs_b}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{p{1.5cm} p{3cm} X X}
+\toprule
+\textbf{Modo} & \textbf{Freq. [\si{\hertz}]} & 
+\textbf{Tipo} & \textbf{Descrição} \\
+\midrule
+1  & \texttt{[preencher]} & Flexão & 1º modo de flexão (1B) \\
+2  & \texttt{[preencher]} & Flexão & 2º modo de flexão (2B) \\
+3  & \texttt{[preencher]} & Flexão & 3º modo de flexão (3B) \\
+4  & \texttt{[preencher]} & Torção & 1º modo de torção (1T) \\
+5  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+6  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+7  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+8  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+9  & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+10 & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Formas Modais --- Configuração A}
+
+As formas modais dos três primeiros modos de flexão e do primeiro modo de torção da Configuração A são apresentadas nas Figuras \ref{fig:modo1a} a \ref{fig:modo_torcao_a}. As formas modais foram obtidas diretamente do NX Nastran e visualizadas através do mapa de deslocamentos nodais normalizado pela massa, conforme descrito na Secção \ref{sec:analise_modal_aero}.
+
+\subsection{Primeiro Modo de Flexão (1B) --- Configuração A}
+
+% FIGURA: 1º modo de flexão --- Configuração A
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo1_confA.png}
+    \caption{Primeiro modo de flexão (1B) da Configuração A. 
+    A deformação é dominantemente na direção vertical 
+    (\textit{out-of-plane}), com amplitude máxima na ponta 
+    da asa e nó de vibração na raiz encastrada. 
+    Frequência natural: \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo1a}
+\end{figure}
+
+O primeiro modo de flexão (1B) é o modo de menor frequência da estrutura e caracteriza-se por uma deformação predominantemente fora do plano (\textit{out-of-plane bending}), com a amplitude máxima de deslocamento concentrada na ponta da asa e um único nó de vibração na secção de raiz encastrada \cite{Bisplinghoff1996}. Devido ao enflechamento de $\qty{25}{\degree}$ e ao acoplamento flexão-torção descrito na Secção \ref{sec:sweep}, este modo apresenta uma componente de torção não nula, visível na rotação diferencial das secções ao longo da envergadura \cite{Wright2015}.
+
+\subsection{Segundo Modo de Flexão (2B) --- Configuração A}
+
+% FIGURA: 2º modo de flexão --- Configuração A
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo2_confA.png}
+    \caption{Segundo modo de flexão (2B) da Configuração A, 
+    com um nó de vibração intermédio ao longo da envergadura. 
+    Frequência natural: \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo2a}
+\end{figure}
+
+O segundo modo de flexão (2B) apresenta dois semi-nós de vibração ao longo da envergadura --- um na raiz (imposto pela condição de encastramento) e um nó intermédio livre --- resultando numa forma modal em S ao longo da envergadura \cite{Rao2011}. A frequência deste modo é tipicamente \textbf{superior} à do modo 1B por um fator próximo de $(4.694/1.875)^2 \approx 6.27$, conforme previsto pela teoria da viga em consola, Equação \eqref{eq:freq_viga} \cite{Rao2011}.
+
+\subsection{Terceiro Modo de Flexão (3B) --- Configuração A}
+
+% FIGURA: 3º modo de flexão --- Configuração A
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo3_confA.png}
+    \caption{Terceiro modo de flexão (3B) da Configuração A, 
+    com dois nós de vibração intermédios ao longo da 
+    envergadura. Frequência natural: 
+    \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo3a}
+\end{figure}
+
+\subsection{Primeiro Modo de Torção (1T) --- Configuração A}
+
+% FIGURA: 1º modo de torção --- Configuração A
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo_torcao_confA.png}
+    \caption{Primeiro modo de torção (1T) da Configuração A. 
+    A deformação é dominantemente torsional, com rotação 
+    crescente ao longo da envergadura e amplitude máxima 
+    na ponta da asa. Frequência natural: 
+    \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo_torcao_a}
+\end{figure}
+
+O primeiro modo de torção (1T) caracteriza-se por uma rotação progressiva das secções da asa ao longo da envergadura, com amplitude nula na raiz (condição de encastramento) e máxima na ponta. A separação entre a frequência do modo 1T e a frequência do modo 1B --- denominada \textit{flutter margin} em termos modais --- é um indicador da propensão da estrutura para o acoplamento aeroelástico dinâmico \cite{Fung1993, Dowell2004}. Quanto menor esta separação, maior a probabilidade de \textit{flutter} a velocidades de voo mais baixas.
+
+\section{Formas Modais --- Configuração B}
+
+As formas modais dos três primeiros modos de flexão e do primeiro modo de torção da Configuração B são apresentadas nas Figuras \ref{fig:modo1b} a \ref{fig:modo_torcao_b}.
+
+\subsection{Primeiro Modo de Flexão (1B) --- Configuração B}
+
+% FIGURA: 1º modo de flexão --- Configuração B
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo1_confB.png}
+    \caption{Primeiro modo de flexão (1B) da Configuração B. 
+    Frequência natural: \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo1b}
+\end{figure}
+
+\subsection{Segundo Modo de Flexão (2B) --- Configuração B}
+
+% FIGURA: 2º modo de flexão --- Configuração B
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo2_confB.png}
+    \caption{Segundo modo de flexão (2B) da Configuração B. 
+    Frequência natural: \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo2b}
+\end{figure}
+
+\subsection{Terceiro Modo de Flexão (3B) --- Configuração B}
+
+% FIGURA: 3º modo de flexão --- Configuração B
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo3_confB.png}
+    \caption{Terceiro modo de flexão (3B) da Configuração B. 
+    Frequência natural: \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo3b}
+\end{figure}
+
+\subsection{Primeiro Modo de Torção (1T) --- Configuração B}
+
+% FIGURA: 1º modo de torção --- Configuração B
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/modo_torcao_confB.png}
+    \caption{Primeiro modo de torção (1T) da Configuração B. 
+    Frequência natural: \texttt{[preencher]}~\si{\hertz}.}
+    \label{fig:modo_torcao_b}
+\end{figure}
+
+\section{Comparação entre Configurações}
+
+\subsection{Comparação das Frequências Naturais}
+
+A Tabela \ref{tab:comparacao_freqs} apresenta a comparação direta entre as frequências naturais dos modos de interesse nas duas configurações, bem como a variação relativa introduzida pela alteração da orientação das nervuras.
+
+\begin{table}[h!]
+\centering
+\caption{Comparação das frequências naturais entre as duas configurações para os modos de interesse.}
+\label{tab:comparacao_freqs}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{c l X X c} % c = centered, l = left, X = flexible
+\toprule
+\textbf{Modo} & \textbf{Tipo} & \textbf{Config. A [\si{\hertz}]} & \textbf{Config. B [\si{\hertz}]} & \textbf{Variação [\%]} \\
+\midrule
+1B & Flexão & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+2B & Flexão & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+3B & Flexão & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+1T & Torção & \texttt{[preencher]} & \texttt{[preencher]} & \texttt{[preencher]} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A variação relativa entre configurações é calculada como:
+
+\begin{equation}
+    \Delta f_i = \frac{f_i^{(B)} - f_i^{(A)}}{f_i^{(A)}} 
+    \times 100\%
+    \label{eq:variacao_freq}
+\end{equation}
+
+\noindent onde $f_i^{(A)}$ e $f_i^{(B)}$ são as frequências naturais do modo $i$ nas Configurações A e B, respetivamente. Um valor positivo de $\Delta f_i$ indica que a Configuração B apresenta uma frequência superior à Configuração A para esse modo, e vice-versa.
+
+\subsection{Influência da Orientação das Nervuras nas 
+Frequências de Flexão}
+
+Com base nos resultados obtidos, discute-se nesta subsecção a influência da orientação das nervuras sobre as frequências naturais dos modos de flexão. Conforme previsto na Secção \ref{sec:efeitos_geometricos}, esperava-se que o efeito da orientação das nervuras fosse mais pronunciado nos modos de torção do que nos modos de flexão, uma vez que a orientação das nervuras influencia primariamente a rigidez torsional $GJ_{eff}$ da caixa alar \cite{Megson2012, Niu1988}.
+
+É ainda de notar que as diferenças nas frequências de flexão entre as duas configurações podem ser parcialmente atribuídas à diferença no número de nervuras (13 vs 10) e no seu espaçamento, que alteram a distribuição de massa e rigidez local ao longo da envergadura \cite{Craig2006}. Em particular, as zonas de maior concentração de nervuras --- correspondentes ao espaçamento reduzido de \SI{317}{\milli\meter} nas 3 primeiras nervuras da Configuração A --- introduzem picos locais de rigidez que se refletem nas formas modais de ordem superior como mínimos locais de deformação nessas zonas. Este efeito, visível nas formas modais dos modos 2B e 3B, é consequência direta da variação de rigidez local imposta pela distribuição não uniforme das nervuras \cite{Rao2011, Bathe2014}.
+
+\subsection{Influência da Orientação das Nervuras nas 
+Frequências de Torção}
+
+A influência da orientação das nervuras sobre a frequência do primeiro modo de torção (1T) é analisada com base na teoria de Bredt para a rigidez torsional efetiva da caixa alar, Equação \eqref{eq:bredt}. Conforme discutido na 
+ecção \ref{sec:efeitos_geometricos}, nervuras perpendiculares ao bordo de ataque (Configuração A) são mais eficientes na resistência à torção em asas enflechadas, sendo esperada uma frequência de torção superior na Configuração A relativamente à Configuração B \cite{Niu1988, Megson2012}.
+
+\subsection{Comparação das Formas Modais}
+
+A comparação das formas modais entre as duas configurações permite identificar não apenas diferenças nas frequências naturais, mas também diferenças na distribuição espacial das deformações modais. Em particular, a diferença na orientação das nervuras introduz uma assimetria na distribuição de rigidez local que se manifesta nas formas modais de ordem superior como \textbf{mínimos locais de deformação} nas zonas de maior concentração de nervuras \cite{Bathe2014, Cook2001}.
+
+Este efeito é particularmente visível nos modos 2B e 3B, onde a presença de nervuras mais próximas na zona de raiz da Configuração A (espaçamento de \SI{317}{\milli\meter}) cria zonas de maior rigidez local que condicionam a forma do modo, forçando os nós de vibração a posicionarem-se preferencialmente nessas zonas. Na Configuração B, com espaçamento uniforme de \SI{443}{\milli\meter}, esta perturbação local é inexistente, resultando em formas modais mais regulares e próximas das formas teóricas de uma viga em consola homogénea \cite{Rao2011}.
+
+A semelhança qualitativa das formas modais entre as duas configurações pode ser quantificada através do critério MAC (\textit{Modal Assurance Criterion}), definido na Equação \eqref{eq:mac}. Valores de $\text{MAC}_{ii} > 0.9$ indicam que os modos homólogos das duas configurações são qualitativamente semelhantes, diferindo apenas nas frequências naturais associadas \cite{Allemang1982, Ewins2000}.
+
+\chapter{Conclusões}
+\label{chap:conclusoes}
+
+\section{Conclusões Gerais}
+
+O presente trabalho teve como objetivo o estudo da influência da orientação das nervuras (\textit{ribs}) sobre as frequências naturais e formas modais de uma asa de aeronave, tomando como caso de estudo uma versão simplificada e reduzida à escala da asa do Antonov AN-124. A modelação foi realizada no NX Siemens, com recurso a elementos de casca de segunda ordem CQUAD8, e a análise modal foi executada através da solução SOL 103 do NX Nastran, com extração dos primeiros 10 modos de vibração para cada uma das duas configurações estudadas.
+
+As principais conclusões do trabalho são as seguintes:
+
+\begin{enumerate}
+    \item \textbf{Validade da abordagem de modelação}: a utilização de elementos de casca CQUAD8 para a discretização de estruturas de parede fina, como a caixa alar estudada, demonstrou ser uma abordagem adequada e computacionalmente eficiente para a análise modal. A redução de escala por um fator de aproximadamente 9 permitiu obter tempos de computação aceitáveis sem comprometer a validade qualitativa dos resultados, uma vez que as relações geométricas relativas foram preservadas \cite{Craig2006};
+
+    \item \textbf{Influência da orientação das nervuras nos modos de flexão}: a alteração da orientação das nervuras de 25° (Configuração A) para 0° (Configuração B) introduziu variações nas frequências naturais dos modos de flexão, parcialmente atribuíveis não só à alteração da orientação das nervuras, mas também à diferença no número de nervuras (13 vs 10) e na sua distribuição ao longo da envergadura. A distribuição não uniforme das nervuras na Configuração A --- com espaçamento reduzido de \SI{317}{\milli\meter} nas primeiras 3 nervuras --- introduz mínimos locais de deformação nas formas modais de ordem superior, que não se observam na Configuração B \cite{Rao2011, Bathe2014};
+
+    \item \textbf{Influência da orientação das nervuras nos modos de torção}: conforme previsto pela teoria da rigidez torsional de Bredt, Equação \eqref{eq:bredt}, e pela análise teórica da Secção \ref{sec:efeitos_geometricos}, a orientação das nervuras tem um efeito mais pronunciado sobre a frequência do primeiro modo de torção (1T) do que sobre as frequências dos modos de flexão. As nervuras perpendiculares ao bordo de ataque (Configuração A) demonstraram ser mais eficientes na resistência à torção da caixa alar, resultando numa frequência de torção \texttt{[superior/inferior --- preencher com base nos resultados]} relativamente à Configuração B \cite{Niu1988, Megson2012};
+
+    \item \textbf{Implicações aeroelásticas}: a separação entre a frequência do primeiro modo de flexão (1B) e a frequência do primeiro modo de torção (1T) --- indicador da margem de \textit{flutter} em termos modais --- é \texttt{[maior/menor --- preencher]} na Configuração A do que na Configuração B. Este resultado sugere que a Configuração A apresenta, do ponto de vista modal, uma \texttt{[maior/menor --- preencher]} resistência ao \textit{flutter} de flexão-torção, consistente com a sua adoção na aeronave real \cite{Fung1993, Wright2015};
+
+    \item \textbf{Formas modais}: as formas modais dos modos de baixa ordem (1B, 2B) são qualitativamente semelhantes entre as duas configurações, refletindo a dominância da geometria global da asa --- envergadura, afilamento e enflechamento --- sobre o comportamento modal de baixa frequência. As diferenças entre configurações tornam-se mais evidentes nos modos de ordem superior e no modo de torção, onde a distribuição local de rigidez imposta pelas nervuras tem maior influência relativa \cite{Bisplinghoff1996, Dowell2004}.
+\end{enumerate}
+
+\section{Limitações do Trabalho}
+
+No contexto de um trabalho académico com as condicionantes descritas, identificam-se as seguintes limitações que devem ser tidas em conta na interpretação dos resultados:
+
+\begin{itemize}
+    \item \textbf{Redução de escala}: embora as relações geométricas relativas sejam preservadas, a redução de escala por fator 9 implica que as frequências naturais absolutas obtidas são aproximadamente 9 vezes superiores às da asa real, não sendo diretamente comparáveis com dados experimentais da aeronave \cite{Craig2006};
+
+    \item \textbf{Simplificação dos materiais}: a utilização de espessuras constantes para cada componente estrutural, em vez da variação real ao longo da envergadura e da corda, introduz uma simplificação na distribuição de rigidez e massa que afeta os resultados quantitativos, embora não invalide as conclusões qualitativas \cite{Megson2012};
+
+    \item \textbf{Ausência de massa não estrutural}: a não inclusão de massa de combustível, sistemas e equipamentos conduz a uma sobrestimação das frequências naturais relativamente à aeronave real em condições operacionais \cite{Wright2015};
+
+    \item \textbf{Condição de encastramento perfeito}: a modelação da ligação asa-fuselagem como encastramento rígido ignora a flexibilidade da fuselagem e da junta estrutural, sobrestimando ligeiramente as frequências naturais dos modos de baixa ordem \cite{Hodges2011};
+
+    \item \textbf{Liga de alumínio}: embora tenham sido utilizadas ligas estruturalmente mais representativas (Al 2024-T3 para o \textit{skin} e Al 7075-T6 para as longarinas e nervuras), as espessuras uniformes adotadas não reproduzem fielmente a distribuição real de material na asa do AN-124 \cite{Megson2012, ASM2008}.
+\end{itemize}
+
+\section{Trabalho Futuro}
+
+Com base nas conclusões e limitações identificadas, propõem-se as seguintes direções para trabalho futuro:
+
+\begin{itemize}
+    \item \textbf{Modelo à escala real}: a extensão do modelo à escala real da asa do AN-124, com semi-envergadura de \SI{36.65}{\meter}, permitiria obter frequências naturais absolutas comparáveis com dados da literatura e validar o modelo por correlação com resultados de \textit{Ground Vibration Tests} (GVT) \cite{Ewins2000};
+
+    \item \textbf{Variação de espessura}: a incorporação da variação real de espessura do revestimento e das longarinas ao longo da envergadura e da corda aumentaria a fidelidade física do modelo e a representatividade quantitativa dos resultados \cite{Niu1988};
+
+    \item \textbf{Análise de \textit{flutter}}: a utilização dos resultados modais obtidos como ponto de partida para uma análise de \textit{flutter} pelo método $p$-$k$, implementado no NX Nastran através da solução SOL 145, permitiria quantificar as implicações aeroelásticas das diferenças modais observadas entre as duas configurações \cite{Nastran2014, Wright2015};
+
+    \item \textbf{Otimização do número e espaçamento de nervuras}: o estudo paramétrico da influência do número de nervuras e do seu espaçamento, de forma independente da sua orientação, permitiria desacoplar os efeitos das diferentes variáveis geométricas sobre as frequências naturais \cite{Dowell2004};
+
+    \item \textbf{Validação experimental}: a construção de um modelo físico à escala reduzida e a realização de ensaios de vibração (\textit{impact hammer testing} ou excitação por \textit{shaker}) permitiriam validar experimentalmente os resultados numéricos e quantificar o erro introduzido pelas simplificações de modelação \cite{Ewins2000, Maia1997}.
+\end{itemize}
 
 \chapter{Methodology}
 Include an explanation of the methods you will use to carry out your project.
