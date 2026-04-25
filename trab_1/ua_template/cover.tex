@@ -10,7 +10,7 @@
 %% Modified by Pedro Casau <pcasau@ua.pt>
 
 % Add 'final' parameter to remove "Relatório Intermédio" from cover page
-\documentclass[11pt,twoside,a4paper]{report}
+\documentclass[11pt,oneside,a4paper,final]{report}
 
 \usepackage[engineering,deti]{uaThesisTemplate}
 
@@ -120,7 +120,7 @@
 %%%  declaration). If you're writing your document
 %%%  in english uncomment the following line.
 %%% Set the proper language or you will end with incorrect hyphenation!
-\selectlanguage{english}
+\selectlanguage{portuguese}
 
 \MakeCover
 
@@ -144,8 +144,7 @@
 
 A aeroelasticidade é uma das disciplinas mais críticas no projeto de aeronaves modernas, estabelecendo a ponte entre a aerodinâmica, a dinâmica estrutural e a mecânica do voo. À medida que as aeronaves evoluem no sentido de estruturas mais leves e flexíveis --- impulsionadas pela necessidade de reduzir o consumo de combustível e aumentar a eficiência operacional --- os fenómenos aeroelásticos tornam-se progressivamente mais relevantes e determinantes no processo de projeto e certificação \cite{Wright2015, Dowell2004}.
 
-No contexto das aeronaves de transporte pesado, a asa é o componente estrutural mais sujeito a efeitos aeroelásticos relevantes. A sua grande envergadura, a flexibilidade inerente às estruturas de parede fina e a presença de cargas aerodinâmicas distribuídas de grande magnitude tornam a análise do seu comportamento dinâmico indispensável nas fases iniciais de projeto \cite{Megson2012, 
-isplinghoff1996}. Em particular, o conhecimento das frequências naturais e formas modais da asa é o ponto de partida obrigatório para qualquer análise aeroelástica, seja ela estática --- como a divergência e a inversão de controlos --- ou dinâmica, como o \textit{flutter} e a resposta a rajadas \cite{Collar1946, Fung1993}.
+No contexto das aeronaves de transporte pesado, a asa é o componente estrutural mais sujeito a efeitos aeroelásticos relevantes. A sua grande envergadura, a flexibilidade inerente às estruturas de parede fina e a presença de cargas aerodinâmicas distribuídas de grande magnitude tornam a análise do seu comportamento dinâmico indispensável nas fases iniciais de projeto \cite{Megson2012, Bisplinghoff1996}. Em particular, o conhecimento das frequências naturais e formas modais da asa é o ponto de partida obrigatório para qualquer análise aeroelástica, seja ela estática --- como a divergência e a inversão de controlos --- ou dinâmica, como o \textit{flutter} e a resposta a rajadas \cite{Collar1946, Fung1993}.
 
 O Antonov AN-124 \textit{Ruslan} é uma aeronave de transporte estratégico pesado de referência mundial, com uma capacidade de carga útil de \SI{150000}{\kilo\gram} e uma envergadura de \SI{73.3}{\meter} \cite{Gordon2008}. As suas dimensões e massa tornam a análise aeroelástica da sua asa particularmente desafiante e academicamente relevante. A estrutura interna da asa do AN-124 --- com as suas longarinas, nervuras e revestimento em ligas de alumínio de alta resistência --- constitui um caso de estudo rico para a investigação da influência dos parâmetros geométricos sobre o comportamento modal da estrutura alar.
 
@@ -184,21 +183,26 @@ O \textbf{Capítulo 6} apresenta e discute os resultadosda análise modal para a
 O \textbf{Capítulo 7} apresenta as conclusões gerais do trabalho, as limitações identificadas e as propostas de trabalho futuro.
 
 \chapter{Fundamentos Teóricos}
+\label{chap:fundamentos}
 
 \section{Aeroelasticidade: Conceitos Gerais}
+\label{sec:aeroelasticidade}
 
 A aeroelasticidade é o ramo da mecânica do contínuo que estuda a interação mútua e simultânea entre as forças aerodinâmicas, as forças elásticas e as forças inerciais que atuam sobre estruturas flexíveis imersas em escoamentos. Ao contrário da aerodinâmica clássica, que trata a geometria da estrutura como rígida e invariante, ou da dinâmica estrutural pura, que ignora a presença do escoamento, a aeroelasticidade reconhece que a deformação da estrutura altera o campo aerodinâmico, e que este campo modificado impõe novos carregamentos sobre a estrutura --- criando um sistema de equações fortemente acoplado que não pode ser resolvido de forma independente \cite{Bisplinghoff1996, Dowell2004}.
-
-O desenvolvimento formal da aeroelasticidade como disciplina científica remonta ao início do século XX. Os primeiros acidentes aeroelásticos documentados ocorreram durante a Primeira Guerra Mundial, quando várias aeronaves sofreram falhas de torção alar a altas velocidades de voo \cite{Collar1946}. Langley e os irmãos Wright já tinham identificado empiricamente a necessidade de rigidez torsional nas asas, mas foi apenas com o trabalho de Bairstow e Fage (1916), e posteriormente de Theodorsen (1935) no desenvolvimento da teoria das forças aerodinâmicas inestacionárias, que a aeroelasticidade ganhou uma base matemática sólida \cite{Fung1993, Theodorsen1935}.
 
 \subsection{O Triângulo de Collar}
 
 O enquadramento conceptual mais utilizado para sistematizar os fenómenos aeroelásticos é o \textit{triângulo de Collar}, proposto por Arthur Roderick Collar em 1946 \cite{Collar1946}. Neste diagrama, representado na Figura \ref{fig:collar}, os três vértices correspondem às três famílias de forças que governam o comportamento de uma estrutura em escoamento:
 
 \begin{itemize}
-    \item \textbf{A} --- Forças aerodinâmicas generalizadas, dependentes da geometria instantânea da estrutura deformada e das suas velocidades de deformação;
-    \item \textbf{E} --- Forças elásticas de restituição, proporcionais às deformações da estrutura relativamente à sua configuração de referência;
-    \item \textbf{I} --- Forças inerciais, proporcionais às acelerações das massas distribuídas ao longo da estrutura.
+    \item \textbf{A} --- Forças aerodinâmicas generalizadas, 
+    dependentes da geometria instantânea da estrutura deformada 
+    e das suas velocidades de deformação;
+    \item \textbf{E} --- Forças elásticas de restituição, 
+    proporcionais às deformações da estrutura relativamente 
+    à sua configuração de referência;
+    \item \textbf{I} --- Forças inerciais, proporcionais às 
+    acelerações das massas distribuídas ao longo da estrutura.
 \end{itemize}
 
 Cada aresta do triângulo representa a interação entre dois dos três tipos de forças, definindo um domínio físico distinto:
@@ -213,6 +217,16 @@ Cada aresta do triângulo representa a interação entre dois dos três tipos de
     \item \textbf{A $+$ E $+$ I} $\rightarrow$ \textit{Aeroelasticidade dinâmica}: interação simultânea das três forças, dando origem a fenómenos como o \textit{flutter}, a resposta a rajadas (\textit{gust response}) e o \textit{buffeting} \cite{Dowell2004, Wright2015}.
 \end{itemize}
 
+% FIGURA: Triângulo de Collar
+\begin{figure}
+    \centering
+    % \includegraphics[width=0.5\textwidth]{figures/collar.png}
+    \caption{Triângulo de Collar, ilustrando a interação entre 
+    as forças aerodinâmicas (A), elásticas (E) e inerciais (I) 
+    \cite{Collar1946}.}
+    \label{fig:collar}
+\end{figure}
+
 \subsection{Formulação Matemática Geral}
 
 A formulação matemática geral de um problema aeroelástico parte da equação do movimento de uma estrutura elástica discretizada pelo Método dos Elementos Finitos (MEF), sujeita a cargas aerodinâmicas inestacionárias. Na forma matricial, esta equação escreve-se como \cite{Hodges2011, Nastran2014}:
@@ -224,416 +238,294 @@ A formulação matemática geral de um problema aeroelástico parte da equação
     \label{eq:eom_geral}
 \end{equation}
 
-\noindent onde:
-\begin{itemize}
-    \item $\mathbf{M} \in \mathbb{R}^{n \times n}$ é a matriz de massa global da estrutura, simétrica e definida positiva;
-    \item $\mathbf{C} \in \mathbb{R}^{n \times n}$ é a matriz de amortecimento estrutural, tipicamente modelada como amortecimento de Rayleigh, $\mathbf{C} = \alpha \mathbf{M} + \beta \mathbf{K}$, com $\alpha$ e $\beta$ constantes determinadas experimentalmente;
-    \item $\mathbf{K} \in \mathbb{R}^{n \times n}$ é a matriz de rigidez global, simétrica e semidefinida positiva;
-    \item $\mathbf{u}$, $\dot{\mathbf{u}}$, $\ddot{\mathbf{u}} \in 
-    \mathbb{R}^{n}$ são, respetivamente, os vetores de deslocamentos, velocidades e acelerações nodais;
-    \item $\mathbf{F}_{aero}$ é o vetor de forças aerodinâmicas generalizadas, que depende dos deslocamentos e velocidades estruturais, introduzindo o acoplamento fluido-estrutura.
-\end{itemize}
+\noindent onde $\mathbf{M}$, $\mathbf{C}$ e $\mathbf{K} \in \mathbb{R}^{n \times n}$ são, respetivamente, as matrizes de massa, amortecimento e rigidez globais da estrutura; $\mathbf{u}$, $\dot{\mathbf{u}}$, $\ddot{\mathbf{u}} \in \mathbb{R}^{n}$ são os vetores de deslocamentos, velocidades e acelerações nodais; e $\mathbf{F}_{aero}$ é o vetor de forças aerodinâmicas generalizadas, que depende dos deslocamentos e velocidades estruturais, introduzindo o acoplamento fluido-estrutura \cite{Hodges2011}.
 
-A dependência de $\mathbf{F}_{aero}$ relativamente a $\mathbf{u}$ e $\dot{\mathbf{u}}$ é o que torna o problema aeroelástico fundamentalmente diferente de um problema de dinâmica estrutural pura. No domínio da frequência, e assumindo escoamento potencial linearizado, as forças aerodinâmicas podem ser expressas em termos da matriz de influência aerodinâmica (\textit{Aerodynamic Influence Coefficient matrix}, AIC) \cite{Roger1977}:
+No domínio da frequência, e assumindo escoamento potencial linearizado, as forças aerodinâmicas podem ser expressas em termos da matriz de influência aerodinâmica (\textit{Aerodynamic Influence Coefficient matrix}, AIC) \cite{Roger1977}:
 
 \begin{equation}
     \mathbf{F}_{aero} = q_\infty \mathbf{Q}(ik) \mathbf{u}
     \label{eq:forca_aero}
 \end{equation}
 
-\noindent onde $q_\infty = \frac{1}{2}\rho V^2$ é a pressão dinâmica do escoamento livre, $\mathbf{Q}(ik)$ é a matriz AIC avaliada para o número de frequência reduzida $k = \omega b / V$ (com $b$ a semi-corda de referência e $\omega$ a frequência circular de oscilação), e $i$ é a unidade imaginária.
-
-Substituindo a Equação \eqref{eq:forca_aero} na Equação \eqref{eq:eom_geral} e reorganizando os termos, obtém-se a equação aeroelástica na forma:
+\noindent onde $q_\infty = \frac{1}{2}\rho V^2$ é a pressão dinâmica do escoamento livre, $\mathbf{Q}(ik)$ é a matriz AIC avaliada para o número de frequência reduzida $k = \omega b/V$ (com $b$ a semi-corda de referência), e $i$ é a unidade imaginária. Substituindo na Equação \eqref{eq:eom_geral}, obtém-se a equação aeroelástica:
 
 \begin{equation}
-    \left[ \mathbf{M}\ddot{\mathbf{u}} + \mathbf{C}\dot{\mathbf{u}} + 
-    \mathbf{K}\mathbf{u} \right] - q_\infty \mathbf{Q}(ik)\mathbf{u} 
-    = \mathbf{0}
+    \left[ \mathbf{M}\ddot{\mathbf{u}} + 
+    \mathbf{C}\dot{\mathbf{u}} + 
+    \mathbf{K}\mathbf{u} \right] - 
+    q_\infty \mathbf{Q}(ik)\mathbf{u} = \mathbf{0}
     \label{eq:flutter_eq}
 \end{equation}
 
-Esta equação é a base para os métodos de análise de \textit{flutter}, como o método $p$-$k$ e o método $k$, implementados em códigos comerciais como o MSC Nastran e o NX Nastran \cite{Nastran2014}. É também a equação que justifica a importância central da análise modal --- isto é, do cálculo das frequências naturais e formas modais da estrutura em vácuo --- como passo preliminar obrigatório de qualquer análise aeroelástica.
-
-\subsection{Aeroelasticidade Estática: Divergência e Inversão de 
-Controlos}
-
-Nos fenómenos de aeroelasticidade estática, os efeitos inerciais são desprezados, e a equação de equilíbrio reduz-se a:
-
-\begin{equation}
-    \mathbf{K}\mathbf{u} = q_\infty \mathbf{Q}_s \mathbf{u}
-    \label{eq:static_aero}
-\end{equation}
-
-\noindent onde $\mathbf{Q}_s$ é a matriz de influência aerodinâmica estática. Rearranjando:
-
-\begin{equation}
-    \left( \mathbf{K} - q_\infty \mathbf{Q}_s \right) \mathbf{u} = 
-    \mathbf{0}
-    \label{eq:divergencia}
-\end{equation}
-
-A condição de divergência corresponde à situação em que o determinante da matriz $\left( \mathbf{K} - q_\infty \mathbf{Q}_s \right)$ se anula, ou seja, quando a matriz de rigidez efetiva deixa de ser definida positiva. A pressão dinâmica de divergência $q_D$ é assim o menor valor de $q_\infty$ que satisfaz:
-
-\begin{equation}
-    \det\left( \mathbf{K} - q_D \mathbf{Q}_s \right) = 0
-    \label{eq:qD}
-\end{equation}
-
-Este resultado evidencia que a velocidade de divergência depende diretamente da rigidez estrutural da asa --- em particular da sua rigidez torsional --- e que qualquer modificação geométrica que altere $\mathbf{K}$, como a orientação dos ribs estudada neste trabalho, influenciará $q_D$ \cite{Bisplinghoff1996}.
+Esta equação é a base para os métodos de análise de \textit{flutter}, como o método $p$-$k$ e o método $k$, implementados no NX Nastran \cite{Nastran2014}, e justifica a importância central da análise modal como passo preliminar obrigatório de qualquer análise aeroelástica.
 
 \subsection{Classificação dos Fenómenos Aeroelásticos}
 
 A Tabela \ref{tab:fenomenos_aero} resume os principais fenómenos aeroelásticos, a sua natureza, as variáveis estruturais mais relevantes e os métodos de análise tipicamente utilizados.
 
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Classificação dos principais fenómenos aeroelásticos, variáveis 
-estruturais dominantes e métodos de análise \cite{Wright2015, Dowell2004}.}
+\caption{Classificação dos principais fenómenos aeroelásticos 
+\cite{Wright2015, Dowell2004}.}
 \label{tab:fenomenos_aero}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{p{2.5cm} p{1.8cm} X X}
 \toprule
-\textbf{Fenómeno} & \textbf{Tipo} & \textbf{Variáveis estruturais dominantes} & \textbf{Métodos de análise} \\
+\textbf{Fenómeno} & \textbf{Tipo} & 
+\textbf{Variáveis estruturais dominantes} & 
+\textbf{Métodos de análise} \\
 \midrule
 Divergência & Estático & 
-Rigidez torsional $GJ$, posição do centro elástico & 
-Análise de valor próprio estático; método da rigidez efetiva \\
-\midrule
+    Rigidez torsional $GJ$, posição do centro elástico & 
+    Análise de valor próprio estático \\
 Inversão de controlos & Estático & 
-Rigidez de flexão e torção da asa, eficácia das superfícies & 
-Análise de equilíbrio aeroelástico estático \\
-\midrule
+    Rigidez de flexão e torção, eficácia das superfícies & 
+    Análise de equilíbrio aeroelástico estático \\
 \textit{Flutter} & Dinâmico & 
-Frequências naturais, amortecimento, acoplamento flexão-torção & 
-Método $p$-$k$; método $k$; análise no domínio do tempo \\
-\midrule
+    Frequências naturais, amortecimento, acoplamento 
+    flexão-torção & 
+    Método $p$-$k$; método $k$ \\
 Resposta a rajadas & Dinâmico & 
-Frequências naturais, amortecimento modal, massa & 
-Análise espectral; método das rajadas discretas (1-$\cos$) \\
-\midrule
+    Frequências naturais, amortecimento modal, massa & 
+    Análise espectral; rajadas discretas (1-$\cos$) \\
 \textit{Buffeting} & Dinâmico & 
-Frequências naturais, amortecimento aerodinâmico & 
-Análise de resposta em frequência; DNS/LES \\
-\midrule
-Fadiga aeroelástica & Dinâmico & 
-Amplitude de tensão, número de ciclos, amortecimento & 
-Método de Palmgren-Miner; análise espectral de fadiga \\
+    Frequências naturais, amortecimento aerodinâmico & 
+    Análise de resposta em frequência \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Relevância da Análise Modal no Contexto Aeroelástico}
+\subsection{Relevância da Análise Modal no Contexto 
+Aeroelástico}
 
-Como se depreende das equações apresentadas nas subsecções anteriores, a análise aeroelástica dinâmica --- em particular a determinação da velocidade de \textit{flutter} --- pressupõe o conhecimento prévio das frequências naturais $\omega_i$ e das formas modais $\boldsymbol{\phi}_i$ da estrutura em vácuo \cite{Craig2006}. A razão para isto é que, na prática, a equação do movimento \eqref{eq:eom_geral} é projetada na base modal, através da transformação de coordenadas:
+Como se depreende da Equação \eqref{eq:flutter_eq}, a análise aeroelástica dinâmica pressupõe o conhecimento prévio das frequências naturais $\omega_i$ e das formas modais $\boldsymbol{\phi}_i$ da estrutura em vácuo \cite{Craig2006}. Na prática, a equação do movimento é projetada na base modal através da transformação de coordenadas:
 
 \begin{equation}
-    \mathbf{u}(t) = \sum_{i=1}^{m} \boldsymbol{\phi}_i \, q_i(t) = 
-    \boldsymbol{\Phi} \, \mathbf{q}(t)
+    \mathbf{u}(t) = \sum_{i=1}^{m} \boldsymbol{\phi}_i \, 
+    q_i(t) = \boldsymbol{\Phi} \, \mathbf{q}(t)
     \label{eq:modal_transform}
 \end{equation}
 
-\noindent onde $\boldsymbol{\Phi} = [\boldsymbol{\phi}_1 \; 
-\boldsymbol{\phi}_2 \; \cdots \; \boldsymbol{\phi}_m]$ é a matriz modal (com $m \ll n$ modos retidos), e $\mathbf{q}(t)$ é o vetor de coordenadas modais ou generalizadas. Substituindo na equação do movimento e pré-multiplicando por $\boldsymbol{\Phi}^T$, obtém-se um sistema de $m$ equações desacopladas (na ausência de forças aerodinâmicas), cada uma da forma:
+\noindent onde $\boldsymbol{\Phi} = [\boldsymbol{\phi}_1 \; \boldsymbol{\phi}_2 \; \cdots \; \boldsymbol{\phi}_m]$ é a matriz modal (com $m \ll n$ modos retidos) e $\mathbf{q}(t)$ é o vetor de coordenadas modais. Substituindo na equação do movimento e pré-multiplicando por $\boldsymbol{\Phi}^T$, obtém-se um sistema de $m$ equações desacopladas, cada uma da forma:
 
 \begin{equation}
-    \ddot{q}_i + 2\zeta_i \omega_i \dot{q}_i + \omega_i^2 q_i = 
-    \frac{f_i(t)}{m_i}
+    \ddot{q}_i + 2\zeta_i \omega_i \dot{q}_i + 
+    \omega_i^2 q_i = \frac{f_i(t)}{m_i}
     \label{eq:modal_eq}
 \end{equation}
 
-\noindent onde $\omega_i$ é a frequência natural do modo $i$, $\zeta_i$ é o coeficiente de amortecimento modal, $m_i = \boldsymbol{\phi}_i^T \mathbf{M} \boldsymbol{\phi}_i$ é a massa modal generalizada, e $f_i(t) = \boldsymbol{\phi}_i^T \mathbf{F}_{aero}$ é a força aerodinâmica generalizada no modo $i$.
-
-Esta projeção modal é o fundamento matemático que justifica a análise modal como pré-requisito da aeroelasticidade: sem conhecer $\omega_i$ e $\boldsymbol{\phi}_i$, não é possível construir as forças aerodinâmicas generalizadas nem resolver o problema de \textit{flutter}. No caso do presente trabalho, a análise modal da asa do Antonov AN-124, nas duas configurações de orientação de ribs, constitui o resultado central a partir do qual se avaliam as implicações aeroelásticas da variável de desenho escolhida.
+\noindent onde $\omega_i$ é a frequência natural do modo $i$, $\zeta_i$ é o coeficiente de amortecimento modal, $m_i$ é a massa modal generalizada e $f_i(t)$ é a força aerodinâmica generalizada no modo $i$. Esta projeção modal é o fundamento matemático que justifica a análise modal como pré-requisito da aeroelasticidade \cite{Craig2006}.
 
 \subsection{Requisitos Regulamentares}
 
-Do ponto de vista da certificação, os regulamentos aeronáuticos impõem requisitos quantitativos sobre o comportamento aeroelástico das aeronaves. O \textit{CS-25.629} da EASA \cite{EASA2022} e o \textit{FAR 25.629} da FAA \cite{FAA2023} estabelecem que:
+O \textit{CS-25.629} da EASA \cite{EASA2022} e o \textit{FAR 25.629} da FAA \cite{FAA2023} estabelecem que a velocidade de \textit{flutter} $V_F$ deve satisfazer:
 
-\begin{itemize}
-    \item A aeronave deve estar livre de \textit{flutter}, divergência e inversão de controlos para qualquer combinação de velocidade e altitude dentro do envelope de voo;
-    \item A velocidade de \textit{flutter} $V_F$ deve satisfazer:
-    \begin{equation}
-        V_F \geq 1.15 \, V_D
-        \label{eq:flutter_margin}
-    \end{equation}
-    \noindent onde $V_D$ é a velocidade de projeto em mergulho 
-    (\textit{design dive speed});
-    \item A análise de \textit{flutter} deve ser validada por ensaios em voo (\textit{flutter flight tests}) e por ensaios de vibração em terra (\textit{Ground Vibration Tests}, GVT), nos quais as frequências naturais e formas modais medidas são comparadas com os resultados do modelo de elementos finitos \cite{Ewins2000}.
-\end{itemize}
+\begin{equation}
+    V_F \geq 1.15 \, V_D
+    \label{eq:flutter_margin}
+\end{equation}
 
-A margem de 15\% expressa na Equação \eqref{eq:flutter_margin} destina-se a acomodar as incertezas associadas à modelação aerodinâmica e estrutural, às variações de configuração de carga útil e combustível, e à degradação das propriedades materiais ao longo da vida operacional da aeronave \cite{Wright2015}.
+\noindent onde $V_D$ é a velocidade de projeto em mergulho. Esta margem de 15\% destina-se a acomodar as incertezas associadas à modelação aerodinâmica e estrutural, às variações de configuração de carga e à degradação das propriedades materiais ao longo da vida operacional \cite{Wright2015}. A análise de \textit{flutter} deve ainda ser validada por ensaios de vibração em terra (\textit{Ground Vibration Tests}, GVT), nos quais as frequências naturais e formas modais medidas são comparadas com os resultados do modelo de elementos finitos \cite{Ewins2000}.
 
 
 \section{Frequências Naturais e Modos de Vibração}
+\label{sec:freq_naturais}
 
 A análise das frequências naturais e modos de vibração de uma estrutura constitui o núcleo da dinâmica estrutural e é o ponto de partida indispensável para qualquer estudo aeroelástico. Uma estrutura elástica com $n$ graus de liberdade possui $n$ frequências naturais $\omega_i$ e $n$ modos de vibração associados $\boldsymbol{\phi}_i$, que descrevem completamente o seu comportamento dinâmico livre na ausência de amortecimento e de forças externas \cite{Craig2006, Clough1993}.
 
 \subsection{Problema de Valores e Vetores Próprios}
 
-O ponto de partida formal é a equação do movimento de uma estrutura elástica não amortecida, sujeita apenas a forças elásticas e inerciais:
+O ponto de partida formal é a equação do movimento de uma estrutura elástica não amortecida sujeita apenas a forças elásticas e inerciais:
 
 \begin{equation}
     \mathbf{M}\ddot{\mathbf{u}} + \mathbf{K}\mathbf{u} = \mathbf{0}
     \label{eq:eom_livre}
 \end{equation}
 
-Assumindo uma solução harmônica da forma $\mathbf{u}(t) = \boldsymbol{\phi} \, e^{i\omega t}$, onde $\boldsymbol{\phi}$ é um vetor de amplitudes independente do tempo e $\omega$ é a frequência circular de oscilação, a substituição na Equação \eqref{eq:eom_livre} conduz ao problema de valores próprios generalizado:
+Assumindo uma solução harmónica da forma $\mathbf{u}(t) = \boldsymbol{\phi} \, e^{i\omega t}$, a substituição na Equação \eqref{eq:eom_livre} conduz ao problema de valores próprios generalizado:
 
 \begin{equation}
-    \left( \mathbf{K} - \omega^2 \mathbf{M} \right) \boldsymbol{\phi} 
-    = \mathbf{0}
+    \left( \mathbf{K} - \omega^2 \mathbf{M} \right) 
+    \boldsymbol{\phi} = \mathbf{0}
     \label{eq:eigenvalue}
 \end{equation}
 
-Para que esta equação admita soluções não triviais ($\boldsymbol{\phi} \neq \mathbf{0}$), o determinante da matriz do sistema deve ser nulo:
+Para que esta equação admita soluções não triviais, o determinante da matriz do sistema deve ser nulo:
 
 \begin{equation}
     \det\left( \mathbf{K} - \omega^2 \mathbf{M} \right) = 0
     \label{eq:det_zero}
 \end{equation}
 
-A Equação \eqref{eq:det_zero} é denominada \textit{equação característica} do sistema e é um polinómio de grau $n$ em $\omega^2$. As suas $n$ raízes reais e não negativas, $\omega_1^2 \leq \omega_2^2 \leq \cdots \leq \omega_n^2$, são os \textit{valores próprios} do sistema, e as respetivas raízes quadradas $\omega_i$ são as \textbf{frequências naturais} da estrutura, expressas em \si{\radian\per\second}. As frequências naturais em \si{\hertz} obtêm-se por:
+A Equação \eqref{eq:det_zero} é a \textit{equação característica} do sistema, cujas $n$ raízes reais e não negativas $\omega_1^2 \leq \omega_2^2 \leq \cdots \leq \omega_n^2$ são os \textit{valores próprios} do sistema. As respetivas raízes quadradas $\omega_i$ são as \textbf{frequências naturais} da estrutura, expressas em \si{\radian\per\second}. As frequências naturais em \si{\hertz} obtêm-se por:
 
 \begin{equation}
     f_i = \frac{\omega_i}{2\pi}, \quad i = 1, 2, \ldots, n
     \label{eq:freq_hz}
 \end{equation}
 
-A cada frequência natural $\omega_i$ corresponde um \textit{vetor próprio} $\boldsymbol{\phi}_i \in \mathbb{R}^n$, denominado \textbf{forma modal} ou \textbf{modo de vibração}, que é determinado pela substituição de $\omega_i$ na Equação \eqref{eq:eigenvalue} e que descreve a configuração deformada relativa da estrutura quando esta vibra na frequência $\omega_i$ \cite{Ewins2000, Maia1997}.
-
-É importante sublinhar que as formas modais são determinadas apenas a menos de umaconstantede escala arbitrária: apenas a \textit{forma} da deformação é fisicamente significativa, não a sua amplitude absoluta. Por esta razão, é habitual normalizar os vetores próprios segundo um dos seguintes critérios \cite{Craig2006}:
+A cada frequência natural $\omega_i$ corresponde um vetor próprio $\boldsymbol{\phi}_i \in \mathbb{R}^n$, denominado \textbf{forma modal} ou \textbf{modo de vibração}, que descreve a configuração deformada relativa da estrutura quando vibra na frequência $\omega_i$ \cite{Ewins2000, Maia1997}. As formas modais são determinadas apenas a menos de uma constante de escala arbitrária, sendo habitual normalizá-las segundo um dos seguintes critérios \cite{Craig2006}:
 
 \begin{itemize}
-    \item \textbf{Normalização pela massa}: $\boldsymbol{\phi}_i^T \mathbf{M} \boldsymbol{\phi}_i = 1$, que conduz a massas modais unitárias e é a convenção adotada pela maioria dos códigos de elementos finitos, incluindo o NX Nastran \cite{Nastran2014};
-    
-    \item \textbf{Normalização pelo máximo}: o componente de maior amplitude do vetor é normalizado para a unidade, facilitando a interpretação visual das formas modais;
-    
-    \item \textbf{Normalização pela rigidez}: $\boldsymbol{\phi}_i^T \mathbf{K} \boldsymbol{\phi}_i = \omega_i^2$, consistente com a normalização pela massa.
+    \item \textbf{Normalização pela massa}: $\boldsymbol{\phi}_i^T \mathbf{M} \boldsymbol{\phi}_i = 1$, convenção adotada por defeito no NX Nastran \cite{Nastran2014};
+
+    \item \textbf{Normalização pelo máximo}: o componente de maior amplitude é normalizado para a unidade, facilitando a interpretação visual das formas modais.
 \end{itemize}
 
 \subsection{Propriedades de Ortogonalidade}
 
-Uma propriedade fundamental das formas modais de sistemas com matrizes $\mathbf{M}$ e $\mathbf{K}$ simétricas é a \textit{ortogonalidade mútua} relativamente a ambas as matrizes. Para dois modos distintos $i \neq j$, verifica-se \cite{Clough1993, Inman2014}:
+Uma propriedade fundamental das formas modais é a \textit{ortogonalidade mútua} relativamente às matrizes $\mathbf{M}$ e $\mathbf{K}$. Para dois modos distintos $i \neq j$ \cite{Clough1993, Inman2014}:
 
 \begin{equation}
     \boldsymbol{\phi}_i^T \mathbf{M} \boldsymbol{\phi}_j = 0, \qquad 
-    \boldsymbol{\phi}_i^T \mathbf{K} \boldsymbol{\phi}_j = 0, \qquad 
-    i \neq j
+    \boldsymbol{\phi}_i^T \mathbf{K} \boldsymbol{\phi}_j = 0, \qquad i \neq j
     \label{eq:ortogonalidade}
 \end{equation}
 
-Para $i = j$, e assumindo normalização pela massa, obtém-se:
+Para $i = j$, e assumindo normalização pela massa:
 
 \begin{equation}
-    \boldsymbol{\phi}_i^T \mathbf{M} \boldsymbol{\phi}_i = m_i = 1, 
-    \qquad
-    \boldsymbol{\phi}_i^T \mathbf{K} \boldsymbol{\phi}_i = k_i = 
-    \omega_i^2
+    \boldsymbol{\phi}_i^T \mathbf{M} \boldsymbol{\phi}_i = m_i = 1, \qquad
+    \boldsymbol{\phi}_i^T \mathbf{K} \boldsymbol{\phi}_i = k_i = \omega_i^2
     \label{eq:massas_rigidezes_modais}
 \end{equation}
 
-\noindent onde $m_i$ e $k_i$ são, respetivamente, a \textit{massa modal generalizada} e a \textit{rigidez modal generalizada} do modo $i$. Estas quantidades permitem definir uma frequência natural equivalente de sistema de um grau de liberdade:
+\noindent onde $m_i$ e $k_i$ são a \textit{massa modal generalizada} e a \textit{rigidez modal generalizada} do modo $i$, que permitem definir uma frequência natural equivalente de sistema de um grau de liberdade:
 
 \begin{equation}
     \omega_i = \sqrt{\frac{k_i}{m_i}}
     \label{eq:omega_sdof}
 \end{equation}
 
-A ortogonalidade das formas modais é a propriedade que permite desacoplar o sistema de $n$ equações diferenciais acopladas \eqref{eq:eom_livre} em $n$ equações independentes de um grau de liberdade, através da transformação modal \eqref{eq:modal_transform}. Este desacoplamento é o fundamento da \textit{superposição modal} e constitui uma das ferramentas computacionais mais eficientes da dinâmica estrutural \cite{Craig2006}.
+A ortogonalidade das formas modais é a propriedade que permite desacoplar o sistema de $n$ equações diferenciais acopladas \eqref{eq:eom_livre} em $n$ equações independentes através da transformação modal \eqref{eq:modal_transform}, constituindo o fundamento da \textit{superposição modal} \cite{Craig2006}.
 
 \subsection{Modos de Vibração em Estruturas Alares}
 
-Nas asas de aeronaves, os modos de vibração apresentam características físicas bem definidas que resultam da geometria alar --- em geral uma estrutura com uma dimensão dominante (a envergadura) muito superior às restantes. Os modos fundamentais de uma asa em consola (\textit{cantilever wing}), encastrada na raiz e livre na ponta, são \cite{Bisplinghoff1996, Wright2015}:
+Nas asas de aeronaves, os modos de vibração apresentam características físicas bem definidas que resultam da geometria alar. Os modos fundamentais de uma asa em consola (\textit{cantilever wing}), encastrada na raiz e livre na ponta, são \cite{Bisplinghoff1996, Wright2015}:
 
 \begin{itemize}
-    \item \textbf{Flexão simétrica} (\textit{symmetric bending}): ambas as semi-asas deflectem no mesmo sentido (para cima ou para baixo). É tipicamente o modo de menor frequência, designado por primeiro modo de flexão ou modo 1B. Em aeronaves de grande porte, este modo situa-se frequentemente na gama $0.5$--$3$~\si{\hertz} \cite{Megson2012};
+    \item \textbf{Flexão} (\textit{bending}): deformação predominantemente fora do plano da asa. O primeiro modo de flexão (1B) é tipicamente o modo de menor frequência, situando-se em aeronaves de grande porte na gama $0.5$--$3$~\si{\hertz} \cite{Megson2012};
 
-    \item \textbf{Flexão antissimétrica} (\textit{antisymmetric bending}): as semi-asas deflectem em sentidos opostos, semelhante ao movimento de \textit{roll}. É o segundo modo de flexão (2B);
+    \item \textbf{Torção} (\textit{torsion}): rotação progressiva das secções ao longo da envergadura, alterando o ângulo de ataque local. Este modo é crítico para a divergência e para o \textit{flutter} de flexão-torção;
 
-    \item \textbf{Torção simétrica} (\textit{symmetric torsion}): ambas as semi-asas torcem no mesmo sentido, alterando o ângulo de ataque local ao longo da envergadura. Este modo é crítico para a divergência e para o \textit{flutter} de flexão-torção;
-
-    \item \textbf{Torção antissimétrica} (\textit{antisymmetric torsion}): as semi-asas torcem em sentidos opostos;
-
-    \item \textbf{Modos de flexão de ordem superior}: modos com um ou mais nodos ao longo da envergadura, designados por 2B, 3B, etc., com frequências crescentes.
+    \item \textbf{Modos de ordem superior}: modos de flexão e torção com nós intermédios ao longo da envergadura (2B, 3B, 2T, etc.), com frequências crescentes.
 \end{itemize}
 
-A frequência natural de cada modo depende, de forma geral, da distribuição de rigidez e massa ao longo da asa. Para uma asa modelada como uma viga de Euler-Bernoulli em consola, com rigidez de flexão $EI$ e massa por unidade de comprimento $\mu$ uniformes, a frequência natural do $r$-ésimo modo de flexão é dada por \cite{Rao2011}:
+Para uma asa modelada como viga de Euler-Bernoulli em consola, com rigidez de flexão $EI$ e massa por unidade de comprimento $\mu$ uniformes, a frequência natural do $r$-ésimo modo de flexão é \cite{Rao2011}:
 
 \begin{equation}
-    \omega_r = \left(\beta_r L\right)^2 \sqrt{\frac{EI}{\mu L^4}}, 
-    \qquad r = 1, 2, 3, \ldots
+    \omega_r = \left(\beta_r L\right)^2 
+    \sqrt{\frac{EI}{\mu L^4}}, \qquad r = 1, 2, 3, \ldots
     \label{eq:freq_viga}
 \end{equation}
 
-\noindent onde $L$ é o comprimento da viga (semi-envergadura), e $\beta_r L$ são as raízes da equação característica da viga em consola:
+\noindent onde $L$ é a semi-envergadura e $\beta_r L$ são as raízes da equação característica da viga em consola:
 
 \begin{equation}
     \cos(\beta_r L)\cosh(\beta_r L) + 1 = 0
     \label{eq:char_cantilever}
 \end{equation}
 
-cujos primeiros valores são $\beta_1 L = 1.8751$, $\beta_2 L = 4.6941$ e $\beta_3 L = 7.8548$ \cite{Rao2011}. A Equação \eqref{eq:freq_viga} evidencia que a frequência natural de flexão é proporcional a $\sqrt{EI/\mu}$ e inversamente proporcional ao quadrado do comprimento, o que tem implicações diretas no projeto: asas mais longas e mais pesadas possuem frequências naturais mais baixas, aproximando-se das frequências de excitação aerodinâmica e aumentando o risco de \textit{flutter}.
-
-De forma análoga, a frequência natural do primeiro modo de torção de uma viga de eixo reto com rigidez torsional $GJ$ e inércia de torção por unidade de comprimento $I_\theta$ uniformes é \cite{Bisplinghoff1996}:
+cujos primeiros valores são $\beta_1 L = 1.8751$, $\beta_2 L = 4.6941$ e $\beta_3 L = 7.8548$ \cite{Rao2011}. De forma análoga, a frequência natural do primeiro modo de torção é \cite{Bisplinghoff1996}:
 
 \begin{equation}
-    \omega_{t,1} = \frac{\pi}{2L}\sqrt{\frac{GJ}{I_\theta}}
+    \omega_{t,1} = \frac{\pi}{2L}
+    \sqrt{\frac{GJ}{I_\theta}}
     \label{eq:freq_torcao}
 \end{equation}
 
-A separação entre a frequência do primeiro modo de flexão e do primeiro modo de torção é um indicador da margem de \textit{flutter}: quanto mais próximas estiverem estas duas frequências, mais facilmente os dois modos se acoplam sob ação aerodinâmica, reduzindo a velocidade de \textit{flutter} \cite{Fung1993, Dowell2004}.
-
-\subsection{Efeito das Condições de Fronteira}
-
-As condições de fronteira impostas à estrutura alar têm uma influência determinante sobre as frequências naturais e as formas modais obtidas. No contexto da análise isolada de uma asa, a condição mais comum é o encastramento na raiz (\textit{cantilever}), que simula a ligação rígida à fuselagem. No entanto, na aeronave real, a fuselagem é também uma estrutura flexível, e a sua flexibilidade introduz modos adicionais de corpo quase-rígido (\textit{free-free modes}) que modificam as frequências dos modos alares \cite{Wright2015}.
-
-Para efeitos de \textit{Ground Vibration Tests} (GVT) --- os ensaios experimentais de validação dos modelos de elementos finitos --- a aeronave é suspensa em condições de voo livre simuladas (tipicamente em suspensão pneumática ou em apoios muito moles), de modo a que os modos de corpo rígido se situem abaixo de \SI{1}{\hertz} e não contaminem os modos elásticos de interesse \cite{Ewins2000}. A correlação entre os resultados experimentais do GVT e os resultados numéricos do MEF é quantificada pelo \textit{Modal Assurance Criterion} (MAC), definido como \cite{Allemang1982}:
-
-\begin{equation}
-    \text{MAC}_{ij} = \frac{\left| \boldsymbol{\phi}_i^{(A)T} 
-    \boldsymbol{\phi}_j^{(X)} \right|^2}
-    {\left( \boldsymbol{\phi}_i^{(A)T} \boldsymbol{\phi}_i^{(A)} 
-    \right)
-    \left( \boldsymbol{\phi}_j^{(X)T} \boldsymbol{\phi}_j^{(X)} 
-    \right)}
-    \label{eq:mac}
-\end{equation}
-
-\noindent onde os superíndices $(A)$ e $(X)$ denotam, respetivamente, os vetores modais analíticos (MEF) e experimentais. Um valor $\text{MAC}_{ii} = 1$ indica correlação perfeita entre o modo analítico $i$ e o modo experimental $i$, enquanto $\text{MAC}_{ij} = 0$ para $i \neq j$ indica ortogonalidade perfeita entre modos distintos \cite{Allemang1982, Ewins2000}. Na prática, valores de $\text{MAC}_{ii} > 0.9$ são considerados aceitáveis para validação de modelos aeroelásticos \cite{EASA2022}.
+\noindent onde $GJ$ é a rigidez torsional e $I_\theta$ é a inércia de torção por unidade de comprimento. A separação entre $\omega_{1B}$ e $\omega_{1T}$ é um indicador da margem de \textit{flutter}: quanto mais próximas estiverem estas duas frequências, mais facilmente os modos se acoplam sob ação aerodinâmica, reduzindo a velocidade de \textit{flutter} \cite{Fung1993, Dowell2004}.
 
 \subsection{Métodos Numéricos de Cálculo}
 
-Em estruturas reais com geometria complexa, como a asa do Antonov AN-124, o problema de valores próprios \eqref{eq:eigenvalue} é resolvido numericamente após a discretização da estrutura pelo MEF. As dimensões típicas dos modelos de elementos finitos de asas de aeronaves de grande porte situam-se entre $10^4$ e $10^6$ graus de liberdade, tornando a resolução direta do problema de valores próprios computacionalmente impraticável \cite{Nastran2014}.
-
-Os algoritmos mais utilizados em códigos comerciais de MEF, como o NX Nastran, para a resolução eficiente deste problema são \cite{Bathe2014}:
-
-\begin{itemize}
-    \item \textbf{Método de Lanczos}: algoritmo iterativo de projeção em subespaço de Krylov, que calcula apenas os $m$ valores e vetores próprios de menor magnitude ($m \ll n$). É o método padrão no NX Nastran (solução SOL 103) para análise modal de grandes estruturas, com complexidade computacional $\mathcal{O}(m \cdot n)$ por iteração \cite{Nastran2014};
-
-    \item \textbf{Iteração em subespaço} (\textit{subspace iteration}): método de convergência garantida para os $m$ menores valores próprios, adequado para modelos de dimensão moderada;
-
-    \item \textbf{Método de Householder-QR}: adequado para sistemas de pequena dimensão ($n < 10^3$), fornece todos os valores próprios com elevada precisão numérica, mas com custo computacional $\mathcal{O}(n^3)$, inviável para modelos de grande escala.
-\end{itemize}
-
-No NX Nastran, a análise modal de vibração livre é executada através da solução sequencial SOL 103 (\textit{Real Eigenvalue Analysis}), que implementa o método de Lanczos com capacidades de paralelização \cite{Nastran2014}. Os parâmetros de controlo relevantes incluem o número de modos a calcular, a gama de frequências de interesse (em \si{\hertz}), e os critérios de convergência do algoritmo iterativo, que serão detalhados no Capítulo \ref{chap:modelacao}.
+Em estruturas com geometria complexa como a asa do AN-124, o problema de valores próprios \eqref{eq:eigenvalue} é resolvido numericamente após a discretização pelo MEF. No NX Nastran, a análise modal é executada através da solução SOL 103 (\textit{Real Eigenvalue Analysis}), que implementa o método de \textbf{Lanczos} --- um algoritmo iterativo de projeção em subespaço de Krylov que calcula apenas os $m$ valores e vetores próprios de menor magnitude ($m \ll n$), com complexidade computacional $\mathcal{O}(m \cdot n)$ por iteração \cite{Nastran2014, Bathe2014}. Os parâmetros de controlo da análise SOL 103 utilizada neste trabalho são detalhados na Secção \ref{sec:cond_fronteira}.
 
 \section{Análise Modal em Estruturas Aeronáuticas}
+\label{sec:analise_modal_aero}
 
 A análise modal constitui o processo de determinação das frequências naturais e formas modais de uma estrutura, seja por via experimental --- através de ensaios de vibração --- seja por via numérica, através da resolução do problema de valores próprios associado ao modelo de elementos finitos \cite{Ewins2000, Maia1997}. No contexto aeronáutico, a análise modal assume um papel central no processo de projeto e certificação, uma vez que as frequências naturais e formas modais da estrutura alar determinam, em larga medida, o comportamento aeroelástico da aeronave \cite{Wright2015}.
 
-\subsection{Modelação Estrutural de Asas por Elementos Finitos}
-
-A modelação de estruturas aeronáuticas pelo Método dos Elementos Finitos (MEF) envolve um conjunto de decisões de engenharia que condicionam simultaneamente a fidelidade dos resultados e o custo computacional da análise. Uma asa de aeronave é uma estrutura de parede fina (\textit{thin-walled structure}), cujas dimensões de espessura são muito inferiores às dimensões em planta, o que torna os elementos de casca (\textit{shell elements}) a escolha natural e mais eficiente para a sua discretização \cite{Bathe2014, Cook2001}.
-
-Os elementos de casca bidimensionais (2D) modelam o comportamento estrutural de painéis e superfícies através de formulações que combinam rigidez de membrana (comportamento no plano) e rigidez de flexão (comportamento fora do plano), sendo adequados para estruturas cujo rácio entre a espessura e a dimensão característica em planta é inferior a aproximadamente $1/10$ \cite{Zienkiewicz2005}. Esta condição é amplamente verificada nos componentes estruturais de uma asa --- revestimento (\textit{skin}), longarinas (\textit{spars}) e nervuras (\textit{ribs}) --- justificando plenamente a abordagem adotada no presente trabalho.
+Uma asa de aeronave é uma estrutura de parede fina (\textit{thin-walled structure}), cujas dimensões de espessura são muito inferiores às dimensões em planta, o que torna os elementos de casca (\textit{shell elements}) a escolha natural e mais eficiente para a sua discretização \cite{Bathe2014, Cook2001}. Esta condição é amplamente verificada nos componentes estruturais de uma asa --- revestimento (\textit{skin}), longarinas (\textit{spars}) e nervuras (\textit{ribs}) --- justificando a abordagem adotada no presente trabalho.
 
 \subsection{Elementos CQUAD8}
 
-No presente trabalho, a discretização da asa foi realizada com elementos do tipo \textbf{CQUAD8}, disponíveis no NX Nastran. O CQUAD8 é um elemento de casca quadrilateral isoparamétrico de \textbf{segunda ordem}, com \textbf{8 nós} --- 4 nos vértices e 4 nos pontos médios das arestas --- e \textbf{6 graus de liberdade por nó} (3 translações e 3 rotações), totalizando 48 graus de liberdade por elemento \cite{Nastran2014, Cook2001}.
-
-A formulação isoparamétrica de segunda ordem do CQUAD8 apresenta vantagens significativas relativamente ao elemento de primeira ordem CQUAD4 no contexto da análise modal:
-
-\begin{itemize}
-    \item \textbf{Maior precisão na representação de campos de deformação}: a interpolação quadrática permite capturar gradientes de deformação mais acentuados com menos elementos, sendo particularmente vantajosa na modelação de modos de flexão e torção de ordem superior \cite{Bathe2014};
-
-    \item \textbf{Melhor representação de geometrias curvas}: os nós nos pontos médios das arestas permitem aproximar com maior fidelidade superfícies com curvatura, como o perfil aerodinâmico da asa \cite{Zienkiewicz2005};
-
-    \item \textbf{Menor sensibilidade à distorção da malha}: ao contrário do CQUAD4, o CQUAD8 mantém uma boa precisão mesmo quando os elementos apresentam alguma distorção geométrica, o que é relevante em zonas de transição da malha \cite{Cook2001};
-
-    \item \textbf{Convergência mais rápida}: para o mesmo número de graus de liberdade, os elementos de segunda ordem convergem mais rapidamente para a solução exacta do que os elementos de primeira ordem, conforme demonstrado pela teoria da convergência do MEF \cite{Bathe2014}.
-\end{itemize}
-
-A integração numérica do CQUAD8 é realizada por quadratura de Gauss-Legendre com esquema $3 \times 3$ pontos de integração no plano do elemento, e com integração ao longo da espessura segundo a teoria de Mindlin-Reissner, que incorpora os efeitos de deformação por corte transversal (\textit{transverse shear deformation}) \cite{Nastran2014}. Esta formulação é adequada para espessuras moderadas e é a norma em análises de estruturas aeronáuticas em software comercial.
+No presente trabalho, a discretização da asa foi realizada com elementos do tipo \textbf{CQUAD8}, disponíveis no NX Nastran. O CQUAD8 é um elemento de casca quadrilateral isoparamétrico de \textbf{segunda ordem}, com \textbf{8 nós} --- 4 nos vértices e 4 nos pontos médios das arestas --- e \textbf{6 graus de liberdade por nó} (3 translações e 3 rotações), totalizando 48 graus de liberdade por elemento \cite{Nastran2014, Cook2001}. As principais vantagens deste elemento relativamente ao elemento de primeira ordem CQUAD4 são a maior precisão na representação de campos de deformação com gradientes acentuados, a melhor aproximação de geometrias curvas como o perfil aerodinâmico TsAGI, e a convergência mais rápida para a solução exacta para o mesmo número de graus de liberdade \cite{Bathe2014, Zienkiewicz2005}. A integração numérica é realizada por quadratura de Gauss-Legendre com esquema $3 \times 3$ pontos no plano do elemento, com integração ao longo da espessura segundo a teoria de Mindlin-Reissner, que incorpora os efeitos de deformação por corte transversal \cite{Nastran2014}.
 
 \subsection{Materiais}
 
 O modelo numérico da asa recorre a dois materiais distintos, selecionados de forma a aproximar as propriedades das ligas estruturais típicas de aeronaves de grande porte:
 
 \begin{itemize}
-    \item \textbf{Liga de alumínio 2024-T3}: utilizada no revestimento (\textit{skin}) da asa. Esta liga é amplamente utilizada em estruturas aeronáuticas primárias sujeitas a cargas de fadiga, devido à sua elevada resistência à propagação de fissuras (\textit{damage tolerance}) \cite{Megson2012, ASM2008};
+    \item \textbf{Liga de alumínio 2024-T3}: utilizada no revestimento (\textit{skin}) da asa, amplamente utilizada em estruturas aeronáuticas primárias sujeitas a cargas de fadiga, devido à sua elevada resistência à propagação de fissuras (\textit{damage tolerance}) \cite{Megson2012, ASM2008};
 
-    \item \textbf{Liga de alumínio 7075-T6}: utilizada nas longarinas (\textit{spars}) e nervuras (\textit{ribs}). Esta liga apresenta a maior resistência estática das ligas de alumínio de uso aeronáutico corrente, sendo preferida em elementos estruturais sujeitos a elevadas tensões de compressão e corte \cite{Megson2012, ASM2008}.
+    \item \textbf{Liga de alumínio 7075-T6}: utilizada nas longarinas (\textit{spars}) e nervuras (\textit{ribs}), sendo preferida em elementos estruturais sujeitos a elevadas tensões de compressão e corte \cite{Megson2012, ASM2008}.
 \end{itemize}
 
-As propriedades mecânicas de ambas as ligas, relevantes para a análise modal, são apresentadas na Tabela \ref{tab:materiais}.
+As propriedades mecânicas de ambas as ligas são apresentadas na Tabela \ref{tab:materiais}. Do ponto de vista da análise modal, as propriedades determinantes são o módulo de Young $E$ e a massa volúmica $\rho$. As duas ligas apresentam valores muito próximos destas propriedades, pelo que a distinção de material entre componentes tem impacto reduzido sobre as frequências naturais absolutas, sendo contudo importante para a representatividade física do modelo \cite{Megson2012}.
 
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Propriedades mecânicas das ligas de alumínio utilizadas 
-na modelação \cite{ASM2008}.}
+\caption{Propriedades mecânicas das ligas de alumínio 
+utilizadas na modelação \cite{ASM2008}.}
 \label{tab:materiais}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{p{4.5cm} X X}
 \toprule
-\textbf{Propriedade} & \textbf{Al 2024-T3} & \textbf{Al 7075-T6} \\
+\textbf{Propriedade} & \textbf{Al 2024-T3} & 
+\textbf{Al 7075-T6} \\
 \midrule
-Módulo de Young ($E$)           
-    & \SI{73.1}{\giga\pascal}   
-    & \SI{71.7}{\giga\pascal}   \\
-Coeficiente de Poisson ($\nu$)  
-    & $0.33$                    
-    & $0.33$                    \\
-Módulo de corte ($G$)           
-    & \SI{28.0}{\giga\pascal}   
-    & \SI{26.9}{\giga\pascal}   \\
-Massa volúmica ($\rho$)         
-    & \SI{2780}{\kilo\gram\per\cubic\meter}  
-    & \SI{2810}{\kilo\gram\per\cubic\meter}  \\
-Tensão de cedência ($\sigma_y$) 
-    & \SI{345}{\mega\pascal}    
-    & \SI{503}{\mega\pascal}    \\
-Tensão de rotura ($\sigma_u$)   
-    & \SI{483}{\mega\pascal}    
-    & \SI{572}{\mega\pascal}    \\
-Componentes                     
-    & \textit{Skin}             
+Módulo de Young ($E$)
+    & \SI{73.1}{\giga\pascal}
+    & \SI{71.7}{\giga\pascal} \\
+Coeficiente de Poisson ($\nu$)
+    & $0.33$
+    & $0.33$ \\
+Módulo de corte ($G$)
+    & \SI{28.0}{\giga\pascal}
+    & \SI{26.9}{\giga\pascal} \\
+Massa volúmica ($\rho$)
+    & \SI{2780}{\kilo\gram\per\cubic\meter}
+    & \SI{2810}{\kilo\gram\per\cubic\meter} \\
+Tensão de cedência ($\sigma_y$)
+    & \SI{345}{\mega\pascal}
+    & \SI{503}{\mega\pascal} \\
+Tensão de rotura ($\sigma_u$)
+    & \SI{483}{\mega\pascal}
+    & \SI{572}{\mega\pascal} \\
+Componentes
+    & \textit{Skin}
     & \textit{Spars} e \textit{Ribs} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Do ponto de vista da análise modal, as propriedades determinantes são o módulo de Young $E$ e a massa volúmica $\rho$. Verifica-se que as duas ligas apresentam valores muito próximos de $E$ e $\rho$, o que significa que a distinção de material entre componentes tem um impacto reduzido sobre as frequências naturais absolutas. No entanto, esta distinção é importante para a representatividade física do modelo, uma vez que reproduz a prática construtiva real de aeronaves de grande porte \cite{Megson2012}.
-
-\subsection{Simplificações do Modelo}
-
-A modelação de uma asa de aeronave de grande porte com o nível de detalhe construtivo da aeronave real seria computacionalmente proibitiva no contexto deste trabalho. Foram assim adotadas as seguintes simplificações, justificadas pelo objetivo comparativo do estudo:
-
-\begin{itemize}
-    \item \textbf{Redução de escala}: a envergadura da semi-asa foi reduzida para \SI{4}{\meter}, em contraste com os aproximadamente \SI{36.5}{\meter} da semi-asa real do AN-124 \cite{Antonov2004}. Esta redução, de fator aproximadamente 9, mantém as proporções geométricas relativas dos componentes estruturais e permite reduzir substancialmente o número de elementos da malha e os tempos de computação, sem comprometer a validade qualitativa dos resultados modais;
-
-    \item \textbf{Discretização com elementos de casca 2D}: toda a estrutura --- revestimento, longarinas e nervuras --- foi modelada com elementos CQUAD8, desprezando a variação de espessura ao longo da envergadura e da corda, que na aeronave real é função da distribuição de cargas estruturais;
-
-    \item \textbf{Condições de fronteira simplificadas}: a condição de encastramento (\textit{fixed}) foi aplicada à nervura da raiz da asa, ou seja, à secção de ligação ao corpo do avião, restringindo todos os graus de liberdade dos nós dessa secção. Esta condição simula de forma simplificada a ligação estrutural entre a asa e a fuselagem, desprezando a flexibilidade da própria fuselagem e da junta asa-fuselagem, o que tende a sobrestimar ligeiramente as frequências naturais relativamente à aeronave real \cite{Wright2015, Hodges2011};
-
-    \item \textbf{Ausência de massa não estrutural}: a massa de combustível, sistemas e revestimentos não estruturais não foi incluída no modelo, o que tende a sobrestimar as frequências naturais relativamente à aeronave real \cite{Wright2015}.
-\end{itemize}
-
-Estas simplificações são comuns em estudos académicos de análise paramétrica, onde o objetivo não é a reprodução exacta do comportamento da aeronave real, mas sim a avaliação da influência relativa de uma variável de desenho --- neste caso, a orientação das nervuras --- sobre as frequências naturais e formas modais \cite{Dowell2004}.
-
 \subsection{Número de Modos Calculados}
 
-Foram calculados os primeiros \textbf{10 modos de vibração} da estrutura alar em cada configuração, utilizando o solver de valores próprios de Lanczos implementado no NX Nastran (SOL 103) \cite{Nastran2014}. A escolha de 10 modos justifica-se pelo facto de os modos de menor frequência serem os que mais contribuem para a resposta dinâmica da estrutura e os que apresentam maior relevância aeroelástica \cite{Craig2006}. Em particular, os primeiros modos de flexão e de torção são os que determinam a velocidade de \textit{flutter} e a velocidade de divergência da asa \cite{Bisplinghoff1996, Fung1993}.
+Foram calculados os primeiros \textbf{10 modos de vibração} da estrutura alar em cada configuração, utilizando o solver de Lanczos do NX Nastran (SOL 103) \cite{Nastran2014}. Esta escolha justifica-se pelo facto de os modos de menor frequência serem os que mais contribuem para a resposta dinâmica da estrutura e os que apresentam maior relevância aeroelástica \cite{Craig2006}. Em particular, os primeiros modos de flexão e de torção são os que determinam a velocidade de \textit{flutter} e a velocidade de divergência da asa \cite{Bisplinghoff1996, Fung1993}.
 
-A massa modal acumulada dos primeiros $m$ modos, definida como:
+A massa modal acumulada dos primeiros $m$ modos (\textit{Effective Modal Mass fraction}, EMFA), definida como:
 
 \begin{equation}
-    \text{EMF}_r = \frac{\left( \boldsymbol{\phi}_r^T \mathbf{M} 
-    \mathbf{1} \right)^2}{M_{total}}, \qquad 
-    \text{EMFA} = \sum_{r=1}^{m} \text{EMF}_r
+    \text{EMFA} = \sum_{r=1}^{m} 
+    \frac{\left( \boldsymbol{\phi}_r^T \mathbf{M} 
+    \mathbf{1} \right)^2}{M_{total}}
     \label{eq:emf}
 \end{equation}
 
-\noindent onde $\mathbf{1}$ é o vetor de excitação unitária na direção de interesse e $M_{total}$ é a massa total da estrutura, é um indicador da completude da base modal utilizada. Em geral, recomenda-se que a massa modal acumulada (\textit{Effective Modal Mass fraction}, EMFA) seja superior a 90\% para garantir que a resposta dinâmica está adequadamente representada \cite{Craig2006, Nastran2014}.
+\noindent é um indicador da completude da base modal utilizada. Em geral, recomenda-se EMFA $> 90\%$ para garantir que a resposta dinâmica está adequadamente representada \cite{Craig2006, Nastran2014}.
 
-\section{Influência dos Parâmetros Geométricos nas Frequências Naturais}
+\section{Influência dos Parâmetros Geométricos nas 
+Frequências Naturais}
+\label{sec:efeitos_geometricos}
 
-A geometria de uma asa de aeronave é um dos fatores que mais diretamente condiciona as suas frequências naturais e formas modais. Através das expressões analíticas desenvolvidas na Secção 2.2, é possível identificar os parâmetros geométricos com maior influência sobre o comportamento dinâmico da estrutura alar e, consequentemente, sobre o seu comportamento aeroelástico. Esta secção apresenta uma análise sistemática desses parâmetros, com especial enfoque nos aspetos relevantes para o estudo comparativo das duas configurações de nervuras estudadas neste trabalho \cite{Bisplinghoff1996, Wright2015}.
+A geometria de uma asa de aeronave é um dos fatores que mais diretamente condiciona as suas frequências naturais e formas modais. Através das expressões analíticas desenvolvidas na Secção \ref{sec:freq_naturais}, é possível identificar os parâmetros geométricos com maior influência sobre o comportamento dinâmico da estrutura alar e, consequentemente, sobre o seu comportamento aeroelástico \cite{Bisplinghoff1996, Wright2015}.
 
 \subsection{Ângulo de Enflechamento}
+\label{sec:sweep}
 
-O ângulo de enflechamento (\textit{sweep angle}) $\Lambda$ define a inclinação do bordo de ataque relativamente à direção perpendicular ao eixo longitudinal da aeronave. No modelo estudado, $\Lambda = \qty{25}{\degree}$, valor representativo do enflechamento da asa do Antonov AN-124 \cite{Antonov2004}.
+O ângulo de enflechamento (\textit{sweep angle}) $\Lambda$ define a inclinação do bordo de ataque relativamente à direção perpendicular ao eixo longitudinal da aeronave. No modelo estudado, $\Lambda = \ang{25}$, valor representativo do enflechamento da asa do Antonov AN-124 \cite{Antonov2004}.
 
-O enflechamento tem uma influência significativa sobre as frequências naturais da asa, em particular sobre o acoplamento entre os modos de flexão e de torção. Para uma asa enflechada, a deflexão vertical (\textit{bending}) induz uma componente de torção, e vice-versa, devido à rotação do eixo elástico relativamente à direção de voo \cite{Dowell2004}. Este acoplamento pode ser quantificado através da matriz de rigidez de uma secção alar enflechada, que na base de coordenadas da viga equivalente apresenta termos fora da diagonal não nulos \cite{Hodges2011}:
+O enflechamento influencia significativamente o acoplamento entre os modos de flexão e de torção. Para uma asa enflechada, a deflexão vertical induz uma componente de torção, e vice-versa, devido à rotação do eixo elástico relativamente à direção de voo \cite{Dowell2004}. Este acoplamento pode ser quantificado através da matriz de rigidez de uma secção alar enflechada \cite{Hodges2011}:
 
 \begin{equation}
     \begin{Bmatrix} M_b \\ M_t \end{Bmatrix} =
@@ -646,152 +538,102 @@ O enflechamento tem uma influência significativa sobre as frequências naturais
     \label{eq:rigidez_enflechamento}
 \end{equation}
 
-\noindent onde $M_b$ e $M_t$ são os momentos de flexão e torção, $\kappa_b$ e $\kappa_t$ são as curvaturas de flexão e torção, e o termo $EI\tan\Lambda$ representa o acoplamento induzido pelo enflechamento. Para $\Lambda = \qty{25}{\degree}$, $\tan\Lambda \approx 0.466$, o que representa um acoplamento não negligenciável entre os dois modos \cite{Bisplinghoff1996}.
-
-Uma consequência direta deste acoplamento é que as formas modais de uma asa enflechada não são modos puros de flexão ou torção, mas sim modos mistos (\textit{coupled bending-torsion modes}), com frequências naturais que diferem das previstas pelas expressões analíticas para viga reta \eqref{eq:freq_viga} e \eqref{eq:freq_torcao} \cite{Wright2015}.
+\noindent onde $M_b$ e $M_t$ são os momentos de flexão e torção, $\kappa_b$ e $\kappa_t$ são as curvaturas de flexão e torção, e o termo $EI\tan\Lambda$ representa o acoplamento induzido pelo enflechamento. Para $\Lambda = \ang{25}$, $\tan\Lambda \approx 0.466$, representando um acoplamento não negligenciável \cite{Bisplinghoff1996}. Como consequência, as formas modais de uma asa enflechada são modos mistos (\textit{coupled bending-torsion modes}), com frequências naturais que diferem das previstas pelas expressões analíticas para viga reta \eqref{eq:freq_viga} e \eqref{eq:freq_torcao} \cite{Wright2015}.
 
 \subsection{Razão de Afilamento}
 
-A razão de afilamento (\textit{taper ratio}) é definida como o quociente entre a corda na ponta e a corda na raiz da asa:
+A razão de afilamento (\textit{taper ratio}) é definida como o quociente entre a corda na ponta e a corda na raiz:
 
 \begin{equation}
-    \lambda = \frac{c_{tip}}{c_{root}}
+    \lambda = \frac{c_{tip}}{c_{root}} = 
+    \frac{700}{2000} = 0.35
     \label{eq:taper_ratio}
 \end{equation}
 
-No modelo estudado, $c_{root} = \SI{2000}{\milli\meter}$, 
-$c_{tip} = \SI{700}{\milli\meter}$, pelo que:
+Este valor é representativo de asas de aeronaves de transporte de grande porte, situando-se na gama típica $0.2 \leq \lambda \leq 0.5$ \cite{Raymer2018}. A corda local varia linearmente com a posição ao longo da envergadura:
 
 \begin{equation}
-    \lambda = \frac{700}{2000} = 0.35
-    \label{eq:taper_ratio_an124}
-\end{equation}
-
-Este valor é representativo de asas de aeronaves de transporte de grande porte, situando-se na gama típica $0.2 \leq \lambda \leq 0.5$ \cite{Raymer2018}. O afilamento da asa implica uma variação contínua da corda, e consequentemente da rigidez de flexão $EI(y)$ e da rigidez torsional $GJ(y)$, ao longo da envergadura $y$. Para uma asa trapezoidal sem torção geométrica --- como é o caso do modelo estudado --- a corda local varia linearmente com a posição ao longo da envergadura:
-
-\begin{equation}
-    c(y) = c_{root}\left(1 - \frac{1-\lambda}{L}y\right), 
-    \qquad 0 \leq y \leq L
+    c(y) = c_{root}\left(1 - 
+    \frac{1-\lambda}{L}y\right), \qquad 0 \leq y \leq L
     \label{eq:corda_local}
 \end{equation}
 
-\noindent onde $L = \SI{4000}{\milli\meter}$ é a envergadura do modelo. A rigidez de flexão local, assumindo espessura de revestimento constante $t_s = \SI{2}{\milli\meter}$, é aproximadamente proporcional ao cubo da corda local \cite{Megson2012}:
+A rigidez de flexão local é aproximadamente proporcional ao cubo da corda local \cite{Megson2012}:
 
 \begin{equation}
     EI(y) \propto c(y)^3
     \label{eq:EI_local}
 \end{equation}
 
-Esta variação de rigidez ao longo da envergadura modifica as formas modais relativamente ao caso de asa de corda constante, concentrando as deformações modais nas zonas de menor rigidez --- tipicamente na ponta da asa --- e elevando as frequências naturais relativamente a uma asa de corda constante com o mesmo comprimento e material \cite{Rao2011}.
+Esta variação de rigidez ao longo da envergadura concentra as deformações modais nas zonas de menor rigidez --- tipicamente na ponta da asa --- e eleva as frequências naturais relativamente a uma asa de corda constante com o mesmo comprimento e material \cite{Rao2011}.
 
 \subsection{Posição e Orientação das Nervuras}
 
-As nervuras (\textit{ribs}) são elementos estruturais transversais que desempenham um papel fundamental na estrutura alar, cumprindo várias funções: manter a forma do perfil aerodinâmico ao longo da envergadura, transmitir as cargas aerodinâmicas às longarinas, estabilizar o revestimento contra encurvadura (\textit{buckling}) e contribuir para a rigidez torsional da caixa alar (\textit{wing box}) \cite{Megson2012, Niu1988}.
-
-Do ponto de vista da dinâmica estrutural, as nervuras influenciam as frequências naturais e formas modais da asa através de dois mecanismos principais:
+As nervuras (\textit{ribs}) são elementos estruturais transversais que desempenham um papel fundamental na estrutura alar: mantêm a forma do perfil aerodinâmico, transmitem as cargas aerodinâmicas às longarinas, estabilizam o revestimento contra encurvadura e contribuem para a rigidez torsional da caixa alar \cite{Megson2012, Niu1988}. Do ponto de vista da dinâmica estrutural, as nervuras influenciam as frequências naturais através de dois mecanismos:
 
 \begin{itemize}
-    \item \textbf{Contribuição para a rigidez}: as nervuras aumentam a rigidez local da secção transversal, em particular a rigidez torsional da caixa alar. A sua contribuição para a rigidez global depende da sua orientação, espessura, espaçamento e condições de ligação às longarinas e ao revestimento \cite{Niu1988};
+    \item \textbf{Contribuição para a rigidez}: aumentam a rigidez local da secção transversal, em particular a rigidez torsional. A sua contribuição depende da orientação, espessura, espaçamento e condições de ligação \cite{Niu1988};
 
-    \item \textbf{Contribuição para a massa}: as nervuras adicionam massa distribuída ao longo da envergadura, reduzindo as frequências naturais relativamente a uma asa sem nervuras. A distribuição desta massa ao longo da envergadura influencia a forma dos modos, em particular os modos de flexão de ordem superior \cite{Craig2006}.
+    \item \textbf{Contribuição para a massa}: adicionam massa distribuída ao longo da envergadura, reduzindo as frequências naturais e influenciando a forma dos modos \cite{Craig2006}.
 \end{itemize}
 
-A orientação das nervuras relativamente ao eixo da fuselagem é a 
-variável de estudo central deste trabalho. Conforme descrito no 
-Capítulo \ref{chap:variavel}, foram estudadas duas configurações:
-
-\begin{itemize}
-    \item \textbf{Configuração A} --- nervuras inclinadas a \textbf{25° relativamente ao plano de simetria} da aeronave, aproximadamente perpendiculares ao bordo de ataque, com 13 nervuras no total. As nervuras intermédias estão espaçadas \SI{436}{\milli\meter} entre si, à exceção das 3 primeiras (contadas a partir da raiz) que apresentam um espaçamento de \SI{317}{\milli\meter};
-
-    \item \textbf{Configuração B} --- nervuras paralelas ao plano de simetria da aeronave (0°, perpendiculares ao eixo longitudinal), com 10 nervuras igualmente espaçadas de \SI{443}{\milli\meter}.
-\end{itemize}
-
-A influência da orientação das nervuras sobre a rigidez torsional da caixa alar pode ser compreendida recorrendo à teoria de Bredt para secções de parede fina fechadas. A rigidez torsional de uma caixa alar com nervuras é dada por \cite{Megson2012}:
+A orientação das nervuras relativamente ao eixo da fuselagem é a variável de estudo central deste trabalho, conforme descrito no Capítulo \ref{chap:variavel}. A sua influência sobre a rigidez torsional da caixa alar pode ser compreendida recorrendo à teoria de Bredt para secções de parede fina fechadas \cite{Megson2012}:
 
 \begin{equation}
     GJ_{eff} = \frac{4A_{cell}^2}{\oint \frac{ds}{Gt(s)}}
     \label{eq:bredt}
 \end{equation}
 
-\noindent onde $A_{cell}$ é a área da secção transversal da caixa alar e $t(s)$ é a espessura do painel ao longo do contorno $s$. A orientação das nervuras altera a distribuição das tensões de corte no interior da caixa alar e, consequentemente, a rigidez torsional efetiva $GJ_{eff}$. Nervuras perpendiculares ao bordo de ataque (Configuração A) são mais eficientes na resistência às tensões de corte induzidas pela torção, uma vez que estão alinhadas com as trajetórias de fluxo de corte naturais da caixa alar enflechada \cite{Niu1988, Megson2012}. Nervuras paralelas ao eixo da fuselagem (Configuração B) introduzem componentes de força fora do plano da nervura, reduzindo a sua eficiência estrutural mas podendo simplificar a ligação à fuselagem \cite{Raymer2018}.
-
-\subsection{Espessura dos Componentes Estruturais}
-
-A espessura dos painéis que constituem a estrutura alar tem uma influência direta sobre a rigidez e a massa da estrutura, e consequentemente sobre as frequências naturais. No modelo estudado, foram adotadas as seguintes espessuras:
-
-\begin{table}[h!]
-\centering
-\caption{Espessuras dos componentes estruturais do modelo da asa.}
-\label{tab:espessuras}
-\renewcommand{\arraystretch}{1.4}
-\begin{tabularx}{\textwidth}{p{4cm} p{3cm} X}
-\toprule
-\textbf{Componente} & \textbf{Espessura} & \textbf{Observações} \\
-\midrule
-Revestimento (\textit{skin})    & \SI{2}{\milli\meter}  & 
-    Valor constante ao longo de toda a superfície alar \\
-Longarinas (\textit{spars})     & \SI{4}{\milli\meter}  & 
-    Valor a confirmar\footnotemark \\
-Nervuras (\textit{ribs})        & \SI{10}{\milli\meter} & 
-    Valor constante em ambas as configurações \\
-\bottomrule
-\end{tabularx}
-\end{table}
-\footnotetext{O valor de espessura das longarinas deverá ser 
-confirmado com base nos ficheiros de modelação no NX Siemens.}
-
-A rigidez de flexão local da secção transversal da asa é fortemente influenciada pela espessura e posição das longarinas. No modelo estudado, a longarina dianteira está posicionada a \SI{500}{\milli\meter} do bordo de ataque e a longarina traseira a \SI{600}{\milli\meter} do bordo de fuga, definindo uma caixa alar (\textit{wing box}) cuja largura varia ao longo da envergadura em função do afilamento da corda \cite{Megson2012}. A contribuição das longarinas para a rigidez de flexão é proporcional ao quadrado da sua distância ao eixo neutro da secção, conforme o teorema de Steiner \cite{Rao2011}:
-
-\begin{equation}
-    I_{total} = \sum_i \left( I_{i,0} + A_i d_i^2 \right)
-    \label{eq:steiner}
-\end{equation}
-
-\noindent onde $I_{i,0}$ é o momento de inércia de cada componente relativamente ao seu próprio eixo centroidal, $A_i$ é a sua área de secção transversal e $d_i$ é a distância ao eixo neutro global da secção. Esta expressão evidencia que a posição das longarinas --- e não apenas a sua espessura --- é determinante para a rigidez de flexão e, consequentemente, para as frequências naturais dos modos de flexão.
+\noindent onde $A_{cell}$ é a área da secção transversal da caixa alar e $t(s)$ é a espessura do painel ao longo do contorno $s$. Nervuras perpendiculares ao bordo de ataque (Configuração A) são mais eficientes na resistência às tensões de corte induzidas pela torção, uma vez que estão alinhadas com as trajetórias de fluxo de corte naturais da caixa alar enflechada \cite{Niu1988, Megson2012}.
 
 \subsection{Síntese dos Efeitos Geométricos}
 
-A Tabela \ref{tab:efeitos_geometricos} sintetiza a influência qualitativa dos principais parâmetros geométricos sobre as frequências naturais dos modos de flexão e torção da asa, com base na teoria apresentada nas subsecções anteriores.
+A Tabela \ref{tab:efeitos_geometricos} sintetiza a influência qualitativa dos principais parâmetros geométricos sobre as frequências naturais dos modos de flexão e torção.
 
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Influência qualitativa dos parâmetros geométricos sobre 
-as frequências naturais da asa \cite{Wright2015, Megson2012, 
-Bisplinghoff1996}.}
+\caption{Influência qualitativa dos parâmetros geométricos sobre as frequências naturais da asa \cite{Wright2015, 
+Megson2012, Bisplinghoff1996}.}
 \label{tab:efeitos_geometricos}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{p{4cm} X X}
 \toprule
-\textbf{Parâmetro} & \textbf{Efeito sobre $f_{\text{flexão}}$} & 
-\textbf{Efeito sobre $f_{\text{torção}}$} \\
+\textbf{Parâmetro} & \textbf{Efeito sobre 
+$f_{\text{flexão}}$} & \textbf{Efeito sobre 
+$f_{\text{torção}}$} \\
 \midrule
-$\uparrow$ Envergadura $L$ & $\downarrow$ (proporcional a $1/L^2$) & 
-    $\downarrow$ (proporcional a $1/L$) \\
-$\uparrow$ Espessura \textit{skin} $t_s$ & $\uparrow$ (rigidez e massa) & 
-    $\uparrow$ (rigidez torsional) \\
-$\uparrow$ Afilamento $\lambda$ & $\uparrow$ (menos massa na ponta) & 
-    $\uparrow$ (menos massa na ponta) \\
-$\uparrow$ Enflechamento $\Lambda$ & Acoplamento flexão-torção & 
-    Acoplamento flexão-torção \\
-Orientação dos ribs & Efeito secundário sobre $EI$ & 
-    Efeito primário sobre $GJ_{eff}$ \\
-$\uparrow$ Nº de ribs & $\uparrow$ (massa e rigidez locais) & 
-    $\uparrow$ (rigidez torsional) \\
+$\uparrow$ Envergadura $L$ 
+    & $\downarrow$ (proporcional a $1/L^2$) 
+    & $\downarrow$ (proporcional a $1/L$) \\
+$\uparrow$ Espessura \textit{skin} $t_s$ 
+    & $\uparrow$ (rigidez e massa) 
+    & $\uparrow$ (rigidez torsional) \\
+$\uparrow$ Afilamento $\lambda$ 
+    & $\uparrow$ (menos massa na ponta) 
+    & $\uparrow$ (menos massa na ponta) \\
+$\uparrow$ Enflechamento $\Lambda$ 
+    & Acoplamento flexão-torção 
+    & Acoplamento flexão-torção \\
+Orientação dos \textit{ribs} 
+    & Efeito secundário sobre $EI$ 
+    & Efeito primário sobre $GJ_{eff}$ \\
+$\uparrow$ Nº de \textit{ribs} 
+    & $\uparrow$ (massa e rigidez locais) 
+    & $\uparrow$ (rigidez torsional) \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-A última linha da Tabela \ref{tab:efeitos_geometricos} é particularmente relevante para este trabalho: a orientação das nervuras tem um efeito primário sobre a rigidez torsional efetiva $GJ_{eff}$ da caixa alar, e um efeito secundário sobre a rigidez de flexão $EI$. Consequentemente, espera-se que as duas configurações estudadas apresentem diferenças mais pronunciadas nas frequências dos modos de torção do que nas frequências dos modos de flexão. Esta hipótese será testada e discutida com base nos resultados numéricos apresentados no Capítulo \ref{chap:resultados}.
+A última linha da Tabela \ref{tab:efeitos_geometricos} é particularmente relevante: a orientação das nervuras tem um efeito primário sobre $GJ_{eff}$ e secundário sobre $EI$. Consequentemente, espera-se que as duas configurações estudadas apresentem diferenças mais pronunciadas nas frequências dos modos de torção do que nas frequências dos modos de flexão --- hipótese que será testada com base nos resultados numéricos apresentados no Capítulo \ref{chap:resultados}.
 
 \chapter{O Avião Antonov AN-124}
+\label{chap:an124}
 
 \section{Descrição Geral e Características}
 
-O Antonov AN-124 \textit{Ruslan} é uma aeronave de transporte estratégico pesado de grande porte, desenvolvida pelo Bureau de Projeto Antonov na então União Soviética durante a década de 1970, com o seu primeiro voo a ocorrer em 26 de dezembro de 1982 \cite{Gordon2008}. Foi concebida para responder às necessidades militares soviéticas de transporte de equipamentos e sistemas de armamento de grande dimensão e peso, tendo posteriormente encontrado uma vasta aplicação no mercado civil de carga aérea pesada, onde continua a ser uma das aeronaves com maior capacidade de carga do mundo \cite{GarciaFernandez2025}.
+O Antonov AN-124 \textit{Ruslan} é uma aeronave de transporte estratégico pesado de grande porte, desenvolvida pelo Bureau de Projeto Antonov na então União Soviética, com o seu primeiro voo a ocorrer em 26 de dezembro de 1982 \cite{Gordon2008}. Foi concebida para o transporte de equipamentos de grande dimensão e peso, tendo posteriormente encontrado vasta aplicação no mercado civil de carga aérea pesada, onde continua a ser uma das aeronaves com maior capacidade de carga do mundo \cite{GarciaFernandez2025}. As principais características gerais da aeronave são apresentadas na Tabela \ref{tab:an124_specs}.
 
-As principais características gerais da aeronave são apresentadas na Tabela \ref{tab:an124_specs}.
-
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Características gerais do Antonov AN-124-100 
 \cite{Gordon2008, GarciaFernandez2025}.}
@@ -801,24 +643,23 @@ As principais características gerais da aeronave são apresentadas na Tabela \r
 \toprule
 \textbf{Parâmetro} & \textbf{Valor} \\
 \midrule
-Comprimento total & \SI{69.1}{\meter} \\
-Envergadura total & \SI{73.3}{\meter} \\
-Altura & \SI{21.1}{\meter} \\
-Área alar & \SI{628}{\meter\squared} \\
-Peso máximo à descolagem (MTOW) & \SI{405000}{\kilo\gram} \\
-Carga útil máxima & \SI{150000}{\kilo\gram} \\
-Velocidade de cruzeiro & \SI{865}{\kilo\meter\per\hour} \\
-Altitude de cruzeiro & \SI{12000}{\meter} \\
-Alcance máximo (com carga máx.) & \SI{5400}{\kilo\meter} \\
-Motorização & 4 $\times$ ZMKB Progress D-18T \\
-Empuxo por motor & \SI{229.5}{\kilo\newton} \\
+Comprimento total           & \SI{69.1}{\meter} \\
+Envergadura total           & \SI{73.3}{\meter} \\
+Altura                      & \SI{21.1}{\meter} \\
+Área alar                   & \SI{628}{\meter\squared} \\
+Peso máximo à descolagem    & \SI{405000}{\kilo\gram} \\
+Carga útil máxima           & \SI{150000}{\kilo\gram} \\
+Velocidade de cruzeiro      & \SI{865}{\kilo\meter\per\hour} \\
+Altitude de cruzeiro        & \SI{12000}{\meter} \\
+Alcance (com carga máxima)  & \SI{5400}{\kilo\meter} \\
+Motorização                 & 4 $\times$ ZMKB Progress D-18T \\
+Empuxo por motor            & \SI{229.5}{\kilo\newton} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-% FIGURA: Vista geral do Antonov AN-124 (fotografia ou desenho 
-% de 3 vistas — planta, perfil e frontal)
-\begin{figure}[h!]
+% FIGURA: Vista geral do Antonov AN-124
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/an124_geral.png}
     \caption{Vista geral do Antonov AN-124 \textit{Ruslan} 
@@ -828,44 +669,33 @@ Empuxo por motor & \SI{229.5}{\kilo\newton} \\
 
 \section{Geometria e Estrutura da Asa}
 
-A asa do AN-124 é uma asa de geometria trapezoidal em planta, com enflechamento do bordo de ataque de $\Lambda = \qty{25}{\degree}$ e perfil aerodinâmico da família TsAGI de 12\% de espessura relativa, desenvolvido pelo Instituto Central de Aerodinâmica e Hidrodinâmica (\textit{Tsentralny Aerogidrodinamichesky Institut}, TsAGI) da antiga União Soviética \cite{Gordon2008, GarciaFernandez2025}. O perfil TsAGI é simétrico e a asa não apresenta torção geométrica (\textit{washout}), mantendo o plano médio do perfil constante ao longo de toda a envergadura.
+A asa do AN-124 é de geometria trapezoidal em planta, com enflechamento do bordo de ataque de $\Lambda = \ang{25}$ e perfil aerodinâmico da família TsAGI de 12\% de espessura relativa, desenvolvido pelo Instituto Central de Aerodinâmica e Hidrodinâmica (\textit{Tsentralny Aerogidrodinamichesky Institut}, TsAGI) da antiga União Soviética \cite{Gordon2008, GarciaFernandez2025}. O perfil TsAGI é simétrico e a asa não apresenta torção geométrica (\textit{washout}), mantendo o plano médio do perfil constante ao longo de toda a envergadura. As principais características geométricas são apresentadas na Tabela \ref{tab:asa_specs}.
 
-As principais características geométricas da asa real são apresentadas na Tabela \ref{tab:asa_specs}.
-
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Características geométricas da asa do Antonov AN-124 
-\cite{GarciaFernandez2025, Gordon2008}.}
+\caption{Características geométricas da asa do Antonov 
+AN-124 \cite{GarciaFernandez2025, Gordon2008}.}
 \label{tab:asa_specs}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{p{5.5cm} X}
 \toprule
 \textbf{Parâmetro} & \textbf{Valor} \\
 \midrule
-Envergadura total & \SI{73.3}{\meter} \\
-Semi-envergadura & \SI{36.65}{\meter} \\
-Corda na raiz & \SI{10.0}{\meter} \\
-Corda na ponta & \SI{3.5}{\meter} \\
-Razão de afilamento $\lambda$ & $0.35$ \\
-Ângulo de enflechamento $\Lambda$ & $\qty{25}{\degree}$ \\
+Envergadura total               & \SI{73.3}{\meter} \\
+Semi-envergadura                & \SI{36.65}{\meter} \\
+Corda na raiz                   & \SI{10.0}{\meter} \\
+Corda na ponta                  & \SI{3.5}{\meter} \\
+Razão de afilamento $\lambda$   & $0.35$ \\
+Ângulo de enflechamento $\Lambda$ & $\ang{25}$ \\
 Alongamento (\textit{aspect ratio}) $AR$ & $8.57$ \\
-Perfil aerodinâmico & TsAGI 12\% \\
-Torção geométrica & Nenhuma \\
+Perfil aerodinâmico             & TsAGI 12\% \\
+Torção geométrica               & Nenhuma \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-O alongamento da asa, definido como:
-
-\begin{equation}
-    AR = \frac{b^2}{S} = \frac{73.3^2}{628} \approx 8.57
-    \label{eq:aspect_ratio}
-\end{equation}
-
-\noindent onde $b$ é a envergadura total e $S$ é a área alar, é um valor moderado para uma aeronave de transporte pesado, refletindo o compromisso entre eficiência aerodinâmica (\textit{lift-to-drag ratio}) e rigidez estrutural alar \cite{Raymer2018}. Asas de maior alongamento são aerodinamicamente mais eficientes mas estruturalmente mais flexíveis, apresentando frequências naturais de flexão mais baixas e maior suscetibilidade a fenómenos aeroelásticos \cite{Wright2015}.
-
 % FIGURA: Planta da asa do AN-124 com dimensões principais
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/an124_asa_planta.png}
     \caption{Planta da asa do Antonov AN-124 com as principais 
@@ -873,98 +703,102 @@ O alongamento da asa, definido como:
     \label{fig:an124_asa_planta}
 \end{figure}
 
-\subsection{Estrutura Interna da Asa}
-
-A estrutura interna da asa do AN-124 segue a filosofia construtiva clássica das asas de aeronaves de transporte de grande porte, baseada numa caixa alar (\textit{wing box}) resistente, constituída por longarinas, nervuras e revestimento \cite{Niu1988, Megson2012}. Esta caixa alar é o elemento estrutural primário da asa, responsável pela resistência aos momentos fletores, às forças de corte e aos momentos de torção induzidos pelas cargas aerodinâmicas e inerciais \cite{Megson2012}.
-
-Os principais componentes estruturais da asa são:
-
-\begin{itemize}
-    \item \textbf{Longarinas (\textit{spars})}: elementos longitudinais orientados segundo a direção da envergadura, que constituem as paredes verticais da caixa alar e são os principais responsáveis pela resistência ao momento fletor e à força de corte. A asa do AN-124 possui duas longarinas principais \cite{GarciaFernandez2025};
-
-    \item \textbf{Nervuras (\textit{ribs})}: elementos transversais que mantêm a forma do perfil aerodinâmico ao longo da envergadura, transmitem as cargas de pressão aerodinâmica às longarinas e estabilizam o revestimento contra encurvadura local. A orientação das nervuras é a variável de estudo central deste trabalho, conforme detalhado no Capítulo \ref{chap:variavel};
-
-    \item \textbf{Revestimento (\textit{skin})}: painéis de parede fina que formam a superfície exterior da asa, contribuindo para a rigidez torsional da caixa alar através do efeito de \textit{shear flow} e resistindo às tensões de membrana induzidas pela pressão aerodinâmica \cite{Megson2012}.
-\end{itemize}
+O alongamento da asa, definido como $AR = b^2/S = 73.3^2/628 \approx 8.57$, é um valor moderado para uma aeronave de transporte pesado, refletindo o compromisso entre eficiência aerodinâmica e rigidez estrutural alar \cite{Raymer2018}. A estrutura interna da asa segue a filosofia construtiva clássica das aeronaves de transporte de grande porte, baseada numa caixa alar (\textit{wing box}) constituída por longarinas, nervuras e revestimento, sendo estes componentes descritos em detalhe no Capítulo \ref{chap:modelacao} \cite{Niu1988, Megson2012}.
 
 \section{Dados Estruturais Relevantes para a Modelação}
 
-Para efeitos de modelação numérica, a geometria real da asa do AN-124 foi sujeita a um conjunto de simplificações e adaptações, descritas em detalhe no Capítulo \ref{chap:modelacao}. A Tabela \ref{tab:modelo_vs_real} apresenta uma comparação entre as dimensões da asa real e as do modelo numérico utilizado neste trabalho, evidenciando as principais diferenças introduzidas pela redução de escala.
+Para efeitos de modelação numérica, a geometria real da asa foi sujeita a um conjunto de simplificações e adaptações descritas em detalhe no Capítulo \ref{chap:modelacao}. A Tabela \ref{tab:modelo_vs_real} apresenta a comparação entre as dimensões da asa real e as do modelo numérico, evidenciando as principais diferenças introduzidas pela redução de escala.
 
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Comparação entre a geometria da asa real do AN-124 e o 
-modelo numérico utilizado neste trabalho.}
+\caption{Comparação entre a geometria da asa real do AN-124 
+e o modelo numérico utilizado neste trabalho.}
 \label{tab:modelo_vs_real}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{p{4.5cm} X X}
 \toprule
-\textbf{Parâmetro} & \textbf{Asa real} & \textbf{Modelo numérico} \\
+\textbf{Parâmetro} & \textbf{Asa real} & 
+\textbf{Modelo numérico} \\
 \midrule
-Semi-envergadura        & \SI{36.65}{\meter}    & \SI{4.0}{\meter} \\
-Corda na raiz           & \SI{10.0}{\meter}     & \SI{2.0}{\meter} \\
-Corda na ponta          & \SI{3.5}{\meter}      & \SI{0.7}{\meter} \\
-Razão de afilamento     & $0.35$                & $0.35$ \\
-Ângulo de enflechamento & $\qty{25}{\degree}$   & $\qty{25}{\degree}$ \\
-Perfil aerodinâmico     & TsAGI 12\%            & TsAGI 12\% \\
-Torção geométrica       & Nenhuma               & Nenhuma \\
-Material & Ligas Al série 2000/7000 & Al 2024-T3 (\textit{skin}), Al 7075-T6 (\textit{spars} e \textit{ribs}) \\
-Escala                  & 1:1                   & $\approx$ 1:9 \\
+Semi-envergadura        
+    & \SI{36.65}{\meter}   & \SI{4.0}{\meter} \\
+Corda na raiz           
+    & \SI{10.0}{\meter}    & \SI{2.0}{\meter} \\
+Corda na ponta          
+    & \SI{3.5}{\meter}     & \SI{0.7}{\meter} \\
+Razão de afilamento     
+    & $0.35$               & $0.35$ \\
+Ângulo de enflechamento 
+    & $\ang{25}$                & $\ang{25}$ \\
+Perfil aerodinâmico     
+    & TsAGI 12\%           & TsAGI 12\% \\
+Torção geométrica       
+    & Nenhuma              & Nenhuma \\
+Material                
+    & Ligas Al série 2000/7000 
+    & Al 2024-T3 (\textit{skin}), 
+      Al 7075-T6 (\textit{spars} e \textit{ribs}) \\
+Escala                  
+    & 1:1                  & $\approx$ 1:9 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-A redução de escala foi aplicada de forma proporcional a todas asdimensões lineares da asa, preservando a razão de afilamento$\lambda = 0.35$, o ângulo de enflechamento $\Lambda = \qty{25}{\degree}$ e asrelações geométricas relativas entre os componentes estruturais.Esta abordagem garante que os modos de vibração obtidos no modeloreduzido são geometricamente semelhantes aos da asa real, emboraas frequências naturais absolutas sejam diferentes devido àdiferença de escala \cite{Craig2006}. Com efeito, para estruturasgeometricamente semelhantes com o mesmo material, a frequêncianatural escala inversamente com a dimensão linear característica:
+A redução de escala foi aplicada de forma proporcional a todas as dimensões lineares, preservando a razão de afilamento, o ângulo de enflechamento e as relações geométricas relativas entre os componentes estruturais. Para estruturas geometricamente semelhantes com o mesmo material, a frequência natural escala inversamente com a dimensão linear característica \cite{Craig2006}:
 
 \begin{equation}
-    \frac{f_{modelo}}{f_{real}} = \frac{L_{real}}{L_{modelo}} 
-    \approx \frac{36.65}{4.0} \approx 9.16
+    \frac{f_{modelo}}{f_{real}} = 
+    \frac{L_{real}}{L_{modelo}} \approx 
+    \frac{36.65}{4.0} \approx 9.16
     \label{eq:escala_freq}
 \end{equation}
 
-\noindent o que significa que as frequências naturais do modelo são aproximadamente 9 vezes superiores às da asa real. Esta diferença é expectável e não compromete a validade do estudo comparativo entre as duas configurações de nervuras, uma vez que o objetivo do trabalho é avaliar a influência relativa da orientação das nervuras sobre as frequências naturais e formas modais, e não reproduzir os valores absolutos da aeronave real \cite{Dowell2004}.
+As frequências naturais do modelo são assim aproximadamente 9 vezes superiores às da asa real. Esta diferença é expectável e não compromete a validade do estudo comparativo entre as duas configurações de nervuras, uma vez que o objetivo é avaliar a influência \textit{relativa} da orientação das nervuras sobre as frequências naturais e formas modais, e não reproduzir os valores absolutos da aeronave real \cite{Dowell2004}.
 
 \chapter{Modelação da Asa}
 \label{chap:modelacao}
 
 \section{Simplificações e Hipóteses de Modelação}
+\label{sec:simplificacoes}
 
-A modelação numérica de uma estrutura aeronáutica de grande porte envolve inevitavelmente um conjunto de simplificações e hipóteses que visam equilibrar a fidelidade física do modelo com a viabilidade computacional da análise. No presente trabalho, as simplificações adotadas foram orientadas pelo objetivo central do estudo --- a comparação do comportamento modal de duas configurações de nervuras --- e não pela reprodução exata do comportamento estrutural da aeronave real \cite{Dowell2004}.
-
-As principais simplificações e hipóteses adotadas são as seguintes:
+A modelação numérica de uma estrutura aeronáutica de grande porte envolve inevitavelmente um conjunto de simplificações que visam equilibrar a fidelidade física do modelo com a viabilidade computacional da análise. No presente trabalho, as simplificações adotadas foram orientadas pelo objetivo central do estudo --- a comparação do comportamento modal de duas configurações de nervuras --- e não pela reprodução exata do comportamento estrutural da aeronave real \cite{Dowell2004}. As principais simplificações adotadas são as seguintes:
 
 \begin{itemize}
-    \item \textbf{Redução de escala}: a semi-envergadura da asa foi reduzida de \SI{36.65}{\meter} para \SI{4.0}{\meter}, mantendo todas as relações geométricas relativas constantes (razão de afilamento $\lambda = 0.35$, ângulo de enflechamento $\Lambda = \qty{25}{\degree}$, perfil TsAGI 12\%). Esta redução, de fator aproximadamente 9, permite reduzir substancialmente o número de elementos da malha e os tempos de computação, sem comprometer a validade qualitativa dos resultados modais, conforme discutido na Secção \ref{sec:dados_estruturais};
+    \item \textbf{Redução de escala}: a semi-envergadura foi reduzida de \SI{36.65}{\meter} para \SI{4.0}{\meter}, mantendo todas as relações geométricas relativas constantes, conforme discutido no Capítulo \ref{chap:an124};
 
-    \item \textbf{Discretização com elementos de casca 2D}: toda a estrutura --- revestimento, longarinas e nervuras --- foi modelada com elementos de casca CQUAD8, cuja formulação e adequação à modelação de estruturas de parede fina foram discutidas na Secção \ref{sec:analise_modal_aero}. Esta abordagem é a norma em análises modais de estruturas alares em ambiente industrial e académico \cite{Nastran2014, Cook2001};
+    \item \textbf{Discretização com elementos de casca 2D}: toda a estrutura foi modelada com elementos CQUAD8, cuja formulação e adequação foram descritas na Secção \ref{sec:analise_modal_aero};
 
-    \item \textbf{Corte do bordo de fuga}: a zona do bordo de fuga foi truncada a \SI{45}{\milli\meter} do bordo de fuga real, e a secção resultante foi fechada com um painel plano. Esta simplificação é justificada pelo facto de o bordo de fuga apresentar espessura muito reduzida do perfil TsAGI, o que geraria elementos de malha com elevada razão de aspeto e consequente degradação da qualidade numérica da solução. A contribuição desta zona para a rigidez e massa globais da estrutura é negligenciável \cite{Bathe2014};
+    \item \textbf{Corte do bordo de fuga}: a zona do bordo de fuga foi truncada a \SI{45}{\milli\meter} do bordo de fuga real e a secção resultante foi fechada com um painel plano. Esta simplificação evita elementos de malha com elevada razão de aspeto na zona de espessura muitoeduzida do perfil TsAGI, sem impacto significativo na rigidez e massa globais \cite{Bathe2014};
 
-    \item \textbf{Ausência de elementos de ligação}: no modelo simplificado, a conectividade entre nervuras, longarinas e revestimento é garantida pela partilha de nós entre elementos adjacentes (ligação rígida implícita), não sendo modelados os elementos de ligação reais (rebites, cantoneiras, \textit{cleats}). Esta simplificação é comum em modelos de análise modal global e tem impacto reduzido nas frequências dos modos de baixa ordem \cite{Wright2015};
+    \item \textbf{Ausência de elementos de ligação}: a conectividade entre nervuras, longarinas e revestimento é garantida pela partilha de nós entre elementos adjacentes (ligação rígida implícita), não sendo modelados os elementos de ligação reais (rebites, cantoneiras). Esta simplificação é comum em modelos de análise modal global \cite{Wright2015};
 
-    \item \textbf{Ausência de massa não estrutural}: a massa de combustível, sistemas hidráulicos, actuadores e revestimentos não estruturais não foi incluída no modelo. Esta simplificação tende a sobrestimar as frequências naturais relativamente à aeronave real, mas não afeta a validade comparativa dos resultados entre as duas configurações estudadas \cite{Craig2006};
+    \item \textbf{Ausência de massa não estrutural}: a massa de combustível, sistemas e equipamentos não foi incluída, tendendo a sobrestimar as frequências naturais relativamente à aeronave real \cite{Craig2006};
 
-    \item \textbf{Condição de encastramento na raiz}: a ligação asa-fuselagem foi modelada como um encastramento perfeito, restringindo todos os graus de liberdade dos nós da nervura de raiz. Esta condição ignora a flexibilidade da fuselagem e da junta asa-fuselagem, sobrestimando ligeiramente as frequências naturais \cite{Hodges2011}.
+    \item \textbf{Encastramento na raiz}: a ligação asa-fuselagem foi modelada como encastramento perfeito, ignorando a flexibilidade da fuselagem e da junta estrutural, o que sobrestima ligeiramente as frequências naturais \cite{Hodges2011}.
 \end{itemize}
 
 \section{Definição da Geometria}
 
 \subsection{Processo de Modelação}
 
-A geometria da asa foi inicialmente construída em \textit{SolidWorks}, com base nas dimensões reais do Antonov AN-124 escaladas para o modelo reduzido, e posteriormente importada para o NX Siemens para a definição da malha de elementos finitos e a execução da análise modal. O processo de modelação seguiu a seguinte sequência:
+A geometria da asa foi inicialmente construída em \textit{SolidWorks}, com base nas dimensões reais do Antonov AN-124 escaladas para o modelo reduzido, e posteriormente importada para o NX Siemens para a definição da malha de elementos finitos e execução da análise modal. O processo de modelação seguiu a seguinte sequência:
 
 \begin{enumerate}
     \item Definição do perfil aerodinâmico TsAGI 12\% nas secções de raiz e ponta, com cordas de \SI{2000}{\milli\meter} e \SI{700}{\milli\meter}, respetivamente;
-    \item Geração da superfície do revestimento (\textit{skin}) por interpolação entre os dois perfis, com aplicação do ângulo de enflechamento de $\qty{25}{\degree}$;
+
+    \item Geração da superfície do revestimento por interpolação entre os dois perfis, com aplicação do ângulo de enflechamento de $\ang{25}$;
+
     \item Definição das longarinas dianteira e traseira como superfícies planas interiores à caixa alar;
+
     \item Truncagem do bordo de fuga a \SI{45}{\milli\meter} e fecho da secção com um painel plano;
+
     \item Definição das nervuras nas duas configurações estudadas, conforme descrito no Capítulo \ref{chap:variavel};
+
     \item Importação da geometria para o NX Siemens e conversão das superfícies em entidades de elementos finitos.
 \end{enumerate}
 
-% FIGURA: Vista geral da asa modelada no SolidWorks (perspetiva 
-% isométrica mostrando a estrutura interna)
-\begin{figure}[h!]
+% FIGURA: Vista geral da asa modelada no SolidWorks
+\begin{figure}
     \centering
     %\includegraphics[width=0.85\textwidth]{figures/asa_solidworks.png}
     \caption{Vista da estrutura interna da asa modelada no SolidWorks, mostrando o revestimento, as longarinas e as nervuras da Configuração A. O revestimento superior foi omitido para permitir a visualização da estrutura interna.}
@@ -973,9 +807,9 @@ A geometria da asa foi inicialmente construída em \textit{SolidWorks}, com base
 
 \subsection{Geometria da Caixa Alar}
 
-A caixa alar é definida pelos seguintes elementos geométricos, cujas dimensões são apresentadas na Tabela \ref{tab:geom_caixa_alar}:
+A caixa alar é definida pelos parâmetros geométricos apresentados na Tabela \ref{tab:geom_caixa_alar}. A spar dianteira está posicionada a 25\% da corda local e a spar traseira a 70\% da corda local, definindo uma caixa alar com largura de 45\% da corda, constante ao longo da envergadura \cite{Niu1988}.
 
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Dimensões geométricas principais do modelo da asa.}
 \label{tab:geom_caixa_alar}
@@ -984,81 +818,54 @@ A caixa alar é definida pelos seguintes elementos geométricos, cujas dimensõe
 \toprule
 \textbf{Parâmetro} & \textbf{Valor} \\
 \midrule
-Semi-envergadura                    & \SI{4000}{\milli\meter} \\
-Corda na raiz                       & \SI{2000}{\milli\meter} \\
-Corda na ponta                      & \SI{700}{\milli\meter}  \\
-Razão de afilamento $\lambda$       & $0.35$ \\
-Ângulo de enflechamento $\Lambda$   & $\qty{25}{\degree}$ \\
-Posição da spar dianteira           & \SI{500}{\milli\meter} do bordo de ataque \\
-Posição da spar traseira            & \SI{600}{\milli\meter} do bordo de fuga \\
-Corte do bordo de fuga              & \SI{45}{\milli\meter} do bordo de fuga \\
-Espessura do \textit{skin}          & \SI{2}{\milli\meter} \\
-Espessura das longarinas            & \SI{4}{\milli\meter}\footnotemark \\
-Espessura das nervuras              & \SI{10}{\milli\meter} \\
+Semi-envergadura                    
+    & \SI{4000}{\milli\meter} \\
+Corda na raiz                       
+    & \SI{2000}{\milli\meter} \\
+Corda na ponta                      
+    & \SI{700}{\milli\meter} \\
+Razão de afilamento $\lambda$       
+    & $0.35$ \\
+Ângulo de enflechamento $\Lambda$   
+    & $\ang{25}$ \\
+Posição da spar dianteira           
+    & \SI{500}{\milli\meter} do bordo de ataque (25\% da corda) \\
+Posição da spar traseira            
+    & \SI{600}{\milli\meter} do bordo de fuga (70\% da corda) \\
+Corte do bordo de fuga              
+    & \SI{45}{\milli\meter} do bordo de fuga \\
+Espessura do \textit{skin}          
+    & \SI{2}{\milli\meter} \\
+Espessura das longarinas            
+    & \SI{4}{\milli\meter}\footnotemark \\
+Espessura das nervuras              
+    & \SI{10}{\milli\meter} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\footnotetext{Valor a confirmar com base nos ficheiros de modelação no NX Siemens.}
-
-A largura da caixa alar --- distância entre a spar dianteira e a spar traseira --- varia ao longo da envergadura em função do afilamento da corda. Na raiz, a largura da caixa alar é:
-
-\begin{equation}
-    w_{root} = c_{root} - d_{LE} - d_{TE} = 
-    2000 - 500 - 600 = \SI{900}{\milli\meter}
-    \label{eq:largura_caixa_raiz}
-\end{equation}
-
-\noindent e na ponta:
-
-\begin{equation}
-    w_{tip} = c_{tip} - d_{LE} \cdot \lambda - d_{TE} \cdot \lambda 
-    = 700 - 500\times\frac{700}{2000} - 600\times\frac{700}{2000} 
-    = \SI{315}{\milli\meter}
-    \label{eq:largura_caixa_ponta}
-\end{equation}
-
-\noindent onde $d_{LE} = \SI{500}{\milli\meter}$ e $d_{TE} = \SI{600}{\milli\meter}$ são as distâncias da spar dianteira ao bordo de ataque e da spar traseira ao bordo de fuga, respetivamente, medidas na raiz. Uma vez que as relações geométricas são constantes ao longo da envergadura, as posições relativas das spars em percentagem da corda local são:
-
-\begin{equation}
-    \frac{d_{LE}}{c_{root}} = \frac{500}{2000} = 25\%, \qquad
-    \frac{d_{TE}}{c_{root}} = \frac{600}{2000} = 30\%
-    \label{eq:posicao_spars}
-\end{equation}
-
-\noindent o que significa que a spar dianteira se encontra a 25\% da corda e a spar traseira a 70\% da corda (i.e., $100\% - 30\% = 70\%$), definindo uma caixa alar com largura de 45\% da corda local, constante ao longo da envergadura \cite{Niu1988}.
+\footnotetext{Valor a confirmar com base nos ficheiros de 
+modelação no NX Siemens.}
 
 \section{Materiais e Propriedades Estruturais}
 
-Conforme descrito na Secção \ref{sec:analise_modal_aero}, foram utilizadas duas ligas de alumínio distintas na modelação, atribuídas a diferentes componentes estruturais de acordo com a prática construtiva real de aeronaves de grande porte \cite{Megson2012}:
+Os materiais utilizados na modelação foram descritos em detalhe na Secção \ref{sec:analise_modal_aero}, onde as suas propriedades mecânicas são apresentadas na Tabela \ref{tab:materiais}. A atribuição de materiais a cada componente estrutural é resumida na Tabela \ref{tab:material_componentes}.
 
-\begin{itemize}
-    \item \textbf{Al 2024-T3}: atribuído ao revestimento 
-    (\textit{skin}), com $E = \SI{73.1}{\giga\pascal}$, 
-    $\nu = 0.33$ e $\rho = \SI{2780}{\kilo\gram\per\cubic\meter}$;
-    \item \textbf{Al 7075-T6}: atribuído às longarinas 
-    (\textit{spars}) e nervuras (\textit{ribs}), com 
-    $E = \SI{71.7}{\giga\pascal}$, $\nu = 0.33$ e 
-    $\rho = \SI{2810}{\kilo\gram\per\cubic\meter}$.
-\end{itemize}
-
-No NX Nastran, as propriedades de cada material são definidas através de cartões MAT1 (material isotrópico linear elástico), e as espessuras dos elementos de casca são definidas através de cartões PSHELL, associados às respetivas propriedades geométricas e de material \cite{Nastran2014}. A Tabela \ref{tab:material_componentes} resume a atribuição de materiais e espessuras a cada componente estrutural do modelo.
-
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Atribuição de materiais e espessuras aos componentes 
-estruturais do modelo.}
+\caption{Atribuição de materiais e espessuras aos 
+componentes estruturais do modelo.}
 \label{tab:material_componentes}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabularx}{\textwidth}{p{3.5cm} p{3cm} p{2cm} X}
+\begin{tabularx}{\textwidth}{p{3cm} p{3cm} p{2cm} X}
 \toprule
 \textbf{Componente} & \textbf{Material} & 
 \textbf{Espessura} & \textbf{Função estrutural} \\
 \midrule
-\textit{Skin} superior e inferior & Al 2024-T3 & 
+\textit{Skin} & Al 2024-T3 & 
     \SI{2}{\milli\meter} & 
     Resistência à torção e cargas de membrana \\
 \textit{Spars} & Al 7075-T6 & 
-    \SI{4}{\milli\meter}\footnotemark & 
+    \SI{4}{\milli\meter}\footnotemark &
     Resistência ao momento fletor e corte \\
 \textit{Ribs} & Al 7075-T6 & 
     \SI{10}{\milli\meter} & 
@@ -1069,27 +876,28 @@ estruturais do modelo.}
 \footnotetext{Valor a confirmar com base nos ficheiros de 
 modelação no NX Siemens.}
 
-\section{Malha de Elementos Finitos e Condições de Fronteira}
+No NX Nastran, as propriedades de cada material são definidas através de cartões MAT1 (material isotrópico linear elástico), e as espessuras dos elementos de casca através de cartões PSHELL \cite{Nastran2014}.
+
+\section{Malha de Elementos Finitos e Condições de 
+Fronteira}
+\label{sec:cond_fronteira}
 
 \subsection{Malha de Elementos Finitos}
 
-A malha de elementos finitos foi gerada no NX Siemens, utilizando exclusivamente elementos de casca quadrilaterais de segunda ordem do tipo \textbf{CQUAD8}, cuja formulação foi descrita na Secção \ref{sec:analise_modal_aero}. A geração da malha em superfícies de geometria complexa, como o perfil TsAGI, exige um cuidado particular na definição do tamanho dos elementos e na transição entre zonas de diferente complexidade geométrica \cite{Bathe2014}.
+A malha foi gerada no NX Siemens utilizando exclusivamente elementos CQUAD8, descritos na Secção \ref{sec:analise_modal_aero}. A qualidade da malha foi verificada através dos critérios disponíveis no NX Siemens, nomeadamente a razão de aspeto, o ângulo interno mínimo e máximo, e o critério de distorção de Jacobiano. Elementos com razão de aspeto superior a 5 ou com ângulos internos fora do intervalo $[\ang{45}, \ang{135}]$ foram identificados e corrigidos \cite{Bathe2014, Cook2001}.
 
-% FIGURA: Vista da malha de elementos finitos no NX Siemens
-\begin{figure}[h!]
+% FIGURA: Vista da malha de elementos finitos no NX
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/malha_nx.png}
-    \caption{Vista da malha de elementos finitos CQUAD8 gerada 
-    no NX Siemens para a Configuração A. O número total de 
-    elementos e nós é apresentado na Tabela 
-    \ref{tab:malha_stats}.}
+    \caption{Vista da malha de elementos finitos CQUAD8 gerada no NX Siemens para a Configuração A.}
     \label{fig:malha_nx}
 \end{figure}
 
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Estatísticas da malha de elementos finitos para cada 
-configuração.}
+\caption{Estatísticas da malha de elementos finitos para 
+cada configuração.}
 \label{tab:malha_stats}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{p{4.5cm} X X}
@@ -1097,23 +905,21 @@ configuração.}
 \textbf{Parâmetro} & \textbf{Configuração A} & 
 \textbf{Configuração B} \\
 \midrule
-Tipo de elemento        & CQUAD8    & CQUAD8 \\
-Nº de elementos         & \texttt{[a preencher]}  
-                        & \texttt{[a preencher]} \\
-Nº de nós               & \texttt{[a preencher]}  
-                        & \texttt{[a preencher]} \\
-Nº de graus de liberdade & \texttt{[a preencher]} 
-                        & \texttt{[a preencher]} \\
-Nº de nervuras          & 13        & 10 \\
+Tipo de elemento        & CQUAD8 & CQUAD8 \\
+Nº de elementos         
+    & \texttt{[preencher]} & \texttt{[preencher]} \\
+Nº de nós               
+    & \texttt{[preencher]} & \texttt{[preencher]} \\
+Nº de graus de liberdade 
+    & \texttt{[preencher]} & \texttt{[preencher]} \\
+Nº de nervuras          & 13     & 10 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-A qualidade da malha foi verificada através dos critérios de qualidade de elementos disponíveis no NX Siemens, nomeadamente a razão de aspeto (\textit{aspect ratio}), o ângulo interno mínimo e máximo, e o critério de distorção de Jacobiano. Elementos com razão de aspeto superior a 5 ou com ângulos internos fora do intervalo $[\qty{45}{\degree}, \qty{135}{\degree}]$ foram identificados e corrigidos, de modo a garantir a precisão numérica da análise modal \cite{Bathe2014, Cook2001}.
-
 \subsection{Condições de Fronteira}
 
-A única condição de fronteira aplicada ao modelo é o \textbf{encastramento na raiz} da asa, que simula a ligação rígida entre a asa e a fuselagem da aeronave. Esta condição foi implementada no NX Nastran através da restrição de todos os graus de liberdade --- três translações ($u_x$, $u_y$, $u_z$) e três rotações ($\theta_x$, $\theta_y$, $\theta_z$) --- de todos os nós pertencentes à nervura de raiz (\textit{root rib}), utilizando cartões SPC (\textit{Single Point Constraint}) \cite{Nastran2014}:
+A única condição de fronteira aplicada ao modelo é o \textbf{encastramento na raiz}, implementado no NX Nastran através da restrição de todos os graus de liberdade dos nós da nervura de raiz, utilizando cartões SPC (\textit{Single Point Constraint}) \cite{Nastran2014}:
 
 \begin{equation}
     u_x = u_y = u_z = \theta_x = \theta_y = \theta_z = 0, 
@@ -1121,22 +927,21 @@ A única condição de fronteira aplicada ao modelo é o \textbf{encastramento n
     \label{eq:spc}
 \end{equation}
 
-\noindent onde $\mathcal{N}_{root}$ denota o conjunto de nós da nervura de raiz. Nenhuma outra condição de fronteira foi aplicada --- todos os restantes nós do modelo são livres, simulando a condição de asa em consola (\textit{cantilever wing}) \cite{Bisplinghoff1996}.
+\noindent onde $\mathcal{N}_{root}$ denota o conjunto de nós da nervura de raiz. Todos os restantes nós do modelo são livres, simulando a condição de asa em consola (\textit{cantilever wing}) \cite{Bisplinghoff1996}.
 
-% FIGURA: Vista da condição de fronteira no NX — nervura de 
-% raiz com os símbolos de encastramento visíveis
-\begin{figure}[h!]
+% FIGURA: Condição de fronteira no NX
+\begin{figure}
     \centering
     % \includegraphics[width=0.75\textwidth]{figures/bc_nx.png}
-    \caption{Condição de fronteira de encastramento aplicada à nervura de raiz no NX Nastran. Os símbolos representam a restrição de todos os graus de liberdade dos nós da secção de raiz.}
+    \caption{Condição de fronteira de encastramento aplicada à nervura de raiz no NX Nastran.}
     \label{fig:bc_nx}
 \end{figure}
 
-\subsection{Configuração da Análise Modal no NX Nastran}
+\subsection{Configuração da Análise Modal}
 
-A análise modal foi executada no NX Nastran através da solução sequencial \textbf{SOL 103} (\textit{Real Eigenvalue Analysis}), com o método de Lanczos como algoritmo de extração de valores próprios, conforme descrito na Secção \ref{sec:analise_modal_aero}. Os parâmetros de controlo da análise são apresentados na Tabela \ref{tab:sol103}.
+A análise modal foi executada através da solução \textbf{SOL 103} do NX Nastran, com o método de Lanczos como algoritmo de extração de valores próprios, conforme descrito na Secção \ref{sec:freq_naturais}. Os parâmetros de controlo são apresentados na Tabela \ref{tab:sol103}.
 
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Parâmetros de controlo da análise modal SOL 103 
 no NX Nastran.}
@@ -1146,55 +951,50 @@ no NX Nastran.}
 \toprule
 \textbf{Parâmetro} & \textbf{Valor} \\
 \midrule
-Solução                         & SOL 103 \\
-Método de extração              & Lanczos \\
-Número de modos calculados      & 10 \\
-Gama de frequências             & $0$ -- \SI{10000}{\hertz} \\
-Normalização dos vetores próprios & Pela massa ($m_i = 1$) \\
-Amortecimento estrutural        & Não considerado \\
+Solução                             & SOL 103 \\
+Método de extração                  & Lanczos \\
+Número de modos calculados          & 10 \\
+Gama de frequências                 
+    & $0$ -- \SI{10000}{\hertz} \\
+Normalização dos vetores próprios   
+    & Pela massa ($m_i = 1$) \\
+Amortecimento estrutural            & Não considerado \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-A normalização dos vetores próprios pela massa, adotada por defeito no NX Nastran, garante que as massas modais generalizadas são unitárias ($m_i = 1$), e que as rigidezes modais generalizadas são numericamente iguais ao quadrado das frequências naturais ($k_i = \omega_i^2$), conforme a Equação \eqref{eq:massas_rigidezes_modais}. Esta convenção facilita a interpretação dos resultados e a comparação entre os modos das duas configurações \cite{Nastran2014, Craig2006}.
+A normalização pela massa garante que as massas modais generalizadas são unitárias ($m_i = 1$) e que as rigidezes modais generalizadas são numericamente iguais ao quadrado das frequências naturais ($k_i = \omega_i^2$), conforme a Equação \eqref{eq:massas_rigidezes_modais}, facilitando a comparação entre os modos das duas configurações \cite{Nastran2014, Craig2006}.
 
 \chapter{Variável de Estudo: Orientação das Nervuras}
 \label{chap:variavel}
 
 \section{Definição da Variável de Desenho}
 
-A variável de desenho estudada neste trabalho é a \textbf{orientação das nervuras} (\textit{ribs}) relativamente ao plano de simetria da aeronave. Esta variável é relevante do ponto de vista estrutural porque, conforme demonstrado na Secção \ref{sec:efeitos_geometricos}, a orientação das nervuras influencia diretamente a rigidez torsional efetiva da caixa alar e, consequentemente, as frequências naturais dos modos de torção \cite{Niu1988, Megson2012}.
+A variável de desenho estudada neste trabalho é a \textbf{orientação das nervuras} (\textit{ribs}) relativamente ao plano de simetria da aeronave. Conforme demonstrado na Secção \ref{sec:efeitos_geometricos}, a orientação das nervuras influencia diretamente a rigidez torsional efetiva da caixa alar e, consequentemente, as frequências naturais dos modos de torção \cite{Niu1988, Megson2012}.
 
 Na prática industrial, a orientação das nervuras é uma decisão de projeto que envolve compromissos entre eficiência estrutural, facilidade de fabrico e integração com outros sistemas da aeronave. Em asas enflechadas, existem duas filosofias predominantes \cite{Raymer2018, Niu1988}:
 
 \begin{itemize}
-    \item \textbf{Nervuras perpendiculares ao bordo de ataque}: as nervuras são orientadas perpendicularmente à longarina dianteira, seguindo o enflechamento da asa. Esta configuração é estruturalmente mais eficiente em asas enflechadas, uma vez que as nervuras resistem diretamente às cargas de corte transmitidas pelo revestimento na direção da envergadura \cite{Megson2012};
+    \item \textbf{Nervuras perpendiculares ao bordo deataque}: orientadas seguindo o enflechamento da asa,são estruturalmente mais eficientes em asas enflechadas,resistindo diretamente às cargas de corte transmitidaspelo revestimento \cite{Megson2012};
 
-    \item \textbf{Nervuras paralelas ao plano de simetria}: as nervuras são orientadas perpendicularmente ao eixo longitudinal da fuselagem, independentemente do enflechamento da asa. Esta configuração simplifica a integração estrutural com a fuselagem e facilita o fabrico, mas é menos eficiente estruturalmente em asas com elevado ângulo de enflechamento \cite{Niu1988}.
+    \item \textbf{Nervuras paralelas ao plano de simetria}: orientadas perpendicularmente ao eixo longitudinal da fuselagem, simplificam a integração estrutural com a fuselagem e o fabrico, mas são menos eficientes estruturalmente em asas com elevado ângulo de enflechamento \cite{Niu1988}.
 \end{itemize}
 
-No presente trabalho, estas duas filosofias são traduzidas em duas configurações geométricas distintas, denominadas \textbf{Configuração A} e \textbf{Configuração B}, descritas nas secções seguintes.
+\section{Configuração A --- Nervuras a 25° com o Plano 
+de Simetria}
 
-\section{Configuração A --- Nervuras a 25° com o Plano de Simetria}
+Na Configuração A, as nervuras são orientadas de forma a fazer um ângulo de \textbf{25°} com o plano de simetria da aeronave --- coincidente com o ângulo de enflechamento $\Lambda = \ang{25}$ --- tornando-as aproximadamente perpendiculares ao bordo de ataque. Esta é a configuração estruturalmente mais convencional para asas enflechadas e corresponde à solução adotada na aeronave real \cite{Niu1988, GarciaFernandez2025}.
 
-\subsection{Descrição Geométrica}
-
-Na Configuração A, as nervuras são orientadas de forma a fazer um ângulo de \textbf{25° com o plano de simetria} da aeronave --- coincidente com o ângulo de enflechamento da asa $\Lambda = \qty{25}{\degree}$ --- o que as torna aproximadamente perpendiculares ao bordo de ataque. Esta é a configuração estruturalmente mais convencional para asas enflechadas \cite{Niu1988, Megson2012}.
-
-A Configuração A possui um total de \textbf{13 nervuras}, incluindo a nervura de raiz e a nervura de ponta, que são paralelas ao plano de simetria (0°) por razões de ligação estrutural à fuselagem e de fecho da caixa alar na ponta, respetivamente. As 11 nervuras intermédias são inclinadas a 25° e apresentam o seguinte espaçamento ao longo da envergadura:
+A Configuração A possui um total de \textbf{13 nervuras}, incluindo a nervura de raiz e a nervura de ponta, que são paralelas ao plano de simetria (0°) por razões de ligação estrutural. As 11 nervuras intermédias são inclinadas a 25° com o seguinte espaçamento:
 
 \begin{itemize}
-    \item \textbf{3 primeiras nervuras intermédias} (contadas 
-    a partir da raiz): espaçamento de \SI{317}{\milli\meter} 
-    entre nervuras consecutivas;
-    \item \textbf{Restantes nervuras intermédias}: espaçamento 
-    de \SI{436}{\milli\meter} entre nervuras consecutivas.
+    \item \textbf{3 primeiras nervuras} (a partir da raiz): 
+    espaçamento de \SI{317}{\milli\meter};
+    \item \textbf{Restantes nervuras}: espaçamento de 
+    \SI{436}{\milli\meter}.
 \end{itemize}
 
-A Tabela \ref{tab:config_a} resume as características 
-geométricas da Configuração A.
-
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Características geométricas da Configuração A.}
 \label{tab:config_a}
@@ -1204,41 +1004,32 @@ geométricas da Configuração A.
 \textbf{Parâmetro} & \textbf{Valor} \\
 \midrule
 Número total de nervuras            & 13 \\
-Ângulo das nervuras intermédias     & $\qty{25}{\degree}$ com o plano de simetria \\
-Ângulo das nervuras de raiz e ponta & $\qty{0}{\degree}$ (paralelas ao plano de simetria) \\
-Espaçamento --- 3 primeiras         & \SI{317}{\milli\meter} \\
-Espaçamento --- restantes           & \SI{436}{\milli\meter} \\
+Ângulo das nervuras intermédias     
+    & $\ang{25}$ com o plano de simetria \\
+Ângulo das nervuras de raiz e ponta 
+    & $ \ang{0}$ \\
+Espaçamento --- 3 primeiras         
+    & \SI{317}{\milli\meter} \\
+Espaçamento --- restantes           
+    & \SI{436}{\milli\meter} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-% FIGURA: Vista da Configuração A no SolidWorks/NX, mostrando 
-% a orientação das nervuras a 25° e o espaçamento variável
-\begin{figure}[h!]
+% FIGURA: Vista da Configuração A
+\begin{figure}
     \centering
     %\includegraphics[width=0.85\textwidth]{figures/asa_solidworks.png}
-    \caption{Vista da estrutura interna da Configuração A, com as nervuras orientadas a 25° relativamente ao plano de simetria da aeronave (aproximadamente perpendiculares ao bordo de ataque). O revestimento superior foi omitido para permitir a visualização da estrutura interna.}\label{fig:config_a}
+    \caption{Vista da estrutura interna da Configuração A, com as nervuras orientadas a 25° relativamente ao plano de simetria da aeronave. O revestimento superior foi omitido para permitir a visualização da estrutura interna.}
+    \label{fig:config_a}
 \end{figure}
 
-\subsection{Justificação Estrutural}
+\section{Configuração B --- Nervuras Paralelas ao Plano 
+de Simetria}
 
-A orientação das nervuras a 25° --- perpendicular ao bordo de ataque --- é a solução adotada na maioria das aeronaves de transporte enflechadas, incluindo o Antonov AN-124 real \cite{Gordon2008, GarciaFernandez2025}. Do ponto de vista da mecânica estrutural, esta orientação apresenta as seguintes vantagens \cite{Niu1988, Megson2012}:
+Na Configuração B, as nervuras são orientadas a \textbf{0°} com o plano de simetria da aeronave, ou seja, perpendiculares ao eixo longitudinal da fuselagem. Esta configuração possui um total de \textbf{10 nervuras}, com espaçamento uniforme de \SI{443}{\milli\meter} entre todas as nervuras consecutivas.
 
-\begin{itemize}
-    \item As nervuras são perpendiculares às longarinas, garantindo uma ligação eficiente e uma transmissão direta das cargas de corte entre o revestimento e as longarinas;
-    \item O fluxo de corte (\textit{shear flow}) na caixa alar é mais uniforme, reduzindo as concentrações de tensão nas zonas de ligação nervura-longarina;
-    \item A forma das nervuras segue mais naturalmente o perfil aerodinâmico, uma vez que são cortadas perpendicularmente ao eixo da viga equivalente da asa.
-\end{itemize}
-
-\section{Configuração B --- Nervuras Paralelas ao Plano de Simetria}
-
-\subsection{Descrição Geométrica}
-
-Na Configuração B, as nervuras são orientadas a \textbf{0° com o plano de simetria} da aeronave, ou seja, são perpendiculares ao eixo longitudinal da fuselagem e paralelas ao plano de simetria. Esta configuração ignora o enflechamento da asa na orientação das nervuras \cite{Raymer2018}.
-
-A Configuração B possui um total de \textbf{10 nervuras}, incluindo a nervura de raiz e a nervura de ponta, com um espaçamento uniforme de \textbf{\SI{443}{\milli\meter}} entre todas as nervuras consecutivas ao longo da envergadura. A Tabela \ref{tab:config_b} resume as características geométricas desta configuração.
-
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Características geométricas da Configuração B.}
 \label{tab:config_b}
@@ -1247,72 +1038,67 @@ A Configuração B possui um total de \textbf{10 nervuras}, incluindo a nervura 
 \toprule
 \textbf{Parâmetro} & \textbf{Valor} \\
 \midrule
-Número total de nervuras            & 10 \\
-Ângulo das nervuras                 & $\qty{0}{\degree}$ (paralelas ao plano de simetria) \\
-Espaçamento entre nervuras          & \SI{443}{\milli\meter} (uniforme) \\
+Número total de nervuras    & 10 \\
+Ângulo das nervuras         
+    & $ \ang{0}$ (paralelas ao plano de simetria) \\
+Espaçamento entre nervuras  
+    & \SI{443}{\milli\meter} (uniforme) \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-% FIGURA: Vista da Configuração B no SolidWorks/NX, mostrando 
-% as nervuras paralelas ao plano de simetria
-\begin{figure}[h!]
+% FIGURA: Vista da Configuração B
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/config_b.png}
-    \caption{Vista da estrutura interna da Configuração B, com as nervuras orientadas a 0° relativamente ao plano de simetria da aeronave (paralelas ao plano de simetria e perpendiculares ao eixo longitudinal da fuselagem).}
+    \caption{Vista da estrutura interna da Configuração B, com as nervuras orientadas a 0° relativamente ao plano de simetria da aeronave.}
     \label{fig:config_b}
 \end{figure}
 
-\subsection{Justificação Estrutural}
-
-A orientação das nervuras paralela ao plano de simetria é menos comum em asas enflechadas de grande porte, mas é utilizada em algumas aeronaves onde a simplicidade de fabrico e a integração com a fuselagem são prioritárias \cite{Raymer2018}. Do ponto de vista estrutural, esta configuração apresenta as seguintes características \cite{Niu1988}:
-
-\begin{itemize}
-    \item As nervuras não são perpendiculares às longarinas, introduzindo componentes de força fora do plano das nervuras e reduzindo a eficiência da transmissão de cargas;
-    \item O fluxo de corte na caixa alar é menos uniforme, podendo originar concentrações de tensão nas zonas de ligação nervura-longarina;
-    \item A forma das nervuras é mais simples de definir geometricamente, facilitando o processo de fabrico.
-\end{itemize}
-
 \section{Comparação entre Configurações}
 
-A Tabela \ref{tab:comparacao_configs} apresenta uma comparação direta entre as duas configurações estudadas, evidenciando as principais diferenças geométricas e estruturais.
+A Tabela \ref{tab:comparacao_configs} apresenta uma comparação direta entre as duas configurações, evidenciando as principais diferenças geométricas e estruturais.
 
-\begin{table}[h!]
+\begin{table}
 \centering
-\caption{Comparação entre a Configuração A e a Configuração B.}
+\caption{Comparação entre a Configuração A e a 
+Configuração B.}
 \label{tab:comparacao_configs}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabularx}{\textwidth}{p{4.5cm} X X}
+\begin{tabularx}{\textwidth}{p{4cm} X X}
 \toprule
 \textbf{Parâmetro} & \textbf{Configuração A} & 
 \textbf{Configuração B} \\
 \midrule
-Ângulo das nervuras         
-    & $\qty{25}{\degree}$ c/ plano de simetria    
-    & $\qty{0}{\degree}$ (paralelas ao plano de simetria) \\
-Número de nervuras          
-    & 13                            
+Ângulo das nervuras
+    & $\ang{25}$ c/ plano de simetria
+    & $ \ang{0}$ \\
+Número de nervuras
+    & 13
     & 10 \\
-Espaçamento                 
-    & \SI{317}{\milli\meter} (3 primeiras) e \SI{436}{\milli\meter} (restantes)
+Espaçamento
+    & \SI{317}{\milli\meter} (3 primeiras) 
+      e \SI{436}{\milli\meter} (restantes)
     & \SI{443}{\milli\meter} (uniforme) \\
-Relação c/ bordo de ataque  
-    & Aproximadamente perpendiculares   
+Relação c/ bordo de ataque
+    & Aproximadamente perpendiculares
     & Oblíquas \\
-Massa total das nervuras    
-    & Superior (mais nervuras)      
-    & Inferior (menos nervuras) \\
-Rigidez torsional esperada  
-    & Superior                      
+Massa total das nervuras
+    & Superior (mais nervuras)
     & Inferior \\
-Representatividade real     
-    & Configuração real do AN-124   
+Rigidez torsional esperada
+    & Superior
+    & Inferior \\
+Representatividade real
+    & Configuração real do AN-124
     & Configuração alternativa \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-É importante notar que as duas configurações diferem não apenas na orientação das nervuras, mas também no número total de nervuras (13 vs 10) e no espaçamento entre elas. Estas diferenças são consequência direta da variável de desenho estudada: ao alterar a orientação das nervuras mantendo a coerência geométrica da estrutura, o número e espaçamento das nervuras necessariamente se alteram para cobrir adequadamente a envergadura da asa. A influência conjunta destas diferenças sobre as frequências naturais e formas modais será analisada e discutida no Capítulo \ref{chap:resultados} \cite{Wright2015, Dowell2004}.
+Do ponto de vista estrutural, as nervuras perpendiculares ao bordo de ataque (Configuração A) são mais eficientes na resistência às tensões de corte induzidas pela torção, uma vez que estão alinhadas com as trajetórias de fluxo de corte naturais da caixa alar enflechada, garantindo uma transmissão de cargas mais direta entre o revestimento e as longarinas \cite{Niu1988, Megson2012}. As nervuras paralelas ao eixo da fuselagem (Configuração B) introduzem componentes de força fora do plano da nervura, reduzindo a eficiência estrutural mas simplificando o processo de fabrico \cite{Raymer2018}.
+
+É importante notar que as duas configurações diferem não apenas na orientação das nervuras, mas também no número total (13 vs 10) e no espaçamento entre elas. Estas diferenças são consequência direta da variável de desenho estudada: ao alterar a orientação das nervuras mantendo a coerência geométrica da estrutura, o número e espaçamento necessariamente se alteram para cobrir adequadamente a envergadura da asa. A influência conjunta destas diferenças sobre as frequências naturais e formas modais será analisada no Capítulo \ref{chap:resultados} \cite{Wright2015, Dowell2004}.
 
 \chapter{Resultados e Discussão}
 \label{chap:resultados}
@@ -1321,7 +1107,7 @@ Representatividade real
 
 Os resultados da análise modal da Configuração A, obtidos através da solução SOL 103 do NX Nastran com o método de Lanczos, são apresentados na Tabela \ref{tab:freqs_a}. Foram extraídos os primeiros 10 modos de vibração, correspondentes às 10 menores frequências naturais da estrutura.
 
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Frequências naturais dos 10 primeiros modos de 
 vibração da Configuração A.}
@@ -1350,7 +1136,7 @@ vibração da Configuração A.}
 
 Os resultados da análise modal da Configuração B são apresentados na Tabela \ref{tab:freqs_b}, obtidos nas mesmas condições de análise da Configuração A.
 
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Frequências naturais dos 10 primeiros modos de 
 vibração da Configuração B.}
@@ -1382,7 +1168,7 @@ As formas modais dos três primeiros modos de flexão e do primeiro modo de tor�
 \subsection{Primeiro Modo de Flexão (1B) --- Configuração A}
 
 % FIGURA: 1º modo de flexão --- Configuração A
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo1_confA.png}
     \caption{Primeiro modo de flexão (1B) da Configuração A. 
@@ -1398,7 +1184,7 @@ O primeiro modo de flexão (1B) é o modo de menor frequência da estrutura e ca
 \subsection{Segundo Modo de Flexão (2B) --- Configuração A}
 
 % FIGURA: 2º modo de flexão --- Configuração A
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo2_confA.png}
     \caption{Segundo modo de flexão (2B) da Configuração A, 
@@ -1412,7 +1198,7 @@ O segundo modo de flexão (2B) apresenta dois semi-nós de vibração ao longo d
 \subsection{Terceiro Modo de Flexão (3B) --- Configuração A}
 
 % FIGURA: 3º modo de flexão --- Configuração A
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo3_confA.png}
     \caption{Terceiro modo de flexão (3B) da Configuração A, 
@@ -1425,13 +1211,10 @@ O segundo modo de flexão (2B) apresenta dois semi-nós de vibração ao longo d
 \subsection{Primeiro Modo de Torção (1T) --- Configuração A}
 
 % FIGURA: 1º modo de torção --- Configuração A
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo_torcao_confA.png}
-    \caption{Primeiro modo de torção (1T) da Configuração A. 
-    A deformação é dominantemente torsional, com rotação 
-    crescente ao longo da envergadura e amplitude máxima 
-    na ponta da asa. Frequência natural: 
+    \caption{Primeiro modo de torção (1T) da Configuração A. A deformação é dominantemente torsional, com rotação crescente ao longo da envergadura e amplitude máxima na ponta da asa. Frequência natural: 
     \texttt{[preencher]}~\si{\hertz}.}
     \label{fig:modo_torcao_a}
 \end{figure}
@@ -1445,7 +1228,7 @@ As formas modais dos três primeiros modos de flexão e do primeiro modo de tor�
 \subsection{Primeiro Modo de Flexão (1B) --- Configuração B}
 
 % FIGURA: 1º modo de flexão --- Configuração B
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo1_confB.png}
     \caption{Primeiro modo de flexão (1B) da Configuração B. 
@@ -1456,7 +1239,7 @@ As formas modais dos três primeiros modos de flexão e do primeiro modo de tor�
 \subsection{Segundo Modo de Flexão (2B) --- Configuração B}
 
 % FIGURA: 2º modo de flexão --- Configuração B
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo2_confB.png}
     \caption{Segundo modo de flexão (2B) da Configuração B. 
@@ -1467,7 +1250,7 @@ As formas modais dos três primeiros modos de flexão e do primeiro modo de tor�
 \subsection{Terceiro Modo de Flexão (3B) --- Configuração B}
 
 % FIGURA: 3º modo de flexão --- Configuração B
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo3_confB.png}
     \caption{Terceiro modo de flexão (3B) da Configuração B. 
@@ -1478,7 +1261,7 @@ As formas modais dos três primeiros modos de flexão e do primeiro modo de tor�
 \subsection{Primeiro Modo de Torção (1T) --- Configuração B}
 
 % FIGURA: 1º modo de torção --- Configuração B
-\begin{figure}[h!]
+\begin{figure}
     \centering
     % \includegraphics[width=0.85\textwidth]{figures/modo_torcao_confB.png}
     \caption{Primeiro modo de torção (1T) da Configuração B. 
@@ -1492,7 +1275,7 @@ As formas modais dos três primeiros modos de flexão e do primeiro modo de tor�
 
 A Tabela \ref{tab:comparacao_freqs} apresenta a comparação direta entre as frequências naturais dos modos de interesse nas duas configurações, bem como a variação relativa introduzida pela alteração da orientação das nervuras.
 
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption{Comparação das frequências naturais entre as duas configurações para os modos de interesse.}
 \label{tab:comparacao_freqs}
@@ -1538,7 +1321,7 @@ A comparação das formas modais entre as duas configurações permite identific
 
 Este efeito é particularmente visível nos modos 2B e 3B, onde a presença de nervuras mais próximas na zona de raiz da Configuração A (espaçamento de \SI{317}{\milli\meter}) cria zonas de maior rigidez local que condicionam a forma do modo, forçando os nós de vibração a posicionarem-se preferencialmente nessas zonas. Na Configuração B, com espaçamento uniforme de \SI{443}{\milli\meter}, esta perturbação local é inexistente, resultando em formas modais mais regulares e próximas das formas teóricas de uma viga em consola homogénea \cite{Rao2011}.
 
-A semelhança qualitativa das formas modais entre as duas configurações pode ser quantificada através do critério MAC (\textit{Modal Assurance Criterion}), definido na Equação \eqref{eq:mac}. Valores de $\text{MAC}_{ii} > 0.9$ indicam que os modos homólogos das duas configurações são qualitativamente semelhantes, diferindo apenas nas frequências naturais associadas \cite{Allemang1982, Ewins2000}.
+A comparação qualitativa das formas modais entre as duas configurações é realizada com base na observação das Figuras \ref{fig:modo1a} a \ref{fig:modo_torcao_b}. Os modos homólogos das duas configurações apresentam uma distribuição espacial de deformações semelhante nos modos de baixa ordem (1B, 2B), tornando-se as diferenças mais evidentes nos modos de ordem superior e no modo de torção, onde a distribuição local de rigidez imposta pelas nervuras tem maior influência relativa \cite{Bisplinghoff1996, Dowell2004}.
 
 \chapter{Conclusões}
 \label{chap:conclusoes}
@@ -1592,17 +1375,6 @@ Com base nas conclusões e limitações identificadas, propõem-se as seguintes 
 
     \item \textbf{Validação experimental}: a construção de um modelo físico à escala reduzida e a realização de ensaios de vibração (\textit{impact hammer testing} ou excitação por \textit{shaker}) permitiriam validar experimentalmente os resultados numéricos e quantificar o erro introduzido pelas simplificações de modelação \cite{Ewins2000, Maia1997}.
 \end{itemize}
-
-\chapter{Methodology}
-Include an explanation of the methods you will use to carry out your project.
-\chapter{Results}
-Present the results of your project clearly and concisely, using tables and figures where necessary.
-\chapter{Discussion}
-Interpret the results and discuss their implications.
-Compare your findings with previous research.
-Discuss any limitations of your study.
-\chapter{Conclusion \& Future Work}
-Sum up the main findings and their importance, and discuss how they have the WBS going forward.
 
 
 \bibliographystyle{plain}

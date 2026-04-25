@@ -56,6 +56,9 @@
 \usepackage{xcolor}
 \usepackage[portuguese]{babel}
 \usepackage[T1]{fontenc} % Important for special characters like 'ç' and 'ã'
+\usepackage{ragged2e}
+
+
 
 % Source - https://tex.stackexchange.com/a/586479
 % Posted by Phelype Oleinik
@@ -132,7 +135,7 @@
 % Corresponding author text
 \cortext[1]{Corresponding author}
 \fntext[1]{Número mecanográfico: 119286}
-\fntext[2]{Número mecanográfico: Suckador}
+\fntext[2]{Número mecanográfico: 119331}
 
 
 % For a title note without a number/mark
@@ -201,6 +204,8 @@ O \textbf{Capítulo 5} apresenta a variável de estudo --- a orientação das ne
 O \textbf{Capítulo 6} apresenta e discute os resultadosda análise modal para as duas configurações, incluindoas frequências naturais dos 10 modos extraídos, as formasmodais dos modos de interesse e a comparação quantitativae qualitativa entre as duas configurações.
 
 O \textbf{Capítulo 7} apresenta as conclusões gerais do trabalho, as limitações identificadas e as propostas de trabalho futuro.
+
+\clearpage
 
 \section{Fundamentos Teóricos}
 
@@ -310,33 +315,21 @@ A Tabela \ref{tab:fenomenos_aero} resume os principais fenómenos aeroelásticos
 estruturais dominantes e métodos de análise \cite{Wright2015, Dowell2004}.}
 \label{tab:fenomenos_aero}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabularx}{\textwidth}{p{2.5cm} p{1.8cm} X X}
+\begin{tabularx}{\textwidth}{>{\RaggedRight}p{2cm}  l >{\RaggedRight}X >{\RaggedRight}X}
 \toprule
 \textbf{Fenómeno} & \textbf{Tipo} & \textbf{Variáveis estruturais dominantes} & \textbf{Métodos de análise} \\
 \midrule
-Divergência & Estático & 
-Rigidez torsional $GJ$, posição do centro elástico & 
-Análise de valor próprio estático; método da rigidez efetiva \\
+Divergência & Estático & Rigidez torsional $GJ$, posição do centro elástico & Análise de valor próprio estático; método da rigidez efetiva \\
 \midrule
-Inversão de controlos & Estático & 
-Rigidez de flexão e torção da asa, eficácia das superfícies & 
-Análise de equilíbrio aeroelástico estático \\
+Inversão de controlos & Estático & Rigidez de flexão e torção da asa, eficácia das superfícies & Análise de equilíbrio aeroelástico estático \\
 \midrule
-\textit{Flutter} & Dinâmico & 
-Frequências naturais, amortecimento, acoplamento flexão-torção & 
-Método $p$-$k$; método $k$; análise no domínio do tempo \\
+\textit{Flutter} & Dinâmico & Frequências naturais, amortecimento, acoplamento flexão-torção & Método $p$-$k$; método $k$; análise no domínio do tempo \\
 \midrule
-Resposta a rajadas & Dinâmico & 
-Frequências naturais, amortecimento modal, massa & 
-Análise espectral; método das rajadas discretas (1-$\cos$) \\
+Resposta a rajadas & Dinâmico & Frequências naturais, amortecimento modal, massa & Análise espectral; método das rajadas discretas (1-$\cos$) \\
 \midrule
-\textit{Buffeting} & Dinâmico & 
-Frequências naturais, amortecimento aerodinâmico & 
-Análise de resposta em frequência; DNS/LES \\
+\textit{Buffeting} & Dinâmico & Frequências naturais, amortecimento aerodinâmico & Análise de resposta em frequência; DNS/LES \\
 \midrule
-Fadiga aeroelástica & Dinâmico & 
-Amplitude de tensão, número de ciclos, amortecimento & 
-Método de Palmgren-Miner; análise espectral de fadiga \\
+Fadiga aeroelástica & Dinâmico & Amplitude de tensão, número de ciclos, amortecimento & Método de Palmgren-Miner; análise espectral de fadiga \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -802,6 +795,8 @@ $\uparrow$ Nº de ribs & $\uparrow$ (massa e rigidez locais) &
 
 A última linha da Tabela \ref{tab:efeitos_geometricos} é particularmente relevante para este trabalho: a orientação das nervuras tem um efeito primário sobre a rigidez torsional efetiva $GJ_{eff}$ da caixa alar, e um efeito secundário sobre a rigidez de flexão $EI$. Consequentemente, espera-se que as duas configurações estudadas apresentem diferenças mais pronunciadas nas frequências dos modos de torção do que nas frequências dos modos de flexão. Esta hipótese será testada e discutida com base nos resultados numéricos apresentados no Capítulo \ref{chap:resultados}.
 
+\clearpage
+
 \section{O Avião Antonov AN-124}
 
 \subsection{Descrição Geral e Características}
@@ -810,7 +805,7 @@ O Antonov AN-124 \textit{Ruslan} é uma aeronave de transporte estratégico pesa
 
 As principais características gerais da aeronave são apresentadas na Tabela \ref{tab:an124_specs}.
 
-\begin{table}
+\begin{table}[H]
 \centering
 \caption{Características gerais do Antonov AN-124-100 
 \cite{Gordon2008, GarciaFernandez2025}.}
@@ -942,6 +937,8 @@ A redução de escala foi aplicada de forma proporcional a todas asdimensões li
 \end{equation}
 
 \noindent o que significa que as frequências naturais do modelo são aproximadamente 9 vezes superiores às da asa real. Esta diferença é expectável e não compromete a validade do estudo comparativo entre as duas configurações de nervuras, uma vez que o objetivo do trabalho é avaliar a influência relativa da orientação das nervuras sobre as frequências naturais e formas modais, e não reproduzir os valores absolutos da aeronave real \cite{Dowell2004}.
+
+\clearpage
 
 \section{Modelação da Asa}
 \label{chap:modelacao}
@@ -1177,6 +1174,8 @@ Amortecimento estrutural        & Não considerado \\
 
 A normalização dos vetores próprios pela massa, adotada por defeito no NX Nastran, garante que as massas modais generalizadas são unitárias ($m_i = 1$), e que as rigidezes modais generalizadas são numericamente iguais ao quadrado das frequências naturais ($k_i = \omega_i^2$), conforme a Equação \eqref{eq:massas_rigidezes_modais}. Esta convenção facilita a interpretação dos resultados e a comparação entre os modos das duas configurações \cite{Nastran2014, Craig2006}.
 
+\clearpage
+
 \section{Variável de Estudo: Orientação das Nervuras}
 \label{chap:variavel}
 
@@ -1332,6 +1331,8 @@ Representatividade real
 \end{table}
 
 É importante notar que as duas configurações diferem não apenas na orientação das nervuras, mas também no número total de nervuras (13 vs 10) e no espaçamento entre elas. Estas diferenças são consequência direta da variável de desenho estudada: ao alterar a orientação das nervuras mantendo a coerência geométrica da estrutura, o número e espaçamento das nervuras necessariamente se alteram para cobrir adequadamente a envergadura da asa. A influência conjunta destas diferenças sobre as frequências naturais e formas modais será analisada e discutida no Capítulo \ref{chap:resultados} \cite{Wright2015, Dowell2004}.
+
+\clearpage
 
 \section{Resultados e Discussão}
 \label{chap:resultados}
@@ -1558,6 +1559,8 @@ A comparação das formas modais entre as duas configurações permite identific
 Este efeito é particularmente visível nos modos 2B e 3B, onde a presença de nervuras mais próximas na zona de raiz da Configuração A (espaçamento de \SI{317}{\milli\meter}) cria zonas de maior rigidez local que condicionam a forma do modo, forçando os nós de vibração a posicionarem-se preferencialmente nessas zonas. Na Configuração B, com espaçamento uniforme de \SI{443}{\milli\meter}, esta perturbação local é inexistente, resultando em formas modais mais regulares e próximas das formas teóricas de uma viga em consola homogénea \cite{Rao2011}.
 
 A semelhança qualitativa das formas modais entre as duas configurações pode ser quantificada através do critério MAC (\textit{Modal Assurance Criterion}), definido na Equação \eqref{eq:mac}. Valores de $\text{MAC}_{ii} > 0.9$ indicam que os modos homólogos das duas configurações são qualitativamente semelhantes, diferindo apenas nas frequências naturais associadas \cite{Allemang1982, Ewins2000}.
+
+\clearpage
 
 \section{Conclusões}
 \label{chap:conclusoes}
